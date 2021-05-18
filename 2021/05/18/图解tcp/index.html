@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="学习目标：《图解TCP/IP》精简笔记学习内容：一、计算机网络背景1、广域网与局域网；2、OSI开放式通信系统互联参考模型：&amp;lt;1&amp;gt;应用层：为应用程序提供服务并规定应用程序中通信相关的细节。针对特定应用的协议，电子邮件协议，远程登录协议，文件传输协议;&amp;lt;2&amp;gt;表示层：主要负责格式">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="John Doe">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Hexo"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Hexo"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="website" />
+    
+
+    <!--Page Cover-->
+    
+
+    
+        <meta name="twitter:card" content="summary" />
+    
+    
+    
+
+    <!-- Title -->
+    
+    <title>Hexo</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- Google Analytics -->
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/about.html">
+                    About
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/tags">
+                    Tags
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/categories">
+                    Categories
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/contact.html">
+                    Contact
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2021/05/18/%E5%9B%BE%E8%A7%A3tcp/">
+                Untitled
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2021-05-18</span>
+            
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <h1 id="学习目标：《图解TCP-IP》精简笔记"><a href="#学习目标：《图解TCP-IP》精简笔记" class="headerlink" title="学习目标：《图解TCP/IP》精简笔记"></a>学习目标：《图解TCP/IP》精简笔记</h1><h1 id="学习内容："><a href="#学习内容：" class="headerlink" title="学习内容："></a>学习内容：</h1><p>一、计算机网络背景<br>1、广域网与局域网；<br>2、OSI开放式通信系统互联参考模型：<br>&lt;1&gt;应用层：为应用程序提供服务并规定应用程序中通信相关的细节。针对特定应用的协议，电子邮件协议，远程登录协议，文件传输协议;<br>&lt;2&gt;表示层：主要负责格式转换。接受不同表现形式的信息，文字流，图像，声音等。将应用处理的信息转换为适合网络传输的格式，或者将来自下一层的数据转换为上层能够处理的格式；<br>&lt;3&gt;会话层：负责建立和断开通信连接，以及数据的分割和传输。何时建立连接，何时断开，以及保持多久连接<br>&lt;4&gt;传输层：可靠传输的作用。是否有数据丢失；<br>&lt;5&gt;网络层：经过哪个路由传递到目标地址；<br>&lt;6&gt;数据链路层：数据帧与比特流之间的转换；<br>(比特流：内容分发协议，它采用高效的软件分发系统和点对点技术共享大体积文件（如一部电影或电视节目），并使每个用户像网络重新分配结点那样提供上传服务。一般的下载服务器为每一个发出下载请求的用户提供下载服务，而BitTorrent的工作方式与之不同。分配器或文件的持有者将文件发送给其中一名用户，再由这名用户转发给其它用户，用户之间相互转发自己所拥有的文件部分，直到每个用户的下载都全部完成。这种方法可以使下载服务器同时处理多个大体积文件的下载请求，而无须占用大量带宽。）<br>&lt;7&gt;物理层：比特流与电子信号之间的切换；<br><img src="https://img-blog.csdnimg.cn/20210123165503641.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210123170042735.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>3、传输方式分类<br>1）是否需要预先建立连接分类：<br>面向有连接型：发送数据之前需要在收发主机之间连接一条通信线路，例如电话；<br>面向无连接型：发送端于任何时候自由发送数据，接收端也永远不知道自己会在何时从哪接受数据，此时接收端需要时常确认是否接受了数据，例如发邮包；<br>2）交换方式分类<br>电路交换：交换机主要负责数据的中转处理。计算机首先被连接到交换机上，而交换机与交换机之间则由众多的通信线路再继续连接，计算机之间发生数据时需要先通过交换机与目标主机建立通信电路。<br>3）分组交换：<br> &lt;1&gt;为了防止电路交换中，两台计算机独占线路，实现并发交换。连接到通信电路上的计算机所要发送的数据分成多个数据包，按照一定的顺序排列之后分别发送。由于每个数据包都写入了发送端与接收端的地址，所以即使在同一条线路也可以同时为多个用户提供服务。<br>&lt;2&gt;分组交换中，分组交换机连接通信线路，发送端计算机将数据分组发送给路由器，路由器收到这些分组数据以后缓存到自己的缓冲区的队列中，然后再转发给目标计算机。也叫“蓄积交换”。<br>&lt;3&gt;由于网络拥堵，路由器可能发生缓存饱和或者溢出，甚至出现分组数据丢失。<br>4)根据接收端数量分类<br>&lt;1&gt;单播（Unicast）：1对1通信；<br>&lt;2&gt;广播（Broadcast）：对应的能接受到广播的计算机范围成为广播域，如果频段信息；<br>&lt;3&gt;多播（Multicast）：指定特定的一组主机作为接收端，如电视会议；<br>&lt;4&gt;任播（Anycast）：在特定的多台主机中选出一台作为接收端。类似多播在特定的一组主机中任选。在DNS根域名解析服务器中有应用。<br>4、地址<br>1）唯一性：一个地址必须明确地表示一个对象；<br>2）层次性：通过分层树状结构实现快速检索，如电话号码，实际住址。也有无层次的地址，如MAC地址。<br>3）MAC与IP在标识一个主体时都具有唯一性，但只有IP有层次性；MAC虽然是最终通信的地址，但寻址过程中IP地址必不可少；<br>4）P地址的分层：<br>&lt;1&gt;IP地址由网络号和主机号两部分组成；<br>&lt;2&gt;网络号相同的主机在组织结构，提供商类型和地域分布上都比较集中。<br>5)网络传输中，每个节点会根据分组数据的地址信息，来判断该报文应该由哪个网卡发送出去。为此，各个地址会参考一个发出接口列表。MAC寻址是地址转发表，IP寻址是路由控制表<br>5、现代网络<br>1）核心网：计算机网络中的“高速公路”；使用高速路由器快速传输大量数据。<br>2）边缘网络：“高速公路”的出入口；常用多功能路由器和3层交换机。<br>3）接入层（汇聚层）：计算机网络中连接边缘网络的部分，常用2层交换机和3层交换机。<br>4）互联网通信：用户A - 接入层 - 【边缘网络】 - 【主干网】 - 【边缘网络】 - 接入层 - 用户B。有时候在接入层就可以完成通信。<br>5）移动通信：手机终端A - 基站 - 通信控制中心 - 声音主干网/数据主干网 - 通信控制中心 - 基站 - 手机终端B。<br>6）信息发布者：信息发布者将信息发布到数据中心，数据中心内部的网络分布着3层交换机和高速路由器。数据中心通常接入主干网或边缘网络可以实现大带宽高速数据传输，以此处理对该信息的大量访问。<br>6、虚拟化技术与云<br>1）虚拟化技术：当一个网站需要调整运营所使用的资源时，并不增减服务器，存储设备，网络等实际的物理设备，而是通过软件将这些物理设备虚拟化，在有必要的时候进行增减。以此达到按需分配，按比例分配，对外提供可靠的服务。<br>2）云：利用虚拟化技术根据使用者的情况动态调整必要资源的机制为“云”。</p>
+<p>二、<strong>TCP/IP基础知识</strong><br>1、TCP/IP协议簇：<br>1）应用层：HTTP，SMTP，FTP，TELNET，SNMP；<br>2）传输层：TCP，UDP<br>3）网络层：IP，ICMP，ARP<br>4）路由控制协议：RIP，OSPF，BGP<br>2、IETF/RFC：TCP/IP协议由IETF讨论制定，需要标准化的协议被列入RFC（Request For Comment）；<br>3、互联网中的每个网络都是由骨干网（BackBone）和末端网（Stub）组成的。每个网络之间通过NOC（Network Operation Center）相连。如果网络运营商不同，网络连接方式和使用方法也会不同，连接这种异构网络需要IX（Internet Exchange）支持。互联网是一个由众多异构网络通过IX连接起来的一个巨型网络；<br>4、OSI七层<br>由谁实现：<br>应用程序：应用层，表示层，会话层；<br>操作系统：传输层，网络层；<br>设备驱动与网络接口：数据链路层，物理层。<br>硬件（物理层）：以太网或者电话线；<br>网络接口层（数据链路层）：相当于NIC（网卡）的驱动程序，驱动程序是操作系统与硬件之间的桥梁，直接插入硬件是无法正常工作的。<br>互联网层（网络层）：IP协议的作用是将分组数据包发送到目的主机，通过互联网层可以忽略网络结构的细节，从相互通信的主机角度看，对端主机就如同在一个云层对面。<br>连接互联网的所有主机跟路由器都实现IP的功能。但网桥，中继器和集线器可以不用实现IP或TCP功能，因为它们处于第3层以下。<br>IP：是分组交换的协议，但不具备重发机制。可能出现丢包，属于非可靠传输协议。<br>ICMP：IP数据包发送途中一旦发生异常导致无法到达对面地址时，无药给发送端返回一个异常通知。这便是ICMP的作用。例如：ping命令。<br>ARP：从分组数据包的IP地址中解析出物理地址（MAC）的一种协议。<br>传输层：让应用程序之间实现通信。通过端口号识别。对于正在通信的2个程序而已，中间细节全被忽略如同一朵云。<br>TCP：面向有连接的传输协议。可以正确处理丢包，传输乱序等异常，还可以有效利用带宽。但建立与断开至少需要7次发包收包（3次握手，4次挥手），浪费网络流。不适合视频会议。<br>UDP：面向无连接传输层协议。用于多播或者广播等视频通信领域<br>应用层（会话层以上）<br>会话层，表示层，应用层都由应用程序实现。<br>TCP/IP应用架构多数属于客户端/服务端模型。<br>WWW，万维网：是一种互联网上数据读写规范<br>浏览器与服务端之间用HTTP通信（应用层）；<br>传输数据主要格式是HTML（表示层）。<br>E-mail<br>发送电子邮件协议为SMTP（Simple Mail Transfer Protocol）；<br>电子邮件格式由MIME协议（表现层）拓展。<br>FTP（文件传输协议）<br>传输可以选择二进制还是文本格式。在Windows和macOS或Unix等系统间进行文件传输时会自动修改换行符，这时由于表示层；<br>FTP进行文件传输时会建立2个TCP协议，一个用于发出请求时需要的控制连接，一个是实际传输连接。这个是会话层功能。<br>远程登录（TELNET和SSH，UNIX的rlogin，Windows的X协议）<br>网络管理（SNMP，Simple Network Management Protocol）<br>使用SNMP管理的主机，网桥，路由器称作SNMP代理（agent）；<br>可以通过表示层协议MIB（Management Information Base）访问网络接口的信息，通信数据量以及设备温度等信息。<br>5、TCP/IP分层与通信<br>1）每个分层都会对所发数据附加一个首部，上一层的数据加首部就是的数据。<br>2）数据单位：<br>&lt;1&gt;包：全能性术语；<br>&lt;2&gt;帧：数据链路层中包的单位；<br>&lt;3&gt;数据报：IP和UDP等网络层以上分层中包的单位；<br>&lt;4&gt;段：TCP数据流中的信息；<br>消息：应用协议的数据的单位；<br>3）发送数据包的例子（发邮件）<br>&lt;1&gt;填写收件人邮箱（应用层，SMTP）；<br>&lt;2&gt;邮件内容编码（表示层）；<br>&lt;3&gt;群发还是单发（会话层）。<br>3）TCP模块的处理<br>&lt;1&gt;根据会话层的指示，建立连接；<br>&lt;2&gt;在应用层数据的前端加上TCP首部，包括：1）源端口号和目标端口号（用于识别发送主机和接受主机的应用），2）序号（用于确定发送包的哪部分数据），3）校验和（用于判断数据是否损坏）。<br>4)IP模块的处理<br>&lt;1&gt;IP将“TCP首部 + 应用层数据”合起来当作自己的数据，并在TCP首部前面加上IP首部；IP首部中包含发送和接受端的IP地址，后面还有用来判断其后数据是TCP还是UDP的信息。<br>&lt;2&gt;IP包生成后，参考路由控制表决定IP包的路由或主机。发送给连接这些路由器或主机的驱动程序。<br>&lt;3&gt;如不知道接收端MAC地址，可以用ARP（Address Resolution Protocol）查找。只要知道了IP和MAC就可以给以太网驱动程序实现传输。<br>&lt;4&gt;网络接口（以太网驱动）处理5)附加上以太网首部：接收端与发送端的MAC地址，标志以太网类型的以太网数据协议。<br>并由硬件计算FCS（Frame Check Sequence），添加到包的最后用以判断数据包是否由于噪声而被破坏。<br>5)经过数据链路的包<br>&lt;1&gt;以太网包首部，IP包首部，TCP（UDP）包首部，以及以太网包尾；<br>&lt;2&gt;包的首部包含：<br>发送端接收端的地址（以太网/MAC，IP/IP，TCP（UDP）/端口）；<br>上一个协议类型；<br>协议自身信息<br>6)应用程序的处理<br>&lt;1&gt;网络接口：先判断接受端MAC地址是不是自己的MAC地址，如不是则丢弃。如果是则先查看数据类型，如果是IP包则传给IP子程序，如果是ARP则给ARP。如果无法识别数据类型则丢弃；<br>&lt;2&gt;IP模块：同样先查看IP，后查看数据类型；在有路由器的情况下，会根据路由控制表调查该送达的主机和路由进行转发。<br>&lt;3&gt;TCP模块：先计算校验和，判断数据是否损坏。然后检查是否在按照顺序接受数据，完成后返回确认回执给发送端；最后查看端口号把数据给相应的程序；<br>&lt;4&gt;应用程序：接受TCP传来的数据处理并作出响应（正常/异常）。<br><strong>三、数据链路层</strong><br>数据链路层的作用：数据链路层协议规定了通过信息通信媒介互联的设备之间传输的规范。 0，1等计算机二进制 -&gt; 电压高低，光的闪灭以及电波强弱。<br>涉及名词：VLAN（Virtual Local Area Network），WLAN（Wireless Local Area Network），PPP（Point to Point Protocol），FDDI（Fiber Distributed Data Interface），ATM（Asynchronous Transfer Mode）。<br>数据链路的段：被分割的网络。例如，使用中继器相连的两个网线在网络层上讲是一个网络，但在数据链路层上是2个段，一根网线一个段。<br>1、数据链路相关技术<br>1）MAC地址：用于识别数据链路中互连的节点。<br>以太网或FDDI中的MAC和无限LAN与蓝牙等MAC是不同规范；<br>烧入ROM中，全世界唯一；<br>长度为48比特</p>
+
+    </div>
+
+    
+
+    
+
+    <!-- Comments -->
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a target="_blank" rel="noopener" href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/2021/05/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%AB%AF%E5%8F%A3%E5%8D%8F%E8%AE%AE/">Untitled</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2021/05/18/%E5%9B%BE%E8%A7%A3tcp/">Untitled</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2021/05/18/http%E4%B8%8Ehttps/">Untitled</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2021/05/16/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E8%BF%9B%E9%98%B6/">Untitled</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://github.com/klugjo/hexo-theme-alpha-dust">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://twitter.com/?lang=en">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-twitter"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://www.facebook.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-facebook"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://www.instagram.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-instagram"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://dribbble.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-dribbble"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://telegram.org/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-telegram"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://www.behance.net/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-behance"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://500px.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-500px"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:test@example.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Untitled. All right reserved | Design & Hexo <a target="_blank" rel="noopener" href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+
+<script src="/js/main.js"></script>
+
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
