@@ -10,8 +10,6 @@
 
     <!--Description-->
     
-        <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in ">
-    
 
     <!--Author-->
     
@@ -20,7 +18,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Hello World"/>
+        <meta property="og:title" content="Hexo"/>
     
 
     <!--Open Graph Description-->
@@ -31,7 +29,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="article" />
+        <meta property="og:type" content="website" />
     
 
     <!--Page Cover-->
@@ -45,7 +43,7 @@
 
     <!-- Title -->
     
-    <title>Hello World - Hexo</title>
+    <title>page - Hexo</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -142,14 +140,46 @@
     <div class="logo">
         <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
         
+            <h1 id="main-title" class="title">Hexo</h1>
+        
     </div>
 </header>
 
         <section class="main">
             
+                
 <div class="post">
 
-    <div class="post-header">
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2021/05/13/SLL%E6%8F%A1%E6%89%8B/">
+                Untitled
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2021-05-13</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p>@<a href="SLL%E6%8F%A1%E6%89%8B">TOC</a></p>
+<h2 id="关于SLL"><a href="#关于SLL" class="headerlink" title="关于SLL"></a>关于SLL</h2><p>SSL(Secure Socket Layer)安全套接字协议是运行在应用层和TCP层之间的安全机制。保证上层应用数据传输的保密性、完整性以及传输双发身份的合法性。<br>传输加密性：握手协议定义会话密钥后，所有传输的报文被会话密钥加密。<br>消息的完整性：传输的报文中增加MAC(消息认证码)，用于检测完整性。<br>身份验证：客户端认证(可选)，服务端认证(强制)<br>SSL协议包括：握手协议(Handshake protocol)、SSLpassword变化协议(SSL change cipher spec protocol)、警报协议(Alert protocol)、记录协议(Record protocol)。<br>握手协议是SSL连接通信的第一个子协议也是最复杂的协议。　<br><img src="https://img-blog.csdnimg.cn/20210505174843753.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="SLL握手流程"><a href="#SLL握手流程" class="headerlink" title="SLL握手流程"></a>SLL握手流程</h2><p> 1、 Client Hello   协商ssl/tls协议版本、加密算法套件<br>2、Server Hello<br>3、Certificate<br>4、Server Key Exchange<br>5、Server Hello Done<br>6、Client Key Exchange<br>7、Application Data Protocol: http-over-tls 业务数据安全传输<br>类似于TCP三次握手</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
         <h1 class="title">
             <a href="/2021/05/13/hello-world/">
                 Hello World
@@ -164,13 +194,9 @@
         </div>
     </div>
 
-    <div class="content">
-
-        <!-- Gallery -->
-        
-
-        <!-- Post Content -->
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+    
+        <div class="content">
+            <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
 
 <p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
@@ -184,20 +210,31 @@
 
 <p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 
-    </div>
-
-    
-
-    
-
-    <!-- Comments -->
+        </div>
     
 
 </div>
+            
         </section>
-
     </div>
 </div>
+
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="wrap-pagination">
+                <a class="" href="/">
+                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                </a>
+                <a class="disabled" href="/">
+                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
 
 
 </div>
