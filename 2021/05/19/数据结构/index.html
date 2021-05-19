@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="数据结构与算法关于数据结构组织-例_图书的摆放一、定义：数据结构是数据对象，以及存在于该对象的实例和组成实例的数据元素之间的各种联系。这些联系可以通过定义的函数来给出。（定义并不唯一）二、对定义的解释（举例）1、如何在书架上摆放图书？&amp;lt;1&amp;gt;新书怎么插入？&amp;lt;2&amp;gt;怎么找到某本指定">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="John Doe">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Hexo"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Hexo"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="website" />
+    
+
+    <!--Page Cover-->
+    
+
+    
+        <meta name="twitter:card" content="summary" />
+    
+    
+    
+
+    <!-- Title -->
+    
+    <title>Hexo</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- Google Analytics -->
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/about.html">
+                    About
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/tags">
+                    Tags
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/categories">
+                    Categories
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/contact.html">
+                    Contact
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2021/05/19/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                Untitled
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2021-05-19</span>
+            
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <h1 id="数据结构与算法"><a href="#数据结构与算法" class="headerlink" title="数据结构与算法"></a>数据结构与算法</h1><h2 id="关于数据结构组织-例-图书的摆放"><a href="#关于数据结构组织-例-图书的摆放" class="headerlink" title="关于数据结构组织-例_图书的摆放"></a>关于数据结构组织-例_图书的摆放</h2><p>一、定义：数据结构是数据对象，以及存在于该对象的实例和组成实例的数据元素之间的各种联系。这些联系可以通过定义的函数来给出。（定义并不唯一）<br>二、对定义的解释（举例）<br>1、如何在书架上摆放图书？<br>&lt;1&gt;新书怎么插入？<br>&lt;2&gt;怎么找到某本指定的书？<br>方法1：随便放<br>方便新书插入，但极不方便找到某本指定的书。<br>方法2：按照书名的拼音字母顺序排放<br>用二分查找法查找指定的书，方便查找但不方便新书插入。<br>方法3：把书架划分成几块区域，每块区域指定摆放某种类别的图书；在每种类别内，按照书名拼音字母顺序排放<br>操作1：新书怎么插入？<br>先定类别，二分查找确定位置，移出空位<br>操作2：怎么找到某本指定的书？<br>先定类别，再二分法查找<br>问题：空间的分配及类别的分类<br><strong>总结：解决问题方法的效率和数据的组织方式有关</strong></p>
+<h2 id="关于空间使用-例-PrintN函数的实现"><a href="#关于空间使用-例-PrintN函数的实现" class="headerlink" title="关于空间使用-例_PrintN函数的实现"></a>关于空间使用-例_PrintN函数的实现</h2><p>例子：写程序实现一个函数printN,使得传入一个正整数为N的参数后，能顺序打印从1到N的全部正整数<br>循环实现</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vido <span class="function"><span class="title">PrintN</span>(<span class="params">int N</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">int i;</span><br><span class="line"><span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=N;i++)</span><br><span class="line">printf(<span class="string">&quot;%d&quot;</span>,N）;</span><br><span class="line"><span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>递归实现</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">vido <span class="function"><span class="title">PrintN</span>(<span class="params">int N</span>)</span></span><br><span class="line">&#123;<span class="keyword">if</span>(N)</span><br><span class="line">&#123;</span><br><span class="line">PrintN(N-<span class="number">1</span>)</span><br><span class="line">printf(<span class="string">&quot;%d&quot;</span>,N);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当N=1000000时，递归方法无法实现；<br><strong>总结：解决问题方法的效率，跟空间的利用效率有关。</strong></p>
+<h2 id="关于算法效率"><a href="#关于算法效率" class="headerlink" title="关于算法效率"></a>关于算法效率</h2><p>例子：写程序计算给定多项式在给定点x的值<br><img src="https://img-blog.csdnimg.cn/20210218100119938.png" alt="在这里插入图片描述"><br>方法一：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">double <span class="function"><span class="title">f</span>(<span class="params">int n,double a[],double x</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">	int i;</span><br><span class="line">	double p=a[<span class="number">0</span>];</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">	p+=(a[i]*pow(x,i));</span><br><span class="line">	<span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>方法二：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">double <span class="function"><span class="title">f</span>(<span class="params">int n,double a[],double x</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">	int i;</span><br><span class="line">	double p=a[i];</span><br><span class="line">	<span class="keyword">for</span>(i=n;i&gt;<span class="number">0</span>;i--)</span><br><span class="line">	&#123;</span><br><span class="line">		p=a[i-<span class="number">1</span>]+x*p;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>相关知识：函数pow(x,y)即数学函数，x的y次方;<br>clock():捕捉从程序开始运行到clock()被调用时所耗费的时间。这个时间单位是clock tick,即“时钟打点”<br>常数CLK_TCK:机器时钟每秒所走的时钟打点数。<br>计算程序时间的代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;time.h&gt;</span><br><span class="line">#include&lt;math.h&gt;</span><br><span class="line">clock_t start ,stop;</span><br><span class="line">double duration;</span><br><span class="line">#define MAXN <span class="number">10</span></span><br><span class="line">#define MAXK <span class="number">1e7</span></span><br><span class="line">double <span class="function"><span class="title">f1</span>(<span class="params">int n ,double a[],double x</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">	int i;</span><br><span class="line">	double p=a[<span class="number">0</span>];</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;=n;i++)</span><br><span class="line">	p+=(a[i]*pow(x,i));</span><br><span class="line">	<span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line">double <span class="function"><span class="title">f2</span>(<span class="params">int n,double a[],double x</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">	int i;</span><br><span class="line">	double p=a[i];</span><br><span class="line">	<span class="keyword">for</span>(i=n;i&gt;=<span class="number">0</span>;i--)</span><br><span class="line">		p=a[i-<span class="number">1</span>]+x*p;</span><br><span class="line">	<span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line">int <span class="function"><span class="title">main</span>(<span class="params"></span>)</span></span><br><span class="line">&#123;</span><br><span class="line">	int i;</span><br><span class="line">	double a[MAXN];</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;MAXK;i++)a[i]=(double)i;</span><br><span class="line"></span><br><span class="line">		start=clock();</span><br><span class="line">		<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;MAXK;i++)</span><br><span class="line">	f1(MAXN-<span class="number">1</span>,a,<span class="number">1.1</span>);</span><br><span class="line">	stop=clock();</span><br><span class="line">	duration=(double)(stop-start)/CLK_TCK/MAXK;</span><br><span class="line">	printf(<span class="string">&quot;tickes=%f\n&quot;</span>,(double)(stop-start));</span><br><span class="line">	printf(<span class="string">&quot;duration1=%6.2e\n&quot;</span>,duration);</span><br><span class="line">	</span><br><span class="line">		<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;MAXK;i++)a[i]=(double)i;</span><br><span class="line">	start=clock();</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;MAXK;i++)</span><br><span class="line">	f2(MAXN-<span class="number">1</span>,a,<span class="number">1.1</span>);</span><br><span class="line">	stop=clock();</span><br><span class="line">	duration=(double)(stop-start)/CLK_TCK/MAXK;</span><br><span class="line">	printf(<span class="string">&quot;tickes=%f\n&quot;</span>,(double)(stop-start));</span><br><span class="line">	printf(<span class="string">&quot;duration2=%6.2e\n&quot;</span>,duration);</span><br><span class="line">	<span class="keyword">return</span>  <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果如下：<img src="https://img-blog.csdnimg.cn/2021021811352392.png" alt="在这里插入图片描述"><br><strong>总结：解决问题方法的效率与算法的巧妙有关。</strong></p>
+<h2 id="抽象数据类型"><a href="#抽象数据类型" class="headerlink" title="抽象数据类型"></a>抽象数据类型</h2><p>一、所以到底什么是数据结构<br>1、数据对象在计算机的中的组织方式</p>
+<ul>
+<li>逻辑结构(一对一，一对多，多对多）</li>
+<li>物理存储结构（计算机如何存储数据）<br>2、数据对象必定与一系列加在其上的操作相关联<br>3、完成这些操作所用的方法就是算法<br>二、抽象数据类型（Abstract Data Type）<br>1、数据类型<br>&lt;1&gt;数据对象集（是什么东西）<br>&lt;2&gt;数据集合相关联的操作集（对数据的操作）<br>2、抽象：描述数据类型的方法并不依赖于具体实现<br>&lt;1&gt;与存放数据的机器无关<br>&lt;2&gt;与数据存储的物理结构无关<br>&lt;3&gt;与实现操作的算法和编程语言均无关<br>也就是说只描述对象集和相关操作集“是什么”，并不涉及“如何做到”的问题。<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2>一、定义：<br>1、一个有限指令集<br>2、接受一些输入（有些情况下不需要输入）<br>3、必须产生输入<br>4、一定在有限步骤之后终止<br>5、每一条指令必须：</li>
+<li>有充分明确的目标，不可以有歧义；</li>
+<li>计算机能处理的范围之内</li>
+<li>描述应不依赖于任何一种计算机语言以及具体的实现手段<br>二、什么是好的算法<br>1、空间复杂度S(n)——根据算法写成的程序在执行时占用存储单元的长度。这个长度往往与输入数据的规模有关。空间复杂度过高的算法可能导致使用的内存超限，造成程序非正常中断<br>2、时间复杂度T(n)——根据算法写成的程序在执行时耗费时间长度。这个长度往往也与输入数据的规模有关。时间复杂度过高的低效算法可能导致我们在有生之年都等不到结果<br>3、在分析一般算法的效率时，我们经常关注下面两种复杂度<br>&lt;1&gt;最坏情况复杂度<br>&lt;2&gt;平均复杂度</li>
+</ul>
+<p><strong>分析时常分析最坏情况复杂度</strong><br>4、复杂度的渐进表示法<br><img src="https://img-blog.csdnimg.cn/20210218174625144.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>分析时，竭尽所能寻找最大的下届和最小的上界。<br><img src="https://img-blog.csdnimg.cn/20210218175132555.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>总结：1、若两段算法分别有复杂度T1(n)=O(f1(n))和T2（n)=O(f2(n)),则<br>&lt;1&gt;T1(n)+T2(n)=max(O(f1(n)),O(f2(n)))<br>&lt;2&gt;T1(n)*T2(n)=O(f1(n)*f2(n))<br>2、若T(n)是关于n的k阶多项式，那么T(n)=Θ(n的k次方)<br>3、一个for循环的时间复杂度等于循环次数乘以循环体代码的复杂度<br>4、if—else结构的复杂度取决于if的条件判断复杂度和两个分支的复杂度，总体复杂度取三者最大<br>例题：<img src="https://img-blog.csdnimg.cn/20210219094148184.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>算法1：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">int <span class="function"><span class="title">MaxSubseqsum1</span>(<span class="params">int A[],int N</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">	int ThisSum,MaxSum=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;N;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span>(j=i;j&lt;N;j++)</span><br><span class="line">		&#123;</span><br><span class="line">			ThisSum=<span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span>(k=i;k&lt;=j;k++)</span><br><span class="line">			ThisSum+=A[k];</span><br><span class="line">			<span class="keyword">if</span>(ThisSum&gt;MaxSum)</span><br><span class="line">			MaxSum=ThisSum;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> MaxSum;</span><br><span class="line"> &#125; </span><br></pre></td></tr></table></figure>
+<p>算法2：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">int <span class="function"><span class="title">MaxSubseqSum1</span>(<span class="params">int A[],int N</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">	int i,j;</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">	ThisSum=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(j=i;j&lt;N;j++)</span><br><span class="line">	&#123;</span><br><span class="line">	ThisSum+=A[j];</span><br><span class="line">	<span class="keyword">if</span>(ThisSum&gt;MaxSum)</span><br><span class="line">	MaxSum=ThisSum;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> MaxSum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>算法2要比算法1简单。<br>算法三（在线算法）：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">int MaxSubseqSum4(int A[],int N)</span><br><span class="line">int ThisSum,MaxSum;</span><br><span class="line">int i;</span><br><span class="line">ThisSum=MaxSum=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;N;i++)</span><br><span class="line">&#123;</span><br><span class="line">ThisSum+=A[i];</span><br><span class="line"><span class="keyword">if</span>(ThisSum&gt;MaxSum)</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span>(ThisSum&lt;<span class="number">0</span>)</span><br><span class="line">ThisSum=<span class="number">0</span>;&#125;</span><br><span class="line"><span class="keyword">return</span> MaxSum;</span><br></pre></td></tr></table></figure>
+<h2 id="引子-多项式表示"><a href="#引子-多项式表示" class="headerlink" title="引子_多项式表示"></a>引子_多项式表示</h2><p>一、线性表及其实现<br>1、线性结构的定义：数据元素之间构成一个有序的序列<br>例子：<img src="https://img-blog.csdnimg.cn/20210220100308448.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>方法1：采用顺序存储结构直接表示一元多项式<br><img src="https://img-blog.csdnimg.cn/2021022010062069.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>缺点：如果要表示x+pow(x,3000)，就必须采用一个大小至少为3001的数组，而在这个数据中大多数数据均为0，只有两项不为0，显然空间浪费得厉害。<br>方法二：顺序存储结构表示非零项：<img src="https://img-blog.csdnimg.cn/20210220101551201.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>按指数大小有序排列</strong><br>方法三：链表结构存储非零项<br><img src="https://img-blog.csdnimg.cn/20210220102205932.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>启示：<br>&lt;1&gt;同一个问题可以有不同的表示（存储）方法<br>&lt;2&gt;有一类共性问题：有序线性序列的组织和管理<br>2、什么是线性表<br>&lt;1&gt;定义：由同类型数据元素构成有序序列的线性结构<br>&lt;2&gt;特点：<br>1）表中元素个数被称为线性表长度<br>2）线性表没有元素时，称为空表<br>3）表起始位置称表头，表结束位置称表尾</p>
+<p><img src="https://img-blog.csdnimg.cn/20210220105250909.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>顺序存储</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">typedef strcut LNode *List</span><br><span class="line">strcut LNode&#123;</span><br><span class="line">   ElementType Data[MAXSIZE];</span><br><span class="line">   int Last;</span><br><span class="line">   &#125;;</span><br><span class="line">   struct LNode L;</span><br><span class="line">   List PtrL;</span><br></pre></td></tr></table></figure>
+<p>访问下标为i的元素：L.Data[i]或PtrL-&gt;Data[i]<br>线性表的长度：L.Last+1或PtrL-&gt;Last+1<br>主要操作的实现<br>1.初始化（建立空的顺序表）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">List <span class="function"><span class="title">MakeEmpty</span>(<span class="params"></span>)</span></span><br><span class="line">&#123;List PtrL;</span><br><span class="line">PtrL=(List)malloc(sizeof(struct LNode));</span><br><span class="line">PtrL-&gt;=-<span class="number">1</span>;</span><br><span class="line"><span class="keyword">return</span> PtrL;&#125;</span><br></pre></td></tr></table></figure>
+<p>2.查找</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">int <span class="function"><span class="title">Find</span>(<span class="params">ElementType X,List PtrL</span>)</span></span><br><span class="line">&#123;int i=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span>(i&lt;=PtrL-&gt;Last&amp;&amp;PtrL-&gt;Data[i]!=X)</span><br><span class="line">i++;</span><br><span class="line"><span class="keyword">if</span>(i&gt;PtrL-&gt;Last)</span><br><span class="line"><span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">return</span> i;&#125;</span><br></pre></td></tr></table></figure>
+<p>3.插入（第i（1&lt;=i&lt;=n+1））个位置上插入一个值为X的新元素）<br><img src="https://img-blog.csdnimg.cn/20210220194530637.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="function"><span class="title">Insert</span>(<span class="params">ElementType X,int,List PtrL</span>)</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">if</span>(PtrL-&gt;Last==MAXSIZE-<span class="number">1</span>)</span><br><span class="line">&#123;printf(<span class="string">&quot;表满&quot;</span>);</span><br><span class="line"><span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(i&lt;<span class="number">1</span>||i&gt;PtrL&gt;Last+<span class="number">2</span>)</span><br><span class="line">&#123;printf(<span class="string">&quot;位置不合法&quot;</span>);</span><br><span class="line"><span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(j=PtrL-&gt;Last;j&gt;=i-<span class="number">1</span>;j--)</span><br><span class="line">PtrL-&gt;Data[j+<span class="number">1</span>]=PtrL-&gt;Data[j];</span><br><span class="line">PtrL-&gt;Data[i-<span class="number">1</span>]=X;</span><br><span class="line">PtrL-&gt;Last++;</span><br><span class="line"><span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>平均移动次数为n/2<br>平均时间性能为O（n）<br>4.删除（删除表的第i(1&lt;=i&lt;=n）个位置上的元素）<br><img src="https://img-blog.csdnimg.cn/20210220202858975.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="function"><span class="title">Delete</span>(<span class="params">int i,List PtrL</span>)</span></span><br><span class="line">&#123;int j;</span><br><span class="line"><span class="keyword">if</span>(i&lt;<span class="number">1</span>||i&gt;PtrL-&gt;Last+<span class="number">1</span>)&#123;</span><br><span class="line">printf(<span class="string">&quot;不存在第%d个元素&quot;</span>,i);</span><br><span class="line"><span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(j=i;j&lt;=PtrL-&gt;Last;j++)</span><br><span class="line">PtrL-&gt;Data[j-<span class="number">1</span>]=PtrL--&gt;Data[j];</span><br><span class="line">PtrL-&gt;Last--;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>线性表的链式存储实现</strong><br>主要操作的实现<br>1、求表长</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">int <span class="function"><span class="title">Length</span>(<span class="params">List PtrL</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">List p=PtrL;</span><br><span class="line">int j=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span>(p)</span><br><span class="line">&#123;p=p-&gt;Next;</span><br><span class="line">j++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> j;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为：O(n)<br>2、查找<br>（1）按序号查找:FindKth</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">List <span class="function"><span class="title">FindKth</span>(<span class="params">int K,List PtrL</span>)</span></span><br><span class="line">&#123;List p=PtrL;</span><br><span class="line">int i=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">while</span>(p!=NULL&amp;&amp;i&lt;k)</span><br><span class="line">&#123;</span><br><span class="line">p=p-&gt;Next</span><br><span class="line">i++;&#125;</span><br><span class="line"><span class="keyword">if</span>(i==k)<span class="keyword">return</span> p;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">return</span> NULL;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+
+    
+
+    <!-- Comments -->
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a target="_blank" rel="noopener" href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/2021/05/19/%E9%BB%91%E5%AE%A2%E6%94%BB%E9%98%B2%E5%91%BD%E4%BB%A4%E7%89%88/">Untitled</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2021/05/19/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E9%A2%98/">Untitled</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2021/05/19/%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5/">Untitled</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2021/05/19/docker/">Untitled</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://github.com/klugjo/hexo-theme-alpha-dust">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://twitter.com/?lang=en">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-twitter"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://www.facebook.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-facebook"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://www.instagram.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-instagram"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://dribbble.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-dribbble"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://telegram.org/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-telegram"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://www.behance.net/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-behance"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://500px.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-500px"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:test@example.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Untitled. All right reserved | Design & Hexo <a target="_blank" rel="noopener" href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+
+<script src="/js/main.js"></script>
+
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
