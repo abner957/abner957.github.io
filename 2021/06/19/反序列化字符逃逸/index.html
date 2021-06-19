@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="@TOC
+反序列化特点1、php在反序列化时，底层代码是以;作为字段的分隔，以&amp;#125;作为结尾，并且是根据长度判断内容的，同时反序列化的过程中必须严格按照序列化规则才能成功实现反序列化规则才能成功。例如：
+12345678910class A&amp;#123;    public $name=&amp;#x2">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="John Doe">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="反序列化字符逃逸"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Hexo"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    
+        <meta name="twitter:card" content="summary" />
+    
+    
+    
+
+    <!-- Title -->
+    
+    <title>反序列化字符逃逸 - Hexo</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- Google Analytics -->
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/about.html">
+                    About
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/tags">
+                    Tags
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/categories">
+                    Categories
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/contact.html">
+                    Contact
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2021/06/19/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%AD%97%E7%AC%A6%E9%80%83%E9%80%B8/">
+                反序列化字符逃逸
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2021-06-19</span>
+            
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <p>@<a href="%E8%BF%99%E9%87%8C%E5%86%99%E7%9B%AE%E5%BD%95%E6%A0%87%E9%A2%98">TOC</a></p>
+<h2 id="反序列化特点"><a href="#反序列化特点" class="headerlink" title="反序列化特点"></a>反序列化特点</h2><p>1、php在反序列化时，底层代码是以<code>;</code>作为字段的分隔，以<code>&#125;</code>作为结尾，并且是根据长度判断内容的，同时反序列化的过程中必须严格按照序列化规则才能成功实现反序列化规则才能成功。例如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    public $name=<span class="string">&#x27;shy&#x27;</span>;</span><br><span class="line">    public $pass=<span class="string">&#x27;123456&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$lemon = <span class="keyword">new</span> A();</span><br><span class="line">echo serialize($lemon);</span><br><span class="line">#反序列化后的结果为:</span><br><span class="line">O:<span class="number">1</span>:<span class="string">&quot;A&quot;</span>:<span class="number">2</span>:&#123;<span class="attr">s</span>:<span class="number">4</span>:<span class="string">&quot;name&quot;</span>;s:<span class="number">3</span>:<span class="string">&quot;shy&quot;</span>;s:<span class="number">4</span>:<span class="string">&quot;pass&quot;</span>;s:<span class="number">6</span>:<span class="string">&quot;123456&quot;</span>;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>2、在反序列化过程中长度不对应会报错<br>在反序列化的时候php会根据s所指定的字符长度去读取后边的字符。如果指定的长度错误则反序列化就会失败。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$str=<span class="string">&#x27;O:1:&quot;A&quot;:2:&#123;s:4:&quot;name&quot;;s:3:&quot;shy&quot;;s:4:&quot;passs&quot;;s:6:&quot;123456&quot;;&#125;&#x27;</span>;</span><br><span class="line">var_dump(unserialize($str));</span><br></pre></td></tr></table></figure>
+<p>结果是bool(false)报错<br>3、可以反序列化类中不存在的元素</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">user</span></span>&#123;</span><br><span class="line">public $name = <span class="string">&#x27;purplet&#x27;</span>;</span><br><span class="line">public $age = <span class="string">&#x27;20&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line">$b=<span class="string">&#x27;O:4:&quot;user&quot;:3:&#123;s:4:&quot;name&quot;;s:7:&quot;purplet&quot;;</span></span><br><span class="line"><span class="string">s:3:&quot;age&quot;;s:2:&quot;20&quot;;s:6:&quot;gender&quot;;s:3:&quot;boy&quot;;&#125;&#x27;</span>;</span><br><span class="line">print_r(unserialize($b));</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>最后结果会出现gender,值为boy。</p>
+<h2 id="反序列化字符逃逸"><a href="#反序列化字符逃逸" class="headerlink" title="反序列化字符逃逸"></a>反序列化字符逃逸</h2><p>一、<strong>本质：闭合</strong><br>二、分为两种情况：1、字符变多；2、字符变少。<br>三、字符变多举例</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="function"><span class="keyword">function</span>  <span class="title">filter</span> (<span class="params">$string</span>) </span>&#123;</span><br><span class="line">$filter =.<span class="string">&#x27;/p/i &#x27;</span> ;</span><br><span class="line"><span class="keyword">return</span> preg replace ($filter, <span class="string">&#x27;WW&#x27;</span>,$str)</span><br><span class="line">&#125;</span><br><span class="line">$username · =. <span class="string">&#x27;purplet&#x27;</span>; #pppppppppppppppp<span class="string">&quot;;</span></span><br><span class="line"><span class="string">$age· =. &quot;</span><span class="number">10</span><span class="string">&quot;;</span></span><br><span class="line"><span class="string">$user· =·array ($username,$age) ;</span></span><br><span class="line"><span class="string">var dump (serialize ($user));</span></span><br><span class="line"><span class="string">echo &quot;</span>&lt;pre&gt;<span class="string">&quot;;</span></span><br><span class="line"><span class="string">$r = filter (serialize($user));var_dump ($r);</span></span><br><span class="line"><span class="string">Lvar dump(unserialize ($r));</span></span><br></pre></td></tr></table></figure>
+<p>这里是一个p换成两个w，结果会报错<br><img src="https://img-blog.csdnimg.cn/20210610161157315.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>这时候我要改变age的值，就需要利用反序列化字符逃逸，用16个p填充user，然后在后面加上”;i:1;s:2:”20”;}</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	<span class="comment">//过滤函数</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">filter</span>(<span class="params">$string</span>)</span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		$filter = <span class="string">&#x27;/p/i&#x27;</span>;</span><br><span class="line">		<span class="comment">//正则匹配，表示变量string中的p（由filter决定）会被替换成WW</span></span><br><span class="line">		<span class="keyword">return</span> preg_replace($filter,<span class="string">&#x27;WW&#x27;</span>,$string);</span><br><span class="line">	&#125;</span><br><span class="line"> 	$username = <span class="string">&#x27;purplet&#x27;</span>;</span><br><span class="line"> 	$age = <span class="string">&quot;20&quot;</span>;</span><br><span class="line"> 	$user = array($username,$age);<span class="comment">//数组</span></span><br><span class="line"> 	<span class="comment">//序列化后的数值输出</span></span><br><span class="line">	var_dump(serialize($user));</span><br><span class="line">	echo <span class="string">&quot;&lt;pre&gt;&quot;</span>;<span class="comment">//分隔符</span></span><br><span class="line">	<span class="comment">//序列化过滤后的数值赋值给r并输出</span></span><br><span class="line">	$r = filter(serialize($user));</span><br><span class="line">	var_dump($r);</span><br><span class="line">	<span class="comment">//对 序列化过滤后的数值  反序列化</span></span><br><span class="line">	var_dump(unserialize($r));</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>2、字符减少<br>与增多不同的是，不仅要构造username,还要构造age。<br>第一步：改变age的值，序列化后为<code>;i:1;s:2:&quot;20&quot;&#125;</code>,符，而此时uesrname的值无法确定，可随意构造<br>第二步：age处传递一个任意数值和双引号进行闭合，即再次传入age = A”;i:1;s:2:”20”;},查看结果<br>第三步：计算选中部分（长度为13）根据过滤后字符缩减情况构造，Demo中每两个p变为1个W，相当于逃逸1位（选中部分即为逃逸字符)所以输入13*2=26个p进行逃逸，即最终传递usernmae=pppppppppppppppppppppppppp,age=A”;i:1;s:2:”20”;}</p>
+<h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><p>题目代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">error reporting(O);<span class="class"><span class="keyword">class</span> <span class="title">a</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">public $uname = <span class="string">&#x27;123&quot;;</span></span><br><span class="line"><span class="string">public $password = &#x27;</span>yu22x<span class="string">&#x27;;</span></span><br><span class="line"><span class="string">function filter($string)&#123;</span></span><br><span class="line"><span class="string">return str replace(&#x27;</span>Firebasky<span class="string">&#x27;,&#x27;</span>Firebaskyed<span class="string">&#x27;&#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">$a = new a();</span></span><br><span class="line"><span class="string">var dump(serialize($a));</span></span><br><span class="line"><span class="string">echo &quot;&lt;pre&gt;&quot;;</span></span><br><span class="line"><span class="string">$r = filter(serialize($a));vardump($r);</span></span><br><span class="line"><span class="string">var dump(unserialize($r));</span></span><br><span class="line"><span class="string">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>此题要求以get的方式上传password为yussy，但是password无法修改</p>
+<p><img src="https://img-blog.csdnimg.cn/20210610170816968.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20210610170542714.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+
+    </div>
+
+    
+
+    
+
+    <!-- Comments -->
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a target="_blank" rel="noopener" href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/2021/06/19/buuctf/">buuctf</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2021/06/19/SSRF/">SSRF</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2021/06/19/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%AD%97%E7%AC%A6%E9%80%83%E9%80%B8/">反序列化字符逃逸</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2021/06/19/sqlmap/">sqlmap</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://github.com/klugjo/hexo-theme-alpha-dust">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://twitter.com/?lang=en">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-twitter"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://www.facebook.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-facebook"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://www.instagram.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-instagram"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://dribbble.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-dribbble"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://telegram.org/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-telegram"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://www.behance.net/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-behance"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://500px.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-500px"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:test@example.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Untitled. All right reserved | Design & Hexo <a target="_blank" rel="noopener" href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+
+<script src="/js/main.js"></script>
+
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

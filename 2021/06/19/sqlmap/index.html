@@ -10,7 +10,8 @@
 
     <!--Description-->
     
-        <meta name="description" content="学习目标：同源策略相关知识学习内容：一、源1、定义：就是协议、域名和端口号。以上url中的源就是：http://www.company.com:80若地址里面的协议、域名和端口号均相同则属于同源。以下是相对于 http://www.a.com/test/index.html 的同源检测• http:">
+        <meta name="description" content="@TOC
+概念 sqlmap是一个自动化的SQL注入工具，其主要功能是扫描，发现并利用给定的URL的SQL注入漏洞，目前支持的数据库是MySQL, Oracle, PostgreSQL, Microsoft SQL Server, Microsoft Access, IBM DB2, SQLite,">
     
 
     <!--Author-->
@@ -20,7 +21,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="同源策略相关知识"/>
+        <meta property="og:title" content="sqlmap"/>
     
 
     <!--Open Graph Description-->
@@ -45,7 +46,7 @@
 
     <!-- Title -->
     
-    <title>同源策略相关知识 - Hexo</title>
+    <title>sqlmap - Hexo</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -151,13 +152,13 @@
 
     <div class="post-header">
         <h1 class="title">
-            <a href="/2021/05/19/%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5/">
-                同源策略相关知识
+            <a href="/2021/06/19/sqlmap/">
+                sqlmap
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2021-05-19</span>
+                <span class="date">2021-06-19</span>
             
             
             
@@ -170,7 +171,14 @@
         
 
         <!-- Post Content -->
-        <h1 id="学习目标：同源策略相关知识"><a href="#学习目标：同源策略相关知识" class="headerlink" title="学习目标：同源策略相关知识"></a>学习目标：同源策略相关知识</h1><h1 id="学习内容："><a href="#学习内容：" class="headerlink" title="学习内容："></a>学习内容：</h1><p>一、源<br>1、定义：就是协议、域名和端口号。<br>以上url中的源就是：<a target="_blank" rel="noopener" href="http://www.company.com/">http://www.company.com:80</a><br>若地址里面的协议、域名和端口号均相同则属于同源。<br>以下是相对于 <a target="_blank" rel="noopener" href="http://www.a.com/test/index.html">http://www.a.com/test/index.html</a> 的同源检测<br>• <a target="_blank" rel="noopener" href="http://www.a.com/dir/page.html">http://www.a.com/dir/page.html</a> —-成功<br>• <a target="_blank" rel="noopener" href="http://www.child.a.com/test/index.html">http://www.child.a.com/test/index.html</a> —-失败，域名不同<br>• <a target="_blank" rel="noopener" href="https://www.a.com/test/index.html">https://www.a.com/test/index.html</a> —-失败，协议不同<br>• <a target="_blank" rel="noopener" href="http://www.a.com:8080/test/index.html">http://www.a.com:8080/test/index.html</a> —-失败，端口号不同<br>2、同一个源：如果两个页面的协议，端口（如果有指定）和域名都相同，则两个页面具有相同的源。<br>二、同源策略<br>1、定义：同源策略（Same origin policy）是一种约定，它是浏览器最核心也最基本的安全功能，如果缺少了同源策略，则浏览器的正常功能可能都会受到影响。可以说Web是构建在同源策略基础之上的，浏览器只是针对同源策略的一种实现。也就是说同源策略是浏览器的一个安全功能，不同源的客户端脚本在没有明确授权的情况下，不能读写对方资源。<br>2、 不受同源策略限制的：<br>&lt;1&gt;页面中的链接，重定向以及表单提交是不会受到同源策略限制的。<br>&lt;2&gt;跨域资源的引入是可以的，但是js不能读写加载的内容。</p>
+        <p>@<a href="sqlmap">TOC</a></p>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p> sqlmap是一个自动化的SQL注入工具，其主要功能是扫描，发现并利用给定的URL的SQL注入漏洞，目前支持的数据库是MySQL, Oracle, PostgreSQL, Microsoft SQL Server, Microsoft Access, IBM DB2, SQLite, Firebird, Sybase和SAP MaxDB。采用五种独特的SQL注入技术，分别是：</p>
+<p>   1）基于布尔的盲注，即可以根据返回页面判断条件真假的注入。<br>   2）基于时间的盲注，即不能根据页面返回内容判断任何信息，用条件语句查看时间延迟语句是否执行（即页面返回时间是否增加）来判断。<br>   3）基于报错注入，即页面会返回错误信息，或者把注入的语句的结果直接返回在页面中。<br>   4）联合查询注入，可以使用union的情况下的注入。<br>   5）堆查询注入，可以同时执行多条语句的执行时的注入。</p>
+<h2 id="sqlmap的安装"><a href="#sqlmap的安装" class="headerlink" title="sqlmap的安装"></a>sqlmap的安装</h2><p>sqlmap的安装需要python2x的环境，python下载的官网是<a target="_blank" rel="noopener" href="https://www.python.org/downloads/">https://www.python.org/downloads/</a><br><img src="https://img-blog.csdnimg.cn/20210606091011152.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>可在cmd中查看：<br><img src="https://img-blog.csdnimg.cn/20210606092009460.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>，之后下载sqlmap的压缩包，然后解压到python的目录下 即可。sqlmap下载地址：<a target="_blank" rel="noopener" href="http://sqlmap.org/">http://sqlmap.org/</a><br><img src="https://img-blog.csdnimg.cn/20210606092046119.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="sqlmap使用"><a href="#sqlmap使用" class="headerlink" title="sqlmap使用"></a>sqlmap使用</h2><p>一、<br>1、打开cmd<br>2、<img src="https://img-blog.csdnimg.cn/20210606094915301.png" alt="在这里插入图片描述"></p>
+<p>进入D盘<br>3、<img src="https://img-blog.csdnimg.cn/20210606095143527.png" alt="在这里插入图片描述"></p>
+<p>进入Python27文件<br>4、<img src="https://img-blog.csdnimg.cn/20210606095442775.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br> 二、sqlmap直接连接数据库<br> 对于服务型数据库（前提是需要知道数据库的用户名和密码）<br> 例如：python sqlmap.py-d”mysql://admin:<a href="mailto:&#x61;&#100;&#109;&#105;&#110;&#x40;&#49;&#x39;&#x32;&#46;&#x31;&#x36;&#56;&#x2e;&#50;&#49;&#x2e;&#x31;&#x37;">&#x61;&#100;&#109;&#105;&#110;&#x40;&#49;&#x39;&#x32;&#46;&#x31;&#x36;&#56;&#x2e;&#50;&#49;&#x2e;&#x31;&#x37;</a>:3306/testdb”-f –banner –db –users<br> (bannner信息：欢迎语，在banner信息中可以得到软件开发商，软件名称、版本、服务类型等信息，通过这些信息可以使用某些工具直接去使用相对应的exp去攻击。)<br> sqlmap建议在kali上使用</p>
 
     </div>
 
