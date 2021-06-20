@@ -10,6 +10,12 @@
 
     <!--Description-->
     
+        <meta name="description" content="@TOC
+什么是暴力破解一、所谓暴力破解，就是在不知道用户名和密码的情况下，通过工具软件利用字典文件对用户名和密码依次进行尝试。从而最终将用户名或密码破解出来。二、常用的字典文件
+
+常用的账号密码，比如top100密码字典、top500用户名字典
+互联网上呗拖库后的账号密码，比如当年CSDN泄露的6">
+    
 
     <!--Author-->
     
@@ -18,7 +24,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Hexo"/>
+        <meta property="og:title" content="暴力破解"/>
     
 
     <!--Open Graph Description-->
@@ -29,7 +35,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
     
 
     <!--Page Cover-->
@@ -43,7 +49,7 @@
 
     <!-- Title -->
     
-    <title>Archives: 2021 - Hexo</title>
+    <title>暴力破解 - Hexo</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -132,9 +138,7 @@
 <div class="container">
 
     <!-- Main Content -->
-    
-
-<div class="row">
+    <div class="row">
     <div class="col-sm-12">
 
         <!--Title and Logo-->
@@ -142,268 +146,60 @@
     <div class="logo">
         <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
         
-            <h1 id="main-title" class="title">2021</h1>
-        
     </div>
 </header>
 
-        <section class="main archive-container">
+        <section class="main">
             
-                <div class="archive-post">
-    <a href="/2021/05/13/hello-world/">
-        <span class="archive-date">
-            May 2021
-        </span>
-        Hello World
-    </a>
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2021/06/20/%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3/">
+                暴力破解
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2021-06-20</span>
+            
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <p>@<a href="%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3">TOC</a></p>
+<h2 id="什么是暴力破解"><a href="#什么是暴力破解" class="headerlink" title="什么是暴力破解"></a>什么是暴力破解</h2><p>一、所谓暴力破解，就是在不知道用户名和密码的情况下，通过工具软件利用字典文件对用户名和密码依次进行尝试。从而最终将用户名或密码破解出来。<br>二、常用的字典文件</p>
+<ul>
+<li>常用的账号密码，比如top100密码字典、top500用户名字典</li>
+<li>互联网上呗拖库后的账号密码，比如当年CSDN泄露的600w用户信息。</li>
+<li>使用工具软件按照指定的规则进行排列组合算法生成的字典，比如生日字典等。</li>
+</ul>
+<h2 id="暴力破解工具——burpsuite"><a href="#暴力破解工具——burpsuite" class="headerlink" title="暴力破解工具——burpsuite"></a>暴力破解工具——burpsuite</h2><p>一、什么是burpsuite:Burp Suite是用于攻击web应用程序的集成平台，包含了许多工具。Burp Suite为这些工具设计了许多接口，以加快攻击应用程序的过程。所有工具都共享一个请求，并能处理对应的HTTP消息、持久性、认证、代理、日志、警报。<br>二、模块<br>1、Porxy（代理）：代理、处理HTTP请求以及处理HTTP响应。<br><img src="https://img-blog.csdnimg.cn/20210417102319140.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>2、Intruder（攻击）：Inturder模块可以将数据包里指定的参数设置成变量（变量也就是要准备攻击的目标），然后再利用字典文件去替换变量里的值，所以常用于自动化猜测或暴力破解过程中。<br><img src="https://img-blog.csdnimg.cn/20210424150339953.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="实战举例（DVWA）"><a href="#实战举例（DVWA）" class="headerlink" title="实战举例（DVWA）"></a>实战举例（DVWA）</h2><p><img src="https://img-blog.csdnimg.cn/2021042415094955.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>抓包<br><img src="https://img-blog.csdnimg.cn/20210424151103328.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>注意：在Burpsuite中，Inturder模块中Position中攻击类型：<br>1、Sriper：狙击手，可以指定多个变量同时破解，但只设置一个字典文件，将指定的变量依次用字典文件内容进行替换。<br>2、Battering ram:攻城锤，可以指定多个变量，但仍只设置一个字典文件，将所有的变量一起用字典内容进行替换。<br>3、Ptichfork:草叉子，可以指定多个变量，但需要为每个变量分别设置一个字典文件，然后用对应的字典内容对变量同时进行替换。<br>4、Cluster bomb:集束炸弹，指定多个变量，并为每个变量分别设置一个字典文件，然后用字典内容组合对变量进行替换。</strong><br>设置攻击的对象            <img src="https://img-blog.csdnimg.cn/20210424152509679.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>载荷类型“Payload type”<br><strong>1、Simple list :可以手动添加字典列表，也可以导入Burpsuite目常的子典，百导人自定义的字典。<br>2、Runtime file :只能加载自定义的字典。</strong><br>3、Numbers:设定一个数值范围，从范围内依欠或随机取值进行测试。<br>4、Brute forcer :自己定义字符范围来生成字典文件。<br>Grep-Match：<br>1、设置对与不对的标准，在靶场中如果用户名密码不正确则会提示：Username and/or password incorrect，则设置 Grep-Match为Username and/or password incorrect<br>2、有的页面在用户登录失败时并不出现错误提示，而是仍返回到登录页面，这时就可以从登录页面中提取部分代码作为关键字，比如form action=”#” method=”GET”<br>3、也可通过Length字段进行判断，由于密码正确和密码错误的页面内容肯定不同因而Length字段也会出现区别。<br><img src="https://img-blog.csdnimg.cn/20210424155155562.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">
+                                                                              </p>
+
+    </div>
+
+    
+
+    
+
+    <!-- Comments -->
+    
+
 </div>
-            
-                <div class="archive-post">
-    <a href="/2021/05/16/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E8%BF%9B%E9%98%B6/">
-        <span class="archive-date">
-            May 2021
-        </span>
-        攻防世界web高手进阶题
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2021/05/18/http%E4%B8%8Ehttps/">
-        <span class="archive-date">
-            May 2021
-        </span>
-        HTTP与HTTPS的区别
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2021/05/13/SLL%E6%8F%A1%E6%89%8B/">
-        <span class="archive-date">
-            May 2021
-        </span>
-        SSL握手
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2021/05/16/XSS%E5%AE%9E%E6%88%98/">
-        <span class="archive-date">
-            May 2021
-        </span>
-        XSS实战
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2021/05/18/%E5%9B%BE%E8%A7%A3tcp/">
-        <span class="archive-date">
-            May 2021
-        </span>
-        《图解TCP/IP》精简笔记
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2021/05/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%AB%AF%E5%8F%A3%E5%8D%8F%E8%AE%AE/">
-        <span class="archive-date">
-            May 2021
-        </span>
-        计算机网络开放的端口协议
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2021/05/18/%E6%B5%85%E8%B0%88msf/">
-        <span class="archive-date">
-            May 2021
-        </span>
-        Metasploit渗透测试框架的基本使用
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2021/05/18/TCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B/">
-        <span class="archive-date">
-            May 2021
-        </span>
-        TCP握手
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2021/05/18/%E5%BA%8F%E5%88%97%E5%8C%96%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
-        <span class="archive-date">
-            May 2021
-        </span>
-        序列化与反序列化
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2021/05/18/%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B8%80/">
-        <span class="archive-date">
-            May 2021
-        </span>
-        计算机网络自顶向下
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2021/05/19/docker/">
-        <span class="archive-date">
-            May 2021
-        </span>
-        docker学习
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2021/05/19/sql-labs/">
-        <span class="archive-date">
-            May 2021
-        </span>
-        Untitled
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2021/05/19/%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5/">
-        <span class="archive-date">
-            May 2021
-        </span>
-        同源策略相关知识
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2021/05/19/%E9%BB%91%E5%AE%A2%E6%94%BB%E9%98%B2%E5%91%BD%E4%BB%A4%E7%89%88/">
-        <span class="archive-date">
-            May 2021
-        </span>
-        网络安全常见名词
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2021/05/19/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E9%A2%98/">
-        <span class="archive-date">
-            May 2021
-        </span>
-        攻防世界web新书题解析
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2021/05/19/mysql%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/">
-        <span class="archive-date">
-            May 2021
-        </span>
-        MYSQL的相关知识
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2021/05/19/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
-        <span class="archive-date">
-            May 2021
-        </span>
-        数据结构与算法
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2021/05/19/php%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/">
-        <span class="archive-date">
-            May 2021
-        </span>
-        PHP语言
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2021/06/04/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5/">
-        <span class="archive-date">
-            Jun 2021
-        </span>
-        命令注入
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2021/06/04/%E6%B5%85%E8%B0%88XXE/">
-        <span class="archive-date">
-            Jun 2021
-        </span>
-        浅谈XXE
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2021/06/04/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/">
-        <span class="archive-date">
-            Jun 2021
-        </span>
-        文件上传漏洞
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2021/06/04/%E6%B5%85%E8%B0%88csrf/">
-        <span class="archive-date">
-            Jun 2021
-        </span>
-        CSRF
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2021/06/19/SSRF/">
-        <span class="archive-date">
-            Jun 2021
-        </span>
-        SSRF
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2021/06/19/buuctf/">
-        <span class="archive-date">
-            Jun 2021
-        </span>
-        buuctf
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2021/06/19/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%AD%97%E7%AC%A6%E9%80%83%E9%80%B8/">
-        <span class="archive-date">
-            Jun 2021
-        </span>
-        反序列化字符逃逸
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2021/06/19/sqlmap/">
-        <span class="archive-date">
-            Jun 2021
-        </span>
-        sqlmap
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2021/06/20/%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3/">
-        <span class="archive-date">
-            Jun 2021
-        </span>
-        暴力破解
-    </a>
-</div>
-            
         </section>
+
     </div>
 </div>
+
 
 </div>
 
