@@ -10,9 +10,6 @@
 
     <!--Description-->
     
-        <meta name="description" content="@TOC
-序列化与反序列化定义一、序列化：指将数据结构或对象状态转换成可取用格式（例如存成文件，存于缓冲，或经由网络中发送），以留待后续在相同或另一台计算机环境中，能恢复原先状态的过程。依照序列化格式重新获取字节的结果时，可以利用它来产生与原始对象相同语义的副本。简单来说就是将对象转化成字符串二、目">
-    
 
     <!--Author-->
     
@@ -21,7 +18,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="序列化与反序列化"/>
+        <meta property="og:title" content="Hexo"/>
     
 
     <!--Open Graph Description-->
@@ -32,7 +29,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="article" />
+        <meta property="og:type" content="website" />
     
 
     <!--Page Cover-->
@@ -46,7 +43,7 @@
 
     <!-- Title -->
     
-    <title>序列化与反序列化 - Hexo</title>
+    <title>page - Hexo</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -143,56 +140,101 @@
     <div class="logo">
         <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
         
+            <h1 id="main-title" class="title">Hexo</h1>
+        
     </div>
 </header>
 
         <section class="main">
             
+                
 <div class="post">
 
-    <div class="post-header">
+    <div class="post-header index">
         <h1 class="title">
-            <a href="/2021/05/18/%E5%BA%8F%E5%88%97%E5%8C%96%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
-                序列化与反序列化
+            <a href="/2021/05/13/SLL%E6%8F%A1%E6%89%8B/">
+                SSL握手
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2021-05-18</span>
+                <span class="date">2021-05-13</span>
             
             
             
         </div>
     </div>
 
-    <div class="content">
-
-        <!-- Gallery -->
-        
-
-        <!-- Post Content -->
-        <p>@<a href="%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96">TOC</a></p>
-<h2 id="序列化与反序列化定义"><a href="#序列化与反序列化定义" class="headerlink" title="序列化与反序列化定义"></a>序列化与反序列化定义</h2><p>一、序列化：指将数据结构或对象状态转换成可取用格式（例如存成文件，存于缓冲，或经由网络中发送），以留待后续在相同或另一台计算机环境中，能恢复原先状态的过程。依照序列化格式重新获取字节的结果时，可以利用它来产生与原始对象相同语义的副本。<br><strong>简单来说就是将对象转化成字符串</strong><br>二、目的：方便存储与网络运输<br>三、反序列化：与序列化相反</p>
-<h2 id="代码举例"><a href="#代码举例" class="headerlink" title="代码举例"></a>代码举例</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> //定义一个类//</span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">public $name = <span class="string">&#x27;studentone&#x27;</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getName</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="string">&quot;deelmind&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="title">function__construct</span>(<span class="params"></span>)</span></span><br><span class="line">&#123;</span><br><span class="line">echo<span class="string">&quot;__construct&quot;</span><span class="comment">//构造函数//</span></span><br><span class="line">echo<span class="string">&quot;&lt;/br&gt;&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">$s=<span class="keyword">new</span> Student();</span><br><span class="line">echo $s-&gt;getName().<span class="string">&quot;&lt;/br&gt;&quot;</span>;</span><br><span class="line">$s_serialize=serialize($s);</span><br><span class="line">print_r($s_serialize);</span><br><span class="line">echo<span class="string">&quot;&lt;/br&gt;&quot;</span>;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdnimg.cn/20210402181244293.png" alt="在这里插入图片描述"></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> //定义一个类//</span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">public $name = <span class="string">&#x27;studentone&#x27;</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getName</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="string">&quot;deelmind&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="title">function__construct</span>(<span class="params"></span>)</span></span><br><span class="line">&#123;</span><br><span class="line">echo<span class="string">&quot;__construct&quot;</span><span class="comment">//构造函数//</span></span><br><span class="line">echo<span class="string">&quot;&lt;/br&gt;&quot;</span>;</span><br><span class="line">$Student = <span class="string">&#x27;0:7:&quot;Student&quot;:1:&#123;s:4:&quot;name&quot;;s:10:&quot;studentone&quot;;&#125;&#x27;</span>;</span><br><span class="line">$s_unserialize = unseralize($Student);</span><br><span class="line">print_r($s_unseralize);</span><br><span class="line">echo<span class="string">&quot;&lt;/br&gt;&quot;</span>;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdnimg.cn/20210403091346941.png" alt="在这里插入图片描述"></p>
-<h2 id="反序列化漏洞原理"><a href="#反序列化漏洞原理" class="headerlink" title="反序列化漏洞原理"></a>反序列化漏洞原理</h2><p>反序列化漏洞就是指黑客序列化一个包含恶意代码的实例对象（通常是Runtime.exec来执行后台命令），此时会得到对象的字节数据。然后字节数据通过接口发送到服务端（被攻击的服务器）。服务器在反序列化出对象的过程中（readObject方法里面）就会触发触发恶意代码执行，从而达到攻击的目的。</p>
-
-    </div>
-
     
+        <div class="content">
+            <p>@<a href="SLL%E6%8F%A1%E6%89%8B">TOC</a></p>
+<h2 id="关于SLL"><a href="#关于SLL" class="headerlink" title="关于SLL"></a>关于SLL</h2><p>SSL(Secure Socket Layer)安全套接字协议是运行在应用层和TCP层之间的安全机制。保证上层应用数据传输的保密性、完整性以及传输双发身份的合法性。<br>传输加密性：握手协议定义会话密钥后，所有传输的报文被会话密钥加密。<br>消息的完整性：传输的报文中增加MAC(消息认证码)，用于检测完整性。<br>身份验证：客户端认证(可选)，服务端认证(强制)<br>SSL协议包括：握手协议(Handshake protocol)、SSLpassword变化协议(SSL change cipher spec protocol)、警报协议(Alert protocol)、记录协议(Record protocol)。<br>握手协议是SSL连接通信的第一个子协议也是最复杂的协议。　<br><img src="https://img-blog.csdnimg.cn/20210505174843753.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="SLL握手流程"><a href="#SLL握手流程" class="headerlink" title="SLL握手流程"></a>SLL握手流程</h2><p> 1、 Client Hello   协商ssl/tls协议版本、加密算法套件<br>2、Server Hello<br>3、Certificate<br>4、Server Key Exchange<br>5、Server Hello Done<br>6、Client Key Exchange<br>7、Application Data Protocol: http-over-tls 业务数据安全传输<br>类似于TCP三次握手</p>
 
-    
-
-    <!-- Comments -->
+        </div>
     
 
 </div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2021/05/13/hello-world/">
+                Hello World
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2021-05-13</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+        </div>
+    
+
+</div>
+            
         </section>
-
     </div>
 </div>
+
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="wrap-pagination">
+                <a class="" href="/page/3/">
+                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                </a>
+                <a class="disabled" href="/">
+                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
 
 
 </div>

