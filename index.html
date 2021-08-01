@@ -152,6 +152,76 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2021/08/01/%E8%AE%A1%E7%BD%91%E7%BD%91%E7%BB%9C%E7%AF%87/">
+                计网网络篇
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2021-08-01</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h1 id="1-公钥和私钥"><a href="#1-公钥和私钥" class="headerlink" title="1. 公钥和私钥"></a>1. 公钥和私钥</h1><p>公钥和私钥是通过一种算法得到的一个密钥对，公钥是秘钥对中公开的部分，私钥是非公开的部分。如果用其中一个密钥加密一段数据，必须用另一个密钥解密。比如用公钥加密数据就必须用私钥解密，如果用私钥加密也必须用公钥解密，否则解密将不会成功。</p>
+<p>原则：公钥公开，私钥只有自己拥有。</p>
+<h1 id="2-对称加密与非对称加密"><a href="#2-对称加密与非对称加密" class="headerlink" title="2. 对称加密与非对称加密"></a>2. 对称加密与非对称加密</h1><p>对称密钥加密是指加密和解密使用同一个密钥的方式，这种方式存在的最大问题就是密钥发送问题，即如何安全地将密钥发给对方；</p>
+<p>​ 非对称加密是指使用一对非对称密钥，即公钥和私钥，公钥可以随意发布，但私钥只有自己知道。发送密文的一方使用对方的公钥进行加密处理，对方接收到加密信息后，使用自己的私钥进行解密。</p>
+<p>​ 由于非对称加密的方式不需要发送用来解密的私钥，所以可以保证安全性；但是和对称加密比起来，它非常的慢，所以我们还是要用对称加密来传送消息，但对称加密所使用的密钥我们可以通过非对称加密的方式发送出去。</p>
+<p>总结一下：通过非对称加密的方式把秘钥发送过去，接下来用这个秘钥一直进行对称加密。</p>
+<p>即：第一次通信采用非对称加密，接下来的通信采用对称加密</p>
+<h1 id="3-HTTP的相关问题"><a href="#3-HTTP的相关问题" class="headerlink" title="3. HTTP的相关问题"></a>3. HTTP的相关问题</h1><p>3.1 HTTP概念<br>HTTP协议：超文本传输协议。是应用层协议，是基于TCP协议的，明文传输，客户端与服务器端都无法验证对方的身份；</p>
+<p>超文本：广义上的文本，包括图片、视频、压缩包、超链接等。</p>
+<p>3.2 HTTP的特点<br>1、简单、灵活：HTTP头部的各类字段组成都没有固定要求，允许开发人员自定义和补充。</p>
+<p>2、无状态：服务器不会记录HTTP的状态，减轻了服务器的开销。 但是在完成关联性操作时不方便（如玩4399小游戏，不能换一个游戏就重新登一次账户）</p>
+<p>解决办法：使用Cookie技术，通过在请求和响应报文中写入Cookie信息来来控制客户端的状态。</p>
+<p>当客户端第一次请求后，服务器会下发一个装有客户信息的Cookie，后续客户端请求服务器时，带上Cookie，服务器就能识别出是谁。<br>3、不安全<br>HTTP传输文本时采用明文传输，不加密，可以直接看见信息。<br>通信时不会验证双方身份，可能访问虚假用户<br>传输过程中的报文可能遭到无疑篡改。<br>3.3 HTTP的状态码<br>写法    类别    解释<br>1xx    Information（信息状态码）    接受的请求正在处理<br>2xx    Success（成功状态码）    请求正常处理完毕<br>3xx    Redirection（重定向状态码）    需要进行附加操作以完成请求<br>4xx    Client Error（客户端错误状态码）    服务器无法处理请求<br>5xx    Server Error（服务端错误状态码）    服务器处理请求出错</p>
+<h1 id="4-HTTPS相关问题"><a href="#4-HTTPS相关问题" class="headerlink" title="4. HTTPS相关问题"></a>4. HTTPS相关问题</h1><ol>
+<li>HTTPS概念<br>HTTPS协议是身披SSL(Secure Socket Layer)外壳的Http，运行于SSL上，SSL运行于TCP之上，是添加了加密和认证机制的HTTP。</li>
+</ol>
+<ol start="2">
+<li>HTTPS为什么安全？<br>1、混合加密<br>作用：防窃听</li>
+</ol>
+<p>混合加密：即同时采用公钥和私钥加密，更安全，更高效，更不易被破解。 具体操作方法见问本文章的第一个问题。</p>
+<p>HTTPS采用对称加密和非对称加密结合的混合加密方式<br>在通信建立前采用非对称加密的方式交换秘钥，后续就不在使用非对称加密<br>在通信过程中全部使用对称加密的会话秘钥方式，加密明文数据。<br>2. 摘要算法<br>作用：防止数据被篡改。</p>
+<p>摘要算法：实现数据完整性，能够为数据生成独一无二的指纹，指纹用于校验数据的完整性，解决了被篡改的风险。</p>
+<p>过程<br>1、客户端发送明文前，会通过摘要算法算出明文的指纹，发送时明文和指纹一同加密，发送给服务器。</p>
+<p>2、服务器解密后，用相同的摘要算法算出发送过来的明文，通过比较客户端携带的指纹和当前指纹做比较，若相同，则说明数据是完整的。</p>
+<ol start="3">
+<li>数字证书<br>作用：解决身份认证问题。</li>
+</ol>
+<p>过程：借助第三方权威机构CA（数字证书认证机构），将服务器公钥放在数字证书（由数字证书认证机构办法）中，只要证书是可信的，公钥就是可信的。</p>
+<ol start="3">
+<li>采用HTTPS加密的具体流程：<br>假设电脑A要向电脑B发送数据</li>
+</ol>
+<p>电脑A发送数据前，先通过摘要算法计算出明文的指纹，然后将明文+指纹打包成数据包，并将自己的对称加密的秘钥放入数据报， 同时向电脑B索要公钥。</p>
+<p>电脑B将公钥发送过来后，电脑A采用非对称加密的方式，通过电脑B的公钥将自己的数据包加密（非对称加密的原理见之前的解答），加密后，发送给电脑B</p>
+<p>电脑B收到电脑A发送过来的数据包后，发现是非对称加密的方式，于是使用自己的私钥解密， 解密后通过计算该数据包的指纹， 与数据包内指纹对比， 若指纹相同，则表示数据没有丢失。</p>
+<p>接下来的通信，双方都将使用数据包内的秘钥以对称加密的方式通信。</p>
+<h1 id="5-HTTP与HTTPS区别"><a href="#5-HTTP与HTTPS区别" class="headerlink" title="5. HTTP与HTTPS区别"></a>5. HTTP与HTTPS区别</h1><p>端口不同：HTTP与HTTPS使用不同的连接方式，用的端口也不一样，前者是80，后者是443；</p>
+<p>资源消耗：和HTTP通信相比，HTTPS通信会由于加减密处理消耗更多的CPU和内存资源；</p>
+<p>开销：HTTPS通信需要证书，而证书一般需要向认证机构购买；</p>
+<h1 id="6-客户端在使用HTTPS方式与Web服务器通信时的步骤"><a href="#6-客户端在使用HTTPS方式与Web服务器通信时的步骤" class="headerlink" title="6. 客户端在使用HTTPS方式与Web服务器通信时的步骤"></a>6. 客户端在使用HTTPS方式与Web服务器通信时的步骤</h1><p>​ （1）客户使用https的URL访问Web服务器，要求与Web服务器建立SSL连接。</p>
+<p>（2）Web服务器收到客户端请求后，会将网站的证书信息（证书中包含公钥）传送一份给客户端。</p>
+<p>（3）客户端的浏览器与Web服务器开始协商SSL/TLS连接的安全等级，也就是信息加密的等级。</p>
+<p>（4）客户端的浏览器根据双方同意的安全等级，建立会话密钥，然后利用网站的公钥将会话密钥加密，并传送给网站。</p>
+<p>（5）Web服务器利用自己的私钥解密出会话密钥。</p>
+<p>（6）Web服务器利用会话密钥加密与客户端之间的通信。</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2021/07/25/buuctf(%E4%BA%8C)/">
                 buuctf（二）
             </a>
@@ -497,42 +567,6 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2021/06/04/%E6%B5%85%E8%B0%88XXE/">
-                浅谈XXE
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2021-06-04</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <h2 id="什么是XXE"><a href="#什么是XXE" class="headerlink" title="什么是XXE"></a>什么是XXE</h2><p>XXE漏洞全称XML External Entity Injection即<strong>xml外部实体注入漏洞</strong>，XXE漏洞发生在应用程序解析XML输入时，没有禁止外部实体的加载，导致可加载恶意外部文件，造成文件读取、命令执行、内网端口扫描、攻击内网网站、发起dos攻击等危害。</p>
-<h2 id="什么是XML，DTD"><a href="#什么是XML，DTD" class="headerlink" title="什么是XML，DTD"></a>什么是XML，DTD</h2><p>一、XML概念：<br>XML<br>可扩展标记语言。<br>通常所说的XML，就是指XML数据解析，是将数据文档解析成不同的格式。因为不同平台（软件）在做数据传递或数据文档共享的时候，同一数据文档可能在不同平台的 显示格式要求不同，这就出现了相对中立的语言（XML），来表示数据，给二者做转化。<br>XML类似于HTML，不同的是HTML不可自定义标签，XML可以。<br>二、1、DTD概念：文档类型定义。DTD文件一般和XML文件配合使用，主要是为了约束XML文件。 （）DTD就是上文中提到的实体<br>2、DTD基本语法：<br><code>&lt;!ELEMENT NAME CONTENT&gt;</code><br>其中</p>
-<ul>
-<li>ELEMENT是关键字，不可修改</li>
-<li>NAME表示元素名称</li>
-<li>CONTENT是元素类型，必须大写<br>(1)EMPTY————表示该元素不能包含子元素和文本，但可以有属性。<br>(2)ANY———表示该元素可以包含任何在该DTD中定义的元素内容<br>(3 )#PCDATA——可以包含任何字符数据，但是不能在其中包含任何子元素<br>3、外部实体：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">&quot;1.0&quot;</span>?&gt;</span><br><span class="line">&lt;!DOCTYPE note SYSTEM &lt;<span class="string">&quot;note.dtd&quot;</span>&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">note</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">to</span>&gt;</span>George<span class="tag">&lt;/<span class="name">to</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">from</span>&gt;</span>John<span class="tag">&lt;/<span class="name">from</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">heading</span>&gt;</span>Reminder<span class="tag">&lt;/<span class="name">heading</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">body</span>&gt;</span>Don&#x27;t forget the meeting!<span class="tag">&lt;/<span class="name">body</span>&gt;</span><span class="tag">&lt;/<span class="name">note</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
-<h2 id="如何判断XXE漏洞的存在"><a href="#如何判断XXE漏洞的存在" class="headerlink" title="如何判断XXE漏洞的存在"></a>如何判断XXE漏洞的存在</h2><img src="https://img-blog.csdnimg.cn/20210603091958241.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>对其进行抓包<br><img src="https://img-blog.csdnimg.cn/20210603092107186.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>修改xml，添加任意标签观察是否存在回显<br><img src="https://img-blog.csdnimg.cn/20210603092147162.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><h2 id="构造payload"><a href="#构造payload" class="headerlink" title="构造payload"></a>构造payload</h2>一、实体打印<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version = <span class="string">&quot;1.0&quot;</span>?&gt;</span><br><span class="line">&lt;!DOCTYPE note [</span><br><span class="line">    &lt;!ENTITY hacker <span class="string">&quot;test&quot;</span>&gt;</span><br><span class="line">]&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">name</span>&gt;</span><span class="symbol">&amp;hacker;</span><span class="tag">&lt;/<span class="name">name</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
-二、文件读取<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version = <span class="string">&quot;1.0&quot;</span>?&gt;&lt;!DOCTYPE ANY[</span><br><span class="line">&lt;!ENTITY f sYSTEM<span class="string">&quot;file:///C://Windows//win.ini&quot;</span> &gt;<span class="comment">//前提是电脑中得有//</span></span><br><span class="line">]&gt;<span class="xml"><span class="tag">&lt;<span class="name">x</span>&gt;</span><span class="symbol">&amp;f;</span><span class="tag">&lt;/<span class="name">x</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
-<h2 id="XXE漏洞利用"><a href="#XXE漏洞利用" class="headerlink" title="XXE漏洞利用"></a>XXE漏洞利用</h2>任意文件读取<br>探测内网地址<br>通过DTD窃取文件<br>远程代码执行</li>
-</ul>
-
-        </div>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
@@ -575,6 +609,10 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2021/08/01/%E8%AE%A1%E7%BD%91%E7%BD%91%E7%BB%9C%E7%AF%87/">计网网络篇</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2021/07/25/buuctf(%E4%BA%8C)/">buuctf（二）</a>
             </li>
             
@@ -584,10 +622,6 @@
             
             <li>
                 <a class="footer-post" href="/2021/07/18/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/">图片隐写</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2021/07/18/%E5%9B%BE%E7%89%87%E6%9C%A8%E9%A9%AC/">图片木马的制作</a>
             </li>
             
         </ul>
